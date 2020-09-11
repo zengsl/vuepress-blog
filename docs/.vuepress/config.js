@@ -3,13 +3,11 @@ const navConf = require('./config/navConf.js');
 
 module.exports = {
 	title: '泥瓦匠', // 设置网站标题
-	// description : 'Adroi',
+	description : '泥瓦匠',
 	themeConfig: {
 		logo: '/img/hero.png',
 		// sidebar: 'auto',
-
 		sidebar: sidebarConf,
 		nav: navConf
 	}
-
 }

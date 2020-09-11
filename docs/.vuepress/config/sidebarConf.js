@@ -3,7 +3,7 @@ module.exports = {
 		title: 'Java并发',
 		collapsable: false,
 		children: [{
-				title: '前言',
+				title: '介绍',
 				path: '/back/java/concurrency/'
 			},
 			{
@@ -16,11 +16,41 @@ module.exports = {
 			}
 		]
 	}],
+	'/back/java/jvm/': [{
+		title: 'JVM',
+		collapsable: false,
+		children: [{
+				title: '介绍',
+				path: '/back/java/jvm/'
+			},
+			{
+				title: '编译JDK',
+				path: '1.buildJdk'
+			}
+		]
+	}],
+	'/back/spring/': [{
+		title: 'Spring',
+		collapsable: false,
+		children: [{
+				title: '介绍',
+				path: '/back/spring/'
+			},
+			{
+				title: 'Ioc',
+				path: '1.ioc'
+			},
+			{
+				title: 'Aop',
+				path: '2.aop'
+			}
+		]
+	}],
 	'/ops/os/linux/': [{
 		title: 'Linux',
 		collapsable: false,
 		children: [{
-				title: '前言',
+				title: '介绍',
 				path: '/ops/os/linux/'
 			},
 			{
@@ -36,7 +66,33 @@ module.exports = {
 				path: '3.shell'
 			}
 		]
-	}],'/ops/server/nginx/': [{
+	}],
+	'/ops/os/mac/': [{
+		title: 'Mac OS',
+		collapsable: false,
+		children: [{
+				title: '介绍',
+				path: '/ops/os/mac/'
+			},
+			{
+				title: '安装',
+				path: '1.install'
+			},
+			{
+				title: '配置',
+				path: '2.settings'
+			},
+			{
+				title: '软件推荐',
+				path: '3.software'
+			},
+			{
+				title: '使用技巧',
+				path: '4.skill'
+			}
+		]
+	}],
+	'/ops/server/nginx/': [{
 		title: 'Nginx',
 		collapsable: false,
 		children: [{
@@ -48,7 +104,8 @@ module.exports = {
 				path: '1.nginx(windows)'
 			}
 		]
-	}],'/ops/server/apache/': [{
+	}],
+	'/ops/server/apache/': [{
 		title: 'Apache',
 		collapsable: false,
 		children: [{
@@ -60,7 +117,8 @@ module.exports = {
 				path: '1.install and setting'
 			}
 		]
-	}],'/tools/git/': [{
+	}],
+	'/tools/git/': [{
 		title: 'Git',
 		collapsable: false,
 		children: [{
@@ -76,7 +134,8 @@ module.exports = {
 				path: '2.deploy'
 			}
 		]
-	}],'/tools/sonar/': [{
+	}],
+	'/tools/sonar/': [{
 		title: 'Sonar',
 		collapsable: false,
 		children: [{
@@ -88,7 +147,8 @@ module.exports = {
 				path: '1.install and setting'
 			}
 		]
-	}],'/db/redis/': [{
+	}],
+	'/db/redis/': [{
 		title: 'Redis',
 		collapsable: false,
 		children: [{
@@ -104,7 +164,8 @@ module.exports = {
 				path: '2.command'
 			}
 		]
-	}],'/db/oracle/': [{
+	}],
+	'/db/oracle/': [{
 		title: 'Oracle',
 		collapsable: false,
 		children: [{
@@ -112,11 +173,12 @@ module.exports = {
 				path: '/db/oracle/'
 			},
 			{
-				title: '安装配置',
-				path: '1.install and setting'
+				title: '常用命令',
+				path: '1.command'
 			}
 		]
-	}],'/db/mysql/': [{
+	}],
+	'/db/mysql/': [{
 		title: 'MySql',
 		collapsable: false,
 		children: [{
@@ -128,7 +190,8 @@ module.exports = {
 				path: '1.install and setting'
 			}
 		]
-	}],'/front/js/': [{
+	}],
+	'/front/js/': [{
 		title: 'JavaScript',
 		collapsable: false,
 		children: [{

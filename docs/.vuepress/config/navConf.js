@@ -28,28 +28,25 @@ module.exports = [{
 		items: [{
 				text: 'Java',
 				items: [{
-						text: '编译JDK',
-						link: '/language/chinese/'
-					},
-					{
 						text: 'Java并发',
 						link: '/back/java/concurrency/'
 					},
 					{
 						text: 'JVM',
-						link: '/back/java/concurrency/1.java多线程-基础'
+						link: '/back/java/jvm/'
 					}
 				]
 			},
 			{
 				text: 'Spring',
+				link: '/back/spring/',
 				items: [{
 						text: 'IOC原理',
-						link: '/'
+						link: '/back/spring/1.ioc'
 					},
 					{
 						text: 'AOP原理',
-						link: '/'
+						link: '/back/spring/2.aop'
 					}
 				]
 			},
@@ -60,14 +57,15 @@ module.exports = [{
 					text: '资源访问权限',
 					link: '/back/SpringSecurity/1.资源访问权限'
 				}]
-			},
-			{
-				text: 'Mybatis',
-				items: [{
-					text: '拦截器',
-					link: '/back/SpringSecurity/资源访问权限控制'
-				}]
 			}
+			// ,
+			// {
+			// 	text: 'Mybatis',
+			// 	items: [{
+			// 		text: '拦截器',
+			// 		link: '/back/SpringSecurity/资源访问权限控制'
+			// 	}]
+			// }
 
 		]
 	},
@@ -95,6 +93,10 @@ module.exports = [{
 				items: [{
 					text: 'Linux',
 					link: '/ops/os/linux/',
+
+				},{
+					text: 'Mac OS',
+					link: '/ops/os/mac/',
 
 				}]
 			}, {
@@ -125,10 +127,10 @@ module.exports = [{
 		items: [{
 			text: 'Typora',
 			link: '/tools/typora/1.install and setting'
-		},{
+		}, {
 			text: 'Git',
 			link: '/tools/git/'
-		},{
+		}, {
 			text: 'sonar',
 			link: '/tools/sonar/'
 		}]
