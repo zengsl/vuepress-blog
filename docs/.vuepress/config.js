@@ -2,8 +2,8 @@ const sidebarConf = require('./config/sidebarConf.js');
 const navConf = require('./config/navConf.js');
 
 module.exports = {
-	title: '泥瓦匠', // 设置网站标题
-	description : '泥瓦匠',
+	title: 'Import', // 设置网站标题
+	description : 'Import',
 	head: [
 	    ['link', { rel: 'icon', href: '/favicon.ico' }]
 	  ],
