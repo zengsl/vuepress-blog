@@ -2,7 +2,7 @@
 home: true
 heroImage: /img/hero.png
 #标题
-heroText: New
+heroText: 专业的泥瓦匠
 #Hero 副标题
 tagline: 个人博客、笔记
 actionText: enter →
