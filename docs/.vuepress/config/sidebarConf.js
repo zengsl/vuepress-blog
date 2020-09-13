@@ -87,8 +87,12 @@ module.exports = {
 				path: '3.software'
 			},
 			{
+				title: '快捷键',
+				path: '4.keys'
+			},
+			{
 				title: '使用技巧',
-				path: '4.skill'
+				path: '5.skill'
 			}
 		]
 	}],
