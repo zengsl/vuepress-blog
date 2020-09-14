@@ -5,11 +5,10 @@ const headConf = require('./config/headConf.js');
 
 module.exports = {
 	title: '泥瓦匠', // 设置网站标题
-	description : '泥瓦匠',
+	description: '泥瓦匠',
 	head: headConf,
 	themeConfig: {
 		logo: '/img/hero.png',
-		// sidebar: 'auto',
 		sidebar: sidebarConf,
 		nav: navConf
 	},

@@ -136,6 +136,10 @@ module.exports = {
 			{
 				title: '部署',
 				path: '2.deploy'
+			},
+			{
+				title: '常用命令',
+				path: '3.command'
 			}
 		]
 	}],
