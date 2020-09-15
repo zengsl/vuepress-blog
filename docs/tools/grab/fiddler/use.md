@@ -8,9 +8,9 @@
 
 使用方法：
 
-下方命令行输入`bpu你要拦截的请求地址`
+命令行输入`bpu你要拦截的请求地址`
  
-下方命令行输入`bpu`可以取消断点
+命令行输入`bpu`可以取消断点
 
 以一个文件上传的请求为例：
 
@@ -33,6 +33,10 @@
 点击请求，右侧会显示该请求的相关信息，可以查看inspectors功能栏的下方的相关功能页签。
 
 inspectors->WebForms中可以查看到请求参数
+
+inspectors->Headers中可以查看到请求头信息
+
+可以根据需要对信息进行修改
 
 ![请求参数](https://gitee.com/zengsl/picBed/raw/master/img/20200915160841.png)
 
