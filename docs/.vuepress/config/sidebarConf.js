@@ -122,6 +122,19 @@ module.exports = {
 			}
 		]
 	}],
+	'/ops/server/tomcat/': [{
+		title: 'Tomcat',
+		collapsable: false,
+		children: [{
+				title: '介绍',
+				path: '/ops/server/tomcat/'
+			},
+			{
+				title: '常见问题',
+				path: 'problems'
+			}
+		]
+	}],
 	'/tools/git/': [{
 		title: 'Git',
 		collapsable: false,
