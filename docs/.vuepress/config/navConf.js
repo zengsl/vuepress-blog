@@ -57,6 +57,12 @@ module.exports = [{
 					text: '资源访问权限',
 					link: '/back/SpringSecurity/1.资源访问权限'
 				}]
+			},
+
+			{
+				text: 'Struts',
+				link: '/back/struts/'
+				
 			}
 			// ,
 			// {

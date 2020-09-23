@@ -40,7 +40,9 @@ sidebar: auto
 
 ::: tip
 token与tokenSession的区别
+
 相同点：都是为解决struts2中防止表单重复提交而生；
+
 不同点：使用token拦截器，如果发生重复提交时，页面会自动跳转到invalid.token的这个result页面；使用tokenSession拦截器时，依然会响应目标页面，但不会执行tokenSession之后的拦截器，就像什么都没有发生一样。
 :::
 

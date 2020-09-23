@@ -29,6 +29,19 @@ module.exports = {
 			}
 		]
 	}],
+	'/back/struts/': [{
+		title: 'Struts',
+		collapsable: false,
+		children: [{
+				title: '介绍',
+				path: '/back/struts/'
+			},
+			{
+				title: '拦截器',
+				path: 'interceptor'
+			}
+		]
+	}],
 	'/back/spring/': [{
 		title: 'Spring',
 		collapsable: false,
