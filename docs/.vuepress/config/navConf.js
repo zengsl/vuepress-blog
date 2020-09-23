@@ -157,7 +157,7 @@ module.exports = [{
 				link: '/'
 			},
 			{
-				text: '重复请求',
+				text: '防重复请求',
 				link: '/other/repeatRequest'
 			}
 		]
