@@ -251,6 +251,10 @@ module.exports = {
 			{
 				title: '闭包',
 				path: '4.closure'
+			},
+			{
+				title: 'Screenshots',
+				path: 'Screenshots'
 			}
 		]
 	}]

@@ -155,6 +155,10 @@ module.exports = [{
 			{
 				text: '调试技巧',
 				link: '/'
+			},
+			{
+				text: '重复请求',
+				link: '/other/repeatRequest'
 			}
 		]
 	},
