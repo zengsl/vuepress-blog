@@ -95,8 +95,9 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
 });
 ~~~
 
+:::tip
 如果需要废弃前面的请求，请修改`jqXHR.abort()`为`currentRequests[requestKey].abort()`
-
+:::
 
 
 参考：
