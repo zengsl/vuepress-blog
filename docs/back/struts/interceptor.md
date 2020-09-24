@@ -100,7 +100,7 @@ Struts2框架中提供的许多功能都是使用拦截器实现的，包括异�
 
 在子文件中配置的package可以通过extends来继承struts.xml中定义的全局package，这样当前包就继承来全局package里面的所有配置，当然也包含了所定义和引用的拦截器。
 
-package下的action自然也会被这些拦截器进行拦截，当然action中也可以直接通过` <interceptor-ref>`来引用拦截器。
+package下的action自然也会被这些拦截器进行拦截，当然action中也可以直接通过`<interceptor-ref>`来引用拦截器。
 
 Struts在处理请求的时候会根据从`PackageConfig`中获取到`ActionConfig`，然后从后者中获取到interceptors的内容，最后进行拦截操作。
 

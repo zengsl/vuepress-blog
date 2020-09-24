@@ -32,6 +32,7 @@ module.exports = {
 	'/back/struts/': [{
 		title: 'Struts',
 		collapsable: false,
+		 sidebarDepth: 2, 
 		children: [{
 				title: '介绍',
 				path: '/back/struts/'
@@ -39,6 +40,10 @@ module.exports = {
 			{
 				title: '拦截器',
 				path: 'interceptor'
+			},
+			{
+				title: '常见问题',
+				path: 'issues'
 			}
 		]
 	}],
