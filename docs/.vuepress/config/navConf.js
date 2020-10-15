@@ -63,6 +63,12 @@ module.exports = [{
 				text: 'Struts',
 				link: '/back/struts/'
 				
+			},
+	
+			{
+				text: 'Mybatis',
+				link: '/back/mybatis/'
+				
 			}
 			// ,
 			// {

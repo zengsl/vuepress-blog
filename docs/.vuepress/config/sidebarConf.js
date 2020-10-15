@@ -64,6 +64,20 @@ module.exports = {
 			}
 		]
 	}],
+	'/back/mybatis/': [{
+		title: 'Mybatis',
+		collapsable: false,
+		children: [{
+				title: '介绍',
+				path: '/back/mybatis/'
+			},
+			{
+				title: 'Mybatis-Plus',
+				path: 'mybatis-plus'
+			}
+			
+		]
+	}],
 	'/ops/os/linux/': [{
 		title: 'Linux',
 		collapsable: false,
