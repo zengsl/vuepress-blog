@@ -77,3 +77,38 @@ public MappedStatement getMappedStatement(String id, boolean validateIncompleteS
     return mappedStatements.get(id);
 }
 ~~~
+
+## mapper接口初始化
+
+![mapper接口初始化](https://gitee.com/zengsl/picBed/raw/master/img/20201015163304.png)
+
+![mapper接口初始化入口](https://gitee.com/zengsl/picBed/raw/master/img/20201015163422.png)
+
+## @mapper注解初始化
+
+@mapper是mybatis提供的注解
+
+使用@mapper描述的类会使用`MapperFactoryBean`来进行创建
+
+
+入口在MapperFactoryBean的afterPropertiesSet方法中所调用的checkDaoConfig方法。
+
+~~~ java
+public final void afterPropertiesSet() throws IllegalArgumentException, BeanInitializationException {
+        // 初始化入口
+		this.checkDaoConfig();
+
+        try {
+            this.initDao();
+        } catch (Exception var2) {
+            throw new BeanInitializationException("Initialization of DAO failed", var2);
+        }
+    }
+~~~
+
+
+![配置类解析入口](https://gitee.com/zengsl/picBed/raw/master/img/20201016095326.png)
+
+BeanDefinition设置BeanClass为MapperFactoryBean
+
+![设置factoryBean](https://gitee.com/zengsl/picBed/raw/master/img/20201016100543.png)
