@@ -74,6 +74,10 @@ module.exports = {
 			{
 				title: 'Mybatis-Plus',
 				path: 'mybatis-plus'
+			},
+			{
+				title: '其他',
+				path: 'other'
 			}
 			
 		]
