@@ -39,24 +39,12 @@ module.exports = [{
 			},
 			{
 				text: 'Spring',
-				link: '/back/spring/',
-				items: [{
-						text: 'IOC原理',
-						link: '/back/spring/1.ioc'
-					},
-					{
-						text: 'AOP原理',
-						link: '/back/spring/2.aop'
-					}
-				]
+				link: '/back/spring/'
 			},
 
 			{
 				text: 'Spring Security',
-				items: [{
-					text: '资源访问权限',
-					link: '/back/SpringSecurity/1.资源访问权限'
-				}]
+				link: '/back/SpringSecurity/'
 			},
 
 			{
@@ -166,7 +154,7 @@ module.exports = [{
 			},
 			{
 				text: '调试技巧',
-				link: '/'
+				link: '/other/debugger/'
 			},
 			{
 				text: '防重复请求',

@@ -50,9 +50,14 @@ module.exports = {
 	'/back/spring/': [{
 		title: 'Spring',
 		collapsable: false,
+		sidebarDepth: 2, 
 		children: [{
 				title: '介绍',
 				path: '/back/spring/'
+			},
+			{
+				title: '初始化',
+				path: 'init'
 			},
 			{
 				title: 'Ioc',
@@ -62,6 +67,20 @@ module.exports = {
 				title: 'Aop',
 				path: '2.aop'
 			}
+		]
+	}],
+	'/back/SpringSecurity/': [{
+		title: 'SpringSecurity',
+		collapsable: false,
+		children: [{
+				title: '介绍',
+				path: '/back/SpringSecurity/'
+			},
+			{
+				title: '资源访问权限',
+				path: '1.资源访问权限'
+			},
+			
 		]
 	}],
 	'/back/mybatis/': [{
@@ -262,6 +281,15 @@ module.exports = {
 			{
 				title: '安装配置',
 				path: '1.install and setting'
+			}
+		]
+	}],
+	'/other/debugger/': [{
+		title: '调试技巧',
+		collapsable: false,
+		children: [{
+				title: '介绍',
+				path: '/other/debugger/'
 			}
 		]
 	}],
