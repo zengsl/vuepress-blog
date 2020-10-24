@@ -52,7 +52,7 @@ module.exports = {
 		collapsable: false,
 		sidebarDepth: 2, 
 		children: [{
-				title: '介绍',
+				title: '概述',
 				path: '/back/spring/'
 			},
 			{
