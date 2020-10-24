@@ -39,14 +39,16 @@ module.exports = [{
 			},
 			{
 				text: 'Spring',
-				link: '/back/spring/'
+				items: [{
+						text: 'Spring',
+						link: '/back/spring/'
+					},
+					{
+						text: 'Spring Security',
+						link: '/back/SpringSecurity/'
+					}
+				]
 			},
-
-			{
-				text: 'Spring Security',
-				link: '/back/SpringSecurity/'
-			},
-
 			{
 				text: 'Struts',
 				link: '/back/struts/'
