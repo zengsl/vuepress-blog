@@ -7,6 +7,9 @@ module.exports = {
 	title: '泥瓦匠', // 设置网站标题
 	description: '泥瓦匠',
 	head: headConf,
+	markdown: {
+	    lineNumbers: true
+	  },
 	themeConfig: {
 		logo: '/img/hero.png',
 		sidebar: sidebarConf,

@@ -290,6 +290,18 @@ module.exports = {
 		children: [{
 				title: '介绍',
 				path: '/other/debugger/'
+			},
+			{
+				title: '后端调试',
+				path: 'back_debug'
+			},
+			{
+				title: '前端调试',
+				path: 'front_debug'
+			},	
+			{
+				title: '接口调试',
+				path: 'interface_debug'
 			}
 		]
 	}],

@@ -59,15 +59,19 @@ module.exports = [{
 				text: 'Mybatis',
 				link: '/back/mybatis/'
 				
-			}
-			// ,
-			// {
-			// 	text: 'Mybatis',
-			// 	items: [{
-			// 		text: '拦截器',
-			// 		link: '/back/SpringSecurity/资源访问权限控制'
-			// 	}]
-			// }
+			},
+			{
+					text: '分布式',
+					items: [{
+							text: '分布式锁',
+							link: '/back/distributed/'
+						},
+						{
+							text: '分布式事务',
+							link: '/back/distributed/'
+						}
+					]
+				}
 
 		]
 	},
@@ -161,6 +165,10 @@ module.exports = [{
 			{
 				text: '防重复请求',
 				link: '/other/repeatRequest'
+			},
+			{
+				text: '批量插入',
+				link: '/other/batch'
 			}
 		]
 	},
