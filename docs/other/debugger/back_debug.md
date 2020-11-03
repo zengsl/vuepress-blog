@@ -294,9 +294,21 @@ Smart step into 智能步入 当一行中有多个方法调用时，智能单步
 
 这里需要特别说明的`BTrace`是一个很神奇的VisualVM插件，它本身也是一个可运行的独立程序。BTrace的作用是在不中断目标程序运行的前提下，通过HotSpot虚拟机的Instrument功能[插图]动态加入原本并不存在的调试代码。这项功能对实际生产中的程序很有意义：如当程序出现问题时，排查错误的一些必要信息时（譬如方法参数、返回值等），在开发时并没有打印到日志之中以至于不得不停掉服务时，都可以通过调试增量来加入日志代码以解决问题
 
+### Arthas
+
 Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。
 
 我们可以利用它来反编译代码查看自己的代码到底有没有发布、监控到JVM的实时运行状态和修改线上环境日志级别等。
+
+::: warning
+- 执行该程序的用户需要和目标进程具有相同的权限。比如以`admin`用户来执行：`sudo su admin && java -jar arthas-boot.jar` 或 `sudo -u admin -EH java -jar arthas-boot.jar`。
+
+- 如果attach不上目标进程，可以查看`~/logs/arthas/` 目录下的日志。
+
+- 如果下载速度比较慢，可以使用aliyun的镜像：`java -jar arthas-boot.jar --repo-mirror aliyun --use-http`
+
+- `java -jar arthas-boot.jar -h` 打印更多参数信息。
+:::
 
 [Arthas doc](https://arthas.aliyun.com/doc/)
 
