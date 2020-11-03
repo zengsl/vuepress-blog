@@ -6,9 +6,6 @@ idea为2020.2的mac OSX版本
 
 :::
 
-[idea文档](https://www.jetbrains.com/help/idea/using-breakpoints.html#set-breakpoints)
-
-[参考文档](http://qinghua.github.io/intellij-idea-debug/)
 
 工欲善其事，必先利其器
 
@@ -18,9 +15,7 @@ idea为2020.2的mac OSX版本
 
 断点：断点，调试器的功能之一，可以让程序中断在需要的地方，从而方便其分析。
 
-调用栈
-
-栈帧
+栈帧：Java虚拟机以方法作为最基本的执行单元，“栈帧”（Stack Frame）则是用于支持虚拟机进行方法调用和方法执行背后的数据结构，它也是虚拟机运行时数据区中的虚拟机栈（Virtual Machine Stack）[插图]的栈元素。栈帧存储了方法的局部变量表、操作数栈、动态连接和方法返回地址等信息
 
 ## 启动调试
 
@@ -72,33 +67,42 @@ IDEA中断点的类型主要有以下几种：
 
 ![断点属性](https://gitee.com/zengsl/picBed/raw/master/img/20201102142552.png)
 
-`Condition`是比较常用的一个属性，我们常说的条件断点就是通过这个属性来进行设置。稍后会针对此属性进行介绍，其他属性不做详细介绍。
+- `Condition`是比较常用的一个属性，我们常说的条件断点就是通过这个属性来进行设置。稍后会针对此属性进行介绍，其他属性不做详细介绍。
 
-Suspend：控制断点是否需要中断，如果有的时候只想通过断点记录方法调用次数而不需要中断程序，那么可以取消勾选。
+	Field access/modification：
 
-该属性有两个值：
+	这个选项是针对Filed watchpoints的，默认只设置了Field access
+	
+	Field access：字段在读取的时候断点生效
+	
+	Field modification：字段在修改的时候断点生效
 
-- All: 当任意一个线程触发来断点之后会中断所有线程
 
-- Thread: 只有触发断点的线程会被中断
+- Suspend：控制断点是否需要中断，如果有的时候只想通过断点记录方法调用次数而不需要中断程序，那么可以取消勾选。
 
-Pass count : 指定断点是否应仅在命中一定次数后才能工作
+	该属性有两个值：
 
-Remove once hit：触发之后就移除
+	- All: 当任意一个线程触发来断点之后会中断所有线程
 
-Disable until hitting the following breakpoint：可以选择一些断点用来触发当前断点，只有触发之后才变成可用。且可以设置执行之后当前断点是保持可用还是禁用
+	- Thread: 只有触发断点的线程会被中断
 
-Filters：IntelliJ IDEA调试器使您能够通过筛选出类、实例和调用方方法来微调断点操作，并且只在需要时挂起程序。
+- Pass count : 指定断点是否应仅在命中一定次数后才能工作
 
-主要有以下几种过滤器：
+- Remove once hit：触发之后就移除
 
-- Catch class filters：针对异常断点，可以控制在具体的某些类中出现异常时触发该异常断点
+- Disable until hitting the following breakpoint：可以选择一些断点用来触发当前断点，只有触发之后才变成可用。且可以设置执行之后当前断点是保持可用还是禁用
 
-- Instance filters：将断点操作限制为特定对象实例。此类型的筛选器仅在非静态上下文中有效
+- Filters：IntelliJ IDEA调试器使您能够通过筛选出类、实例和调用方方法来微调断点操作，并且只在需要时挂起程序。
 
-- Class filters：将断点操作限制为特定类
+	主要有以下几种过滤器：
 
-- Caller filters：根据当前方法的调用方限制断点操作。如果仅当从某个方法调用（或未调用）当前方法时才需要在断点处停止，请选择此选项
+	- Catch class filters：针对异常断点，可以控制在具体的某些类中出现异常时触发该异常断点
+
+	- Instance filters：将断点操作限制为特定对象实例。此类型的筛选器仅在非静态上下文中有效
+
+	- Class filters：将断点操作限制为特定类
+
+	- Caller filters：根据当前方法的调用方限制断点操作。如果仅当从某个方法调用（或未调用）当前方法时才需要在断点处停止，请选择此选项
 
 ### 条件断点
 
@@ -124,8 +128,6 @@ public static void main(String... strings) {
 ![断点图标](https://gitee.com/zengsl/picBed/raw/master/img/20201102151318.png)
 
 ## 调试工具窗口
-
-[Idea文档 stepping-through-the-program](https://www.jetbrains.com/help/idea/stepping-through-the-program.html#run-to-cursor)
 
 ![调试窗口](https://gitee.com/zengsl/picBed/raw/master/img/20201102140145.png)
 
@@ -197,6 +199,9 @@ public static void main(String... strings) {
 	
 ## 逐步完成程序
 
+[Idea文档 stepping-through-the-program](https://www.jetbrains.com/help/idea/stepping-through-the-program.html#run-to-cursor)
+
+
 调试按钮在debugger工具栏中
 
 ![调试按钮](https://gitee.com/zengsl/picBed/raw/master/img/20201102163114.png)
@@ -244,13 +249,91 @@ Smart step into 智能步入 当一行中有多个方法调用时，智能单步
 
 
 
-
-
 ## 远程调试
 
 [IDEA远程调试教程](https://www.jetbrains.com/help/idea/tutorial-remote-debug.html)
 
-1. 服务端需要开启远程调试并配置好相应的端口
+[demo](https://gitee.com/zengsl/iris-tutorial.git)
 
+1. 服务端需要开启远程调试并配置好相应的端口
+	
+	设置VM options `-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005`
+	
+	![远程调试-服务端](https://gitee.com/zengsl/picBed/raw/master/img/20201103111449.png)
+	
+	::: tip
+	我们也可以直接将项目打成jar包，通过下面的命令直接运行。打包方式可以使用IDEA打包或者maven打包，需要注意的是jar里面中要包含`Main-Class`信息
+	
+	`java -jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 tutorial-remote-debug.jar`
+	
+	[IDEA 打包](https://www.jetbrains.com/help/idea/compiling-applications.html#package_into_jar)
+	:::
+	
+	
+	
 2. IDE配置好远程调试配置
 
+	![远程调试-调试端](https://gitee.com/zengsl/picBed/raw/master/img/20201103111544.png)
+	
+3. 设置好之后服务端直接运行（非调试启动），因为代码中设置了休眠时间，所以代码不会很快的执行结束。调试端打好断点以调试方式启动，将进入断点激活调试窗口。
+
+启动服务端如果遇到下图的错误，需要检查下hosts中是否配置了`127.0.0.1 localhost`
+
+![错误](https://gitee.com/zengsl/picBed/raw/master/img/20201103111243.png)
+
+我本机是配置了localhost，但是仍然出现此错误。因为最开始是参考IDEA的官方教程，addresss的配置为`address=*:5005`，将其改为`address=5005`就不会出现错误了，这可能跟机器的网络配置有关系。
+
+
+
+
+## 其他
+
+
+有时候我们可能要借助“可视化故障处理工具”，如：JHSDBJ、JMC(Java Mission Control)、JConsole、VisualVM。
+
+
+这里需要特别说明的`BTrace`是一个很神奇的VisualVM插件，它本身也是一个可运行的独立程序。BTrace的作用是在不中断目标程序运行的前提下，通过HotSpot虚拟机的Instrument功能[插图]动态加入原本并不存在的调试代码。这项功能对实际生产中的程序很有意义：如当程序出现问题时，排查错误的一些必要信息时（譬如方法参数、返回值等），在开发时并没有打印到日志之中以至于不得不停掉服务时，都可以通过调试增量来加入日志代码以解决问题
+
+Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。
+
+我们可以利用它来反编译代码查看自己的代码到底有没有发布、监控到JVM的实时运行状态和修改线上环境日志级别等。
+
+[Arthas doc](https://arthas.aliyun.com/doc/)
+
+[Arthas gitee](https://gitee.com/arthas/arthas)
+
+[Arthas在线教程](https://arthas.aliyun.com/doc/arthas-tutorials.html?language=cn&id=arthas-basics)
+
+## 总结
+
+通过查询官方的文档可以获取最原始的资料，网上第三方写的文章多少包含个人理解，我们可以优先阅读官方文档获取自己的理解，再结合第三方的文章看看他人的理解有什么不同。
+
+能够在本地调试或者远程调试代码是比较好的情况，当不能调试代码的时候该如何做呢？
+
+1. 要对功能熟悉，对他运用对基础知识熟悉，可尽量缩小需要排查对问题范围
+
+2. 某些情况需要猜测代码对运行过程，分析出可能出问题的点
+
+各种Java的IDE工具是如何实现调试器的？
+
+JPDA（Java Platform Debugger Architecture）Java平台调试体系结构。
+
+![JPDA](https://gitee.com/zengsl/picBed/raw/master/img/20201103085503.png)
+
+JVMTI（JVM Tool Interface）是Java虚拟机所提供的native接口，提供了可用于debug和profiler的能力，是实现调试器和其他运行态分析工具的基础，Instrument就是对它的封装。
+
+感兴趣的小伙伴可以阅读下以下两篇文章：
+
+[字节码增强技术探索](https://tech.meituan.com/2019/09/05/java-bytecode-enhancement.html)
+
+[Java调试原理初探](https://rdc.hundsun.com/portal/article/939.html)
+
+
+
+**参考文档：**
+
+[idea文档](https://www.jetbrains.com/help/idea/using-breakpoints.html#set-breakpoints)
+
+[挖掘IntelliJ IDEA的调试功能](http://qinghua.github.io/intellij-idea-debug/)
+
+[深入理解Java虚拟机：JVM高级特性与最佳实践（第3版）](https://weread.qq.com/web/reader/cf1320d071a1a78ecf19254kc81322c012c81e728d9d180)
