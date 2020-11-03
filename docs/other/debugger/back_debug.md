@@ -338,6 +338,8 @@ JVMTI（JVM Tool Interface）是Java虚拟机所提供的native接口，提供�
 
 [字节码增强技术探索](https://tech.meituan.com/2019/09/05/java-bytecode-enhancement.html)
 
+[Java动态追踪技术探究](https://tech.meituan.com/2019/02/28/java-dynamic-trace.html)
+
 [Java调试原理初探](https://rdc.hundsun.com/portal/article/939.html)
 
 
