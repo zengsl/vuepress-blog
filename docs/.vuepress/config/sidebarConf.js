@@ -101,6 +101,25 @@ module.exports = {
 			
 		]
 	}],
+	'/back/mybatis/': [{
+		title: '分布式',
+		collapsable: false,
+		sidebarDepth: 2, 
+		children: [{
+				title: '介绍',
+				path: '/back/distributed/'
+			},
+			{
+				title: '分布式事务',
+				path: 'distributedTransaction'
+			},
+			{
+				title: '其他',
+				path: 'distributed'
+			}
+			
+		]
+	}],
 	'/ops/os/linux/': [{
 		title: 'Linux',
 		collapsable: false,

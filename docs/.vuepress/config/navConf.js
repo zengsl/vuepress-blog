@@ -62,15 +62,7 @@ module.exports = [{
 			},
 			{
 					text: '分布式',
-					items: [{
-							text: '分布式锁',
-							link: '/back/distributed/'
-						},
-						{
-							text: '分布式事务',
-							link: '/back/distributed/'
-						}
-					]
+					link: '/back/distributed/'
 				}
 
 		]
