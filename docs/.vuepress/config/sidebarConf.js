@@ -101,7 +101,7 @@ module.exports = {
 			
 		]
 	}],
-	'/back/mybatis/': [{
+	'/back/distributed/': [{
 		title: '分布式',
 		collapsable: false,
 		sidebarDepth: 2, 
@@ -114,8 +114,8 @@ module.exports = {
 				path: 'distributedTransaction'
 			},
 			{
-				title: '其他',
-				path: 'distributed'
+				title: '分布式锁',
+				path: 'distributedLocks'
 			}
 			
 		]
