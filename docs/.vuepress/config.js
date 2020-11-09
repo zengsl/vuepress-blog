@@ -4,7 +4,7 @@ const pluginsConf = require('./config/pluginsConf.js');
 const headConf = require('./config/headConf.js');
 
 module.exports = {
-	title: '泥瓦匠', // 设置网站标题
+	title: '笔记', // 设置网站标题
 	description: '泥瓦匠',
 	head: headConf,
 	markdown: {
