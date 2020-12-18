@@ -7,6 +7,7 @@ module.exports = {
 	title: '笔记', // 设置网站标题
 	description: '泥瓦匠',
 	head: headConf,
+	smoothScroll: true,
 	markdown: {
 	    lineNumbers: true
 	  },

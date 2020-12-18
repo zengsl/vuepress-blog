@@ -50,6 +50,10 @@ module.exports = [{
 				]
 			},
 			{
+				text: 'Spring Cloud',
+				link: '/back/SpringCloud/'
+			},
+			{
 				text: 'Struts',
 				link: '/back/struts/'
 				

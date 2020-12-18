@@ -83,6 +83,29 @@ module.exports = {
 			
 		]
 	}],
+	'/back/SpringCloud/': [{
+		title: 'SpringCloud',
+		collapsable: false,
+		sidebarDepth: 2, 
+		children: [{
+				title: '介绍',
+				path: '/back/SpringCloud/'
+			},
+			{
+				title: '启动过程',
+				path: 'run'
+			},
+			{
+				title: 'Gateway',
+				path: 'gateway'
+			}
+			,
+			{
+				title: 'egrantM',
+				path: 'egrant/'
+			}
+		]
+	}],
 	'/back/mybatis/': [{
 		title: 'Mybatis',
 		collapsable: false,
