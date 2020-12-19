@@ -80,3 +80,102 @@ Spring Cloud
 
 [官方资料](https://docs.spring.io/spring-boot/docs/current/reference/html/)
 
+
+
+
+## 服务发现
+
+nacos、eureka
+
+### nacos 
+
+集成了ribbon
+
+
+spring-cloud-starter-alibaba-nacos-discovery集成ribbon
+
+ribbon ： 客户端需要给`RestTemplate`实例添加`@LoadBalanced`注解，开启`@LoadBalanced`与`Ribbon`的集成
+
+
+~~~ java
+@SpringBootApplication
+@EnableDiscoveryClient
+public class NacosConsumerApplication {
+
+    @LoadBalanced
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(NacosConsumerApplication.class, args);
+    }
+
+    @RestController
+    public class TestController {
+
+        private final RestTemplate restTemplate;
+
+        @Autowired
+        public TestController(RestTemplate restTemplate) {this.restTemplate = restTemplate;}
+
+        @RequestMapping(value = "/echo/{str}", method = RequestMethod.GET)
+        public String echo(@PathVariable String str) {
+            return restTemplate.getForObject("http://service-provider/echo/" + str, String.class);
+        }
+    }
+}
+
+~~~
+
+## 网关
+
+gateway 、Consul
+
+
+### GateWay
+
+集成了hystrix
+
+
+## 负载均衡
+
+ribbon Fegin OpenFegin
+
+ribbon需要配合`@LoadBalanced`注解和`RestTemplate`实例
+
+Fegin在ribbon上进行了改造，直接在接口上添加注解，无需`RestTemplate`实例
+
+OpenFegin在Fegin上进行了改造，增加了spring mvc等的支持
+
+## 熔断
+
+hystrix 和 Sentinel
+
+
+### hystrix
+
+
+
+
+### SpringCloud 对熔断集成
+
+1. 启动类增加`@EnableCircuitBreaker`注解
+
+2. 根据`spring.cloud.circuit.breaker.enabled`配置判断是否开启，默认为true
+
+3. 从`"META-INF/spring.factories"`中寻找`org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker`的实现，这里只能是一个实现
+
+	比如：`org.springframework.cloud.netflix.hystrix.HystrixCircuitBreakerConfiguration`
+	
+	在`HystrixCircuitBreakerConfiguration`中比较重要的一点就是创建了一个切面
+
+	~~~ java
+	@Bean
+	public HystrixCommandAspect hystrixCommandAspect() {
+		return new HystrixCommandAspect();
+	}
+	~~~
+
+	从HystrixCommandAspect中可以发现，其会监听`@HystrixCommand`和`@HystrixCollapser`两个注解，其中`@HystrixCommand`用于配置熔断的回调操作
