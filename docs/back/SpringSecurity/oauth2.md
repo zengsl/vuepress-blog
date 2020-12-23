@@ -5,6 +5,9 @@
 > 日期：2020-12-23
 > spring-security-oauth2:2.3.5
 
+[spring-security-oauth2原文](https://projects.spring.io/spring-security-oauth/docs/oauth2.html)
+
+
 ## 弃用通知
 
 不建议使用Spring Security OAuth项目。 Spring Security提供了最新的OAuth 2.0支持。有关更多详细信息，请参见[《 OAuth 2.0迁移指南》](https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide)。
@@ -161,7 +164,6 @@ create table ClientDetails (
 );
 ~~~
 
-[spring-security-oauth2原文](https://projects.spring.io/spring-security-oauth/docs/oauth2.html)
 
 ### 管理令牌（Managing Tokens)
 
