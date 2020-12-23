@@ -72,6 +72,7 @@ module.exports = {
 	'/back/SpringSecurity/': [{
 		title: 'SpringSecurity',
 		collapsable: false,
+		sidebarDepth: 2,
 		children: [{
 				title: '介绍',
 				path: '/back/SpringSecurity/'
@@ -80,6 +81,10 @@ module.exports = {
 				title: '资源访问权限',
 				path: '1.资源访问权限'
 			},
+			{
+				title: 'OAuth 2.0',
+				path: 'oauth2'
+			}
 			
 		]
 	}],
@@ -98,6 +103,10 @@ module.exports = {
 			{
 				title: 'Gateway',
 				path: 'gateway'
+			},
+			{
+				title: 'Security',
+				path: 'security'
 			}
 			,
 			{
