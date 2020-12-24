@@ -32,7 +32,7 @@ module.exports = {
 	'/back/struts/': [{
 		title: 'Struts',
 		collapsable: false,
-		 sidebarDepth: 2, 
+		sidebarDepth: 2,
 		children: [{
 				title: '介绍',
 				path: '/back/struts/'
@@ -50,7 +50,7 @@ module.exports = {
 	'/back/spring/': [{
 		title: 'Spring',
 		collapsable: false,
-		sidebarDepth: 2, 
+		sidebarDepth: 2,
 		children: [{
 				title: '概述',
 				path: '/back/spring/'
@@ -82,16 +82,21 @@ module.exports = {
 				path: '1.资源访问权限'
 			},
 			{
+				title: '文档',
+				path: 'document/security-servlet'
+			},
+			{
 				title: 'OAuth 2.0',
 				path: 'oauth2'
 			}
-			
+
 		]
 	}],
+	
 	'/back/SpringCloud/': [{
 		title: 'SpringCloud',
 		collapsable: false,
-		sidebarDepth: 2, 
+		sidebarDepth: 2,
 		children: [{
 				title: '介绍',
 				path: '/back/SpringCloud/'
@@ -107,8 +112,7 @@ module.exports = {
 			{
 				title: 'Security',
 				path: 'security'
-			}
-			,
+			},
 			{
 				title: 'egrantM',
 				path: 'egrant/'
@@ -130,13 +134,13 @@ module.exports = {
 				title: '其他',
 				path: 'other'
 			}
-			
+
 		]
 	}],
 	'/back/distributed/': [{
 		title: '分布式',
 		collapsable: false,
-		sidebarDepth: 2, 
+		sidebarDepth: 2,
 		children: [{
 				title: '介绍',
 				path: '/back/distributed/'
@@ -149,7 +153,7 @@ module.exports = {
 				title: '分布式锁',
 				path: 'distributedLocks'
 			}
-			
+
 		]
 	}],
 	'/ops/os/linux/': [{
@@ -349,7 +353,7 @@ module.exports = {
 			{
 				title: '前端调试',
 				path: 'front_debug'
-			},	
+			},
 			{
 				title: '接口调试',
 				path: 'interface_debug'
