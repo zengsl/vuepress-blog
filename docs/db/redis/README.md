@@ -70,6 +70,7 @@ type 【key】查看类型
 object encoding 【key】 查看底层数据结构
 
 
+
 底层结构：
 
 压缩表、跳跃表（skiplist）
