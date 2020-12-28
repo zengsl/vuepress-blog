@@ -67,19 +67,15 @@ Spring Boot 的配置不多，但是做的事情很多。功能摘要如下：
 
 `FilterChainProxy`会使用`SecurityFilterChain`来决定哪些Spring Security过滤器需要执行
 
-::: tip
-
 简单来说`SecurityFilterChain`就是包含了一系列不同Spring Security过滤器
 
 可能会有多个`SecurityFilterChain`，根据当前请求的URL来进行匹配，匹配到就将此`SecurityFilterChain`交给`FilterChainProxy`放入过滤器链中进行执行，从而会忽略掉其他的`SecurityFilterChain`。
 
-具体代码见下图
-
-:::
+**规则：优先第一个匹配到的过滤器链**，具体代码见下图：
 
 ![过滤链匹配](https://gitee.com/zengsl/picBed/raw/master/img/20201224162443.png)
 
-调试代码可以发现：当前有三个安全过滤器链，均是DefaultSecurityFilterChain的示例
+调试代码可以发现：当前有三个安全过滤器链，均是DefaultSecurityFilterChain的实例
 
 前两个过滤器链分别针对oauth2授权服务和资源服务(项目集成了Spring-Security-oauth2)，第三个则为Spring Security原本的过滤器链服务
 
@@ -122,7 +118,7 @@ Spring Boot 的配置不多，但是做的事情很多。功能摘要如下：
 
 1. `WebSecurity`实例执行build()方法过程中，调用内部方法doBuild()
 
-2. doBuild()内部调用this.init()
+2. doBuild()内部调用this.init()，此内部会在`WebSecurity`的securityFilterChainBuilders集合中生成三个过滤器链的builder类(HttpSecurity)，该对象有两个关键的属性filters和configurers。filters中有一个默认过滤器`WebAsyncManagerIntegrationFilter`，configurers有多个安全配置类
 
 这里大概的逻辑就是获取到`SecurityConfigurer`集合，然后遍历配置类调用init方法。从调试结果可以看到有三个配置类:
 
@@ -135,29 +131,73 @@ Spring Boot 的配置不多，但是做的事情很多。功能摘要如下：
 ![SecurityConfigurers](https://gitee.com/zengsl/picBed/raw/master/img/20201224174811.png)
 
 ~~~ java
-// 反编译代码
+// WebSecurity
 private void init() throws Exception {
-	Collection<SecurityConfigurer<O, B>> configurers = this.getConfigurers();
-	Iterator var2 = configurers.iterator();
+	Collection<SecurityConfigurer<O, B>> configurers = getConfigurers();
 
-	SecurityConfigurer configurer;
-	while(var2.hasNext()) {
-		configurer = (SecurityConfigurer)var2.next();
-		configurer.init(this);
+	for (SecurityConfigurer<O, B> configurer : configurers) {
+		configurer.init((B) this);
 	}
 
-	var2 = this.configurersAddedInInitializing.iterator();
-
-	while(var2.hasNext()) {
-		configurer = (SecurityConfigurer)var2.next();
-		configurer.init(this);
+	for (SecurityConfigurer<O, B> configurer : configurersAddedInInitializing) {
+		configurer.init((B) this);
 	}
 }
 ~~~
+3. this.init()执行完之后会继续调用performBuild(),在此内部会完成所有的过滤器链集合的初始化工作，大致逻辑如下：
+
+- 如果有需要忽略的请求，则设置一个默认的过滤器链`DefaultSecurityFilterChain`
+
+- 根据第2点中生成的securityFilterChainBuilders遍历调用build方法生成对应的过滤器链，实际上会遍历HttpSecurity的configurers内容调用对应configure方法添加过滤器，从整体上来说是一个递归调用的过程。
+
+~~~ java
+protected Filter performBuild() throws Exception {
+	略...
+	int chainSize = ignoredRequests.size() + securityFilterChainBuilders.size();
+	List<SecurityFilterChain> securityFilterChains = new ArrayList<>(
+			chainSize);
+	for (RequestMatcher ignoredRequest : ignoredRequests) {
+		securityFilterChains.add(new DefaultSecurityFilterChain(ignoredRequest));
+	}
+	for (SecurityBuilder<? extends SecurityFilterChain> securityFilterChainBuilder : securityFilterChainBuilders) {
+		securityFilterChains.add(securityFilterChainBuilder.build());
+	}
+	FilterChainProxy filterChainProxy = new FilterChainProxy(securityFilterChains);
+	if (httpFirewall != null) {
+		filterChainProxy.setFirewall(httpFirewall);
+	}
+	filterChainProxy.afterPropertiesSet();
+
+	Filter result = filterChainProxy;
+	略...
+	postBuildAction.run();
+	return result;
+}
+~~~
+
+> 这三个安全配置类也是在调用相关的BeanPostProcess对`WebSecurityConfiguration`初始化的过程中，初始化`setFilterChainProxySecurityConfigurer`方法的时候进行插入的
 
 ::: tip
 AuthorizationServerSecurityConfiguration 和 ResourceServerConfiguration分别是Oatuh2.0认证协议中的"授权服务器安全配置"和"资源服务器安全配置"
+
+简单来说安全过滤器链的初始化过程和安全配置类有关系，整个过程中`SecurityBuilder`的实现类们起着至关重要的作用
+
 :::
+
+总结:
+
+- 安全过滤器链的初始化的整个入口在`WebSecurityConfiguration`中，通过`springSecurityFilterChain()`将获取到的安全配置对象`WebSecurityConfiguration`进行构建（该类中会初始化系统中配置的其他安全配置对象）。
+
+- `WebSecurityConfiguration`构建的过程中会对其所包含的安全过滤器对象进行构建，所包含的安全过滤器对象可能还可能包含其他的子安全配置对象，不断递归完成所有构建过程
+
+- 对于每一个安全配置对象初始化子安全配置对象和过滤器的过程都在其对应的init方法中，一般是在其获取`SecurityBuilder`的过程中。对于每一个安全配置的build方法调用，大致就是重复去调用子安全配置对象的init方法。
+
+下面是AuthorizationServer配置类的相关代码
+
+![安全配置对象](https://gitee.com/zengsl/picBed/raw/master/img/20201225110712.png)
+
+
+configure(http)方法会调用我们实现`AuthorizationServerConfigurer`的对应方法
 
 
 ### 安全过滤器（Security Filters）
