@@ -7,6 +7,10 @@ module.exports = {
 				path: '/back/java/concurrency/'
 			},
 			{
+				title: '线程池',
+				path: 'thread-pool'
+			},
+			{
 				title: '基础',
 				path: '1.java多线程-基础'
 			},
