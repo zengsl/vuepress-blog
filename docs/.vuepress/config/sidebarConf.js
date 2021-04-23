@@ -123,6 +123,16 @@ module.exports = {
 			}
 		]
 	}],
+	'/back/job/quartz/': [{
+		title: 'Quartz',
+		collapsable: false,
+		sidebarDepth: 2,
+		children: [{
+				title: '介绍',
+				path: '/back/job/quartz/'
+			}
+		]
+	}],
 	'/back/mybatis/': [{
 		title: 'Mybatis',
 		collapsable: false,

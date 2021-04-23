@@ -38,7 +38,7 @@ module.exports = [{
 				]
 			},
 			{
-				text: 'Spring',
+				text: 'Spring生态',
 				items: [{
 						text: 'Spring',
 						link: '/back/spring/'
@@ -46,28 +46,33 @@ module.exports = [{
 					{
 						text: 'Spring Security',
 						link: '/back/SpringSecurity/'
+					},
+					{
+						text: 'Spring Cloud',
+						link: '/back/SpringCloud/'
 					}
 				]
-			},
-			{
-				text: 'Spring Cloud',
-				link: '/back/SpringCloud/'
+			}, {
+				text: '任务调度',
+				items: [{
+					text: 'Quartz',
+					link: '/back/job/quartz/'
+				}]
 			},
 			{
 				text: 'Struts',
 				link: '/back/struts/'
-				
+
 			},
-	
 			{
 				text: 'Mybatis',
 				link: '/back/mybatis/'
-				
+
 			},
 			{
-					text: '分布式',
-					link: '/back/distributed/'
-				}
+				text: '分布式',
+				link: '/back/distributed/'
+			}
 
 		]
 	},
@@ -92,6 +97,9 @@ module.exports = [{
 		items: [{
 			text: 'TCP/IP',
 			link: '/tools/protocol/'
+		},{
+			text: 'HTTPS',
+			link: '/network/https'
 		}]
 	},
 	{
@@ -103,7 +111,7 @@ module.exports = [{
 					text: 'Linux',
 					link: '/ops/os/linux/',
 
-				},{
+				}, {
 					text: 'Mac OS',
 					link: '/ops/os/mac/',
 
@@ -131,7 +139,7 @@ module.exports = [{
 
 		]
 	},
-	
+
 	{
 		text: '工具',
 		items: [{

@@ -99,7 +99,116 @@ $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
 
 :::tip
 如果需要废弃前面的请求，请修改`jqXHR.abort()`为`currentRequests[requestKey].abort()`
+
+这种有缺陷，队列清除没有自动处理
 :::
+
+改造
+
+~~~ javascript
+/**
+ * jquery ajax请求过滤，防止ajax请求重复发送，对ajax发送错误时进行统一处理
+ */
+$(function () {
+
+	var pendingRequests = {};
+	$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+
+		if (options.abortOnRetry === true) {
+			var requestKey = options.url + "_" + options.data
+			// 如果存在则取消当前请求
+			if (pendingRequests[requestKey]) {
+				jqXHR.abort()
+				console.info(requestKey + "取消")
+			} else {
+				storePendingRequest(requestKey, jqXHR)
+			}
+
+			// ajax请求完成时，从临时对象中清除请求对应的数据
+			var complete = options.complete;
+			options.complete = function (jqXHR, textStatus) {
+				// 延时1000毫秒删除请求信息，表示同Key值请求不能在此时间段内重复提交
+				setTimeout(function () {
+					delete pendingRequests[jqXHR.pendingRequestKey];
+				}, 1000);
+				//delete pendingRequests[jqXHR.pendingRequestKey];
+				if ($.isFunction(complete)) {
+					complete.apply(this, arguments);
+				}
+			}
+		}
+
+		//统一的错误处理
+		/*var error = options.error;
+		options.error = function (jqXHR, textStatus) {
+			errorHandler(jqXHR, textStatus);
+			if ($.isFunction(error)) {
+				error.apply(this, arguments);
+			}
+		};*/
+
+	});
+
+	/**
+	 * 当ajax请求发生错误时，统一进行拦截处理的方法
+	 */
+	function errorHandler(jqXHR, textStatus) {
+		switch (jqXHR.status) {
+			case 500:
+				internalError(jqXHR);
+				break;
+			case 403:
+				accessDenied(jqXHR);
+				break;
+			case 408:
+				timeoutError(jqXHR);
+				break;
+			case 404:
+				pageNotFound(jqXHR);
+				break;
+			default:
+				otherError(jqXHR, textStatus);
+		}
+	}
+
+	function pageNotFound(jqXHR) {
+		console.log("请求访问的地址或内容不存在！")
+	}
+
+	function accessDenied(jqXHR) {
+		console.log("content: 你无权进行此操作或页面访问！")
+	}
+
+	function internalError(jqXHR) {
+		console.log("content: 服务器存在错误，未能正确处理你的请求！")
+	}
+
+	function timeoutError(jqXHR) {
+		//window.location.href = contextPath + "/j_spring_security_logout";
+	}
+
+	function otherError(jqXHR, textStatus) {
+		console.log("content: 未知错误，错误代码：" + textStatus)
+	}
+
+	/**
+	 * 将ajax请求存储到临时对象中，用于根据key判断请求是否已经存在
+	 */
+	function storePendingRequest(key, jqXHR) {
+		pendingRequests[key] = jqXHR;
+		jqXHR.pendingRequestKey = key;
+		console.info(key + "加入队列")
+	}
+
+});
+
+
+~~~
+
+
+
+
+
 
 
 参考：
