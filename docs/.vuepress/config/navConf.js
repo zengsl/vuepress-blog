@@ -173,6 +173,10 @@ module.exports = [{
 			{
 				text: '批量插入',
 				link: '/other/batch'
+			},
+			{
+				text: 'UReport2',
+				link: '/other/ureport'
 			}
 		]
 	},

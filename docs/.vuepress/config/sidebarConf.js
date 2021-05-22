@@ -268,7 +268,7 @@ module.exports = {
 			},
 			{
 				title: '安装配置',
-				path: '1.install and setting'
+				path: '1.installAndSetting'
 			},
 			{
 				title: '部署',
