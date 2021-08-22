@@ -218,3 +218,5 @@ $(function () {
 [防止Web表单重复](https://cloud.tencent.com/developer/article/1504267)
 
 [jquery文档](https://jquery.cuishifeng.cn/jQuery.ajaxPrefilter.html)
+
+[jQuery如何防止Ajax重复提交](https://www.jb51.net/article/94784.htm)

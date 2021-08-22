@@ -400,6 +400,10 @@ module.exports = {
 			{
 				title: 'Screenshots',
 				path: 'Screenshots'
+			},
+			{
+				title: '模块化',
+				path: 'module'
 			}
 		]
 	}]
