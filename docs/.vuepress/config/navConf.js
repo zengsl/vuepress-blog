@@ -13,6 +13,10 @@ module.exports = [{
 				link: '/front/js/'
 			},
 			{
+				text: 'react',
+				link: '/front/react'
+			},
+			{
 				text: 'vue',
 				link: '/front/vue'
 			},
@@ -72,7 +76,20 @@ module.exports = [{
 			{
 				text: '分布式',
 				link: '/back/distributed/'
+			}, {
+				text: '消息中间间',
+				items: [{
+					text: 'Kafka',
+					link: '/back/message-queue/kafka/'
+				}]
+			}, {
+				text: '工作流',
+				items: [{
+					text: 'JBPM4',
+					link: '/back/workflow/'
+				}]
 			}
+
 
 		]
 	},
@@ -177,6 +194,10 @@ module.exports = [{
 			{
 				text: 'UReport2',
 				link: '/other/ureport'
+			},
+			{
+				text: 'PDF',
+				link: '/other/pdf/'
 			}
 		]
 	},

@@ -48,6 +48,10 @@ module.exports = {
 			{
 				title: '常见问题',
 				path: 'issues'
+			},
+			{
+				title: '文件上传失败分析',
+				path: 'fileuploadFail'
 			}
 		]
 	}],
@@ -84,6 +88,10 @@ module.exports = {
 			{
 				title: '资源访问权限',
 				path: '1.资源访问权限'
+			},
+			{
+				title: '匿名权限',
+				path: '2.匿名权限'
 			},
 			{
 				title: '文档',
@@ -143,6 +151,9 @@ module.exports = {
 			{
 				title: 'Mybatis-Plus',
 				path: 'mybatis-plus'
+			},			{
+				title: 'Mapper自动刷新',
+				path: 'Mapper自动刷新'
 			},
 			{
 				title: '其他',
@@ -374,6 +385,20 @@ module.exports = {
 			}
 		]
 	}],
+	'/other/pdf/': [{
+		title: 'PDF',
+		collapsable: false,
+		children: [{
+				title: '介绍',
+				path: '/other/pdf/'
+			},
+			{
+				title: 'PDF内容显示异常',
+				path: 'PDF内容显示异常'
+			}
+		]
+	}],
+	
 	'/front/js/': [{
 		title: 'JavaScript',
 		collapsable: false,

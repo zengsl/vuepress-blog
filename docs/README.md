@@ -1,12 +1,13 @@
 ---
 home: true
-heroImage: /img/hero.png
+heroImage: /img/child.jpg
 #标题
-heroText: 专业的泥瓦匠
+#heroText: 专业的泥瓦匠
 #Hero 副标题
 tagline: 个人博客、笔记
 actionText: enter →
 actionLink: /tools/typora/1.install and setting
+
 features:
 - title: 简洁至上
   details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
@@ -17,5 +18,5 @@ features:
 footer: MIT Licensed | Copyright © 2018-present Evan You
 ---
 ::: warning
-没有什么高大上的东西，只是记录工作、学习的过程。如果能够帮助到各位，那是万般荣幸。
+记录工作、学习的过程。。
 :::
