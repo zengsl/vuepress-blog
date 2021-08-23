@@ -84,7 +84,7 @@ IDEA中断点的类型主要有以下几种：
 
 	- All: 当任意一个线程触发来断点之后会中断所有线程
 
-	- Thread: 只有触发断点的线程会被中断
+	- Thread: 只有触发断点的线程会被中断（**可用于多线程调试**）
 
 - Pass count : 指定断点是否应仅在命中一定次数后才能工作
 
@@ -284,6 +284,15 @@ Smart step into 智能步入 当一行中有多个方法调用时，智能单步
 我本机是配置了localhost，但是仍然出现此错误。因为最开始是参考IDEA的官方教程，addresss的配置为`address=*:5005`，将其改为`address=5005`就不会出现错误了，这可能跟机器的网络配置有关系。
 
 
+## toString的影响
+
+在toString中如果调用了初始化或者正常流程中会调用的代码，那么在调试的时候可能断点无法进入该代码
+
+可以修改IDEA中修改java的debugger的配置
+
+![Idea调试java预览设置](https://gitee.com/zengsl/picBed/raw/master/img/20201024153048.png)
+
+详情可参考[getHandlerMappings](/back/spring/init.html#注意)
 
 
 ## 其他
