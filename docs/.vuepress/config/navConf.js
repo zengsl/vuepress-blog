@@ -156,7 +156,18 @@ module.exports = [{
 
 		]
 	},
+{
+		text: '虚拟化',
 
+		items: [{
+				text: 'Docker',
+				link: '/virtualization/docker/'
+			}, {
+				text: 'k8s',
+				link: '/virtualization/k8s/'
+			}
+		]
+	},
 	{
 		text: '工具',
 		items: [{
