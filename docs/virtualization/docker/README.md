@@ -50,3 +50,36 @@ brew install --cask --appdir=/Applications docker
 
 
 
+## 命令
+
+
+### docker ps
+
+[docker ps](https://docs.docker.com/engine/reference/commandline/ps/)
+
+过滤镜像
+
+docker ps --filter ancestor=hello-world -a
+
+
+### docker container
+
+[docker container](https://docs.docker.com/engine/reference/commandline/container/)
+
+`docker container rm`
+
+批量删除容器
+
+docker container rm $(docker ps --filter ancestor=hello-world -qa)
+
+
+### docker exec
+
+[docker exec](https://docs.docker.com/engine/reference/commandline/exec/)
+
+以交互方式进入容器
+
+docker exec -it containerId command 
+
+command与镜像构建有关，可以查看镜像的构建描述。比如[redis:alpine3.14](https://hub.docker.com/layers/redis/library/redis/alpine3.14/images/sha256-6edcbc387edd866a080491c015c029b458f49678152dfe364ad50383620c3215?context=explore)这个镜像就是基于`/bin/sh`，那么就不能像进入[ubuntu](https://hub.docker.com/layers/ubuntu/library/ubuntu/latest/images/sha256-0f745a413c7886d6dc4f1e6a1d45a5cf5a9a85f72e6243b307e17d67e2e1fe10?context=explore)容器那样使用`/bin/bash`
+

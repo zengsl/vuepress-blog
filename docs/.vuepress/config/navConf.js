@@ -209,6 +209,12 @@ module.exports = [{
 			{
 				text: 'PDF',
 				link: '/other/pdf/'
+			}, {
+				text: 'Python',
+				link: '/python/'
+			}, {
+				text: 'Groovy',
+				link: '/groovy/'
 			}
 		]
 	},
