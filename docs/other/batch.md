@@ -55,7 +55,7 @@ insert into Form_Meta_item(form_code, name, xpath, type)
 
 可配置一个批处理session
 
-``` xml ${4}
+``` xml {4}
 <!--mybatis 批处理session, executorType设置为BATCH 设置为SIMPLE则关闭了批量的特性-->
 <bean id="batchSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
