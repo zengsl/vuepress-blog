@@ -431,6 +431,32 @@ module.exports = {
 				path: 'module'
 			}
 		]
+	}],
+	'/virtualization/k8s/': [{
+		title: 'Kubernetes',
+		collapsable: true,
+		sidebarDepth: 2,
+		children: [{
+				title: '介绍',
+				path: '/virtualization/k8s/'
+			},
+			{
+				title: '安装',
+				path: 'install'
+			},
+			{
+				title: 'kubernetes集群命令工具kubectl',
+				path: 'kubectl'
+			},
+			{
+				title: 'Kubernetes集群YAML文件详解',
+				path: 'yaml'
+			},
+			{
+				title: 'Kubernetes核心技术Pod',
+				path: 'pod'
+			}
+		]
 	}]
 
 }
