@@ -86,3 +86,11 @@ command与镜像构建有关，可以查看镜像的构建描述。比如[redis:
 ### 日志
 
 docker logs -f --tail 100 66c017d8fc53
+
+### 修改容器配置
+
+- 将容器提交为新镜像
+
+![commit](https://gitee.com/zengsl/picBed/raw/master/img/20210901182722.png)
+
+docker commit some-rabbit some-rabbit_new

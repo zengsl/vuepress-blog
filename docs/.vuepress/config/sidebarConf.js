@@ -199,6 +199,10 @@ module.exports = {
 			{
 				title: 'shell脚本',
 				path: '3.shell'
+			},
+			{
+				title: '磁盘扩容',
+				path: 'fileExtend'
 			}
 		]
 	}],
