@@ -46,3 +46,5 @@ tar xvf /data/home.tar -C /
 # 查看结果
 df -h
 ```
+
+![](https://gitee.com/zengsl/picBed/raw/master/img/20210902113455.png)
