@@ -1,5 +1,7 @@
 # 介绍
 
+《高性能Mysql》第三版
+
 ## 架构
 
 
@@ -68,9 +70,14 @@ MySQL将每一个数据保存为数据目录下的一个子目录。创建表时
 MySQL 5.0之后的版本，可以查询INFORMATION_SCHEMA中对应的表。 
 
 
-
 推荐阅读官方手册中“InnoDB事务模型和锁”
 
+
+- InnoDB
+
+表是基于聚簇索引建立的。InnoDB的索引结果和MySQL的其他存储引擎有很大的不同，聚簇索引对主键查询有很高的性能。不过他的二级索引（非主键索引）中必须包含主键列，如果主键列很大的话，其他索引都会很大。因此，若表上的索引较多的话，主键应当尽可能的小。
+
+InnoDB内部做了很多优化，包括从磁盘读取数据时采用可预测性预读，能够自动在内存中创建hash索引加速读操作的自适应哈希索引，以及能够加速插入操作的插入缓冲区等。
 
 ## 基准测试
 
@@ -123,3 +130,128 @@ SHOW TABLES FROM INFORMATION_SCHEMA LIKE '%_STATISTICS';
 
 strace可以用来跟踪系统调用的情况
 
+## Schema与数据类型优化
+
+可以给整形类型指定宽度，比如INT(11)，对于大多数应用这是没有意义的：他不会限制值的合法范围，只是规定了MySQL的一些交互工具用来显示字符的个数。对于存储和计算来说，INT(1)和INT(20)是相同的。
+
+### 缓存表和汇总表
+
+- 物化视图
+
+MySQL本身不支持，可以使用开源工具Flexviews来实现
+
+- 计数器表
+
+``` sql
+create table daily_hit_counter
+(
+    day  date             not null,
+    slot tinyint unsigned not null,
+    cnt  int unsigned     not null,
+    primary key (day, slot)
+) ENGINE = InnoDB;
+
+select *
+from daily_hit_counter;
+
+insert into daily_hit_counter(day, slot, cnt)
+values (CURRENT_DATE, RAND() * 100, 1)
+on DUPLICATE KEY UPDATE cnt = cnt + 1;
+
+update daily_hit_counter as c inner join (select day, sum(cnt) as cnt, MIN(slot) as mslog
+                                          from daily_hit_counter
+                                          group by day) as x USING (day)
+
+set c.cnt = IF(c.slot = x.mslog, x.cnt, 0),
+    c.slot=if(c.slot = x.mslog, 0, c.slot);
+
+delete
+from daily_hit_counter
+where slot <> 0
+  and cnt = 0;
+```
+
+## 索引
+
+如果索引列包含了多个值，那么列的顺序也十分重要，因为MySQL只能高效地使用索引的最左前缀列。创建一个包含两个列的索引，和创建两个只包含一个列的索引是大不相同的。
+
+在MySQL中，索引是存储引擎层而不是服务层实现的。所以并没有统一的索引标准。即使多个存储引擎支持同一类索引，其底层实现也可能不同。
+
+- B-Tree
+
+B-Tree（B+Tree）索引是常见的一种类型，大多数MySQL引擎都支持（Archive例外）。
+
+支持：全值匹配、匹配最左前缀、匹配列前缀、匹配范围值、精确匹配某一列并范围匹配另外一列、只访问索引的查询
+
+索引树中的节点是有序的，所以除了查找之外，还可以用于查询中的order by、group by等操作。
+
+- Hash索引
+
+模拟Hash索引
+
+等。。
+
+- 聚簇索引
+
+在InnoDB表中按主键顺序插入行。从性能的角度考虑，使用UUID来作为聚簇索引则会很糟糕：它使得聚簇索引的插入完全随机，最坏的情况会使得数据没有任何聚集特性。
+
+UUID主键插入行不仅花费时间更长，而且索引占用空间也更大。一方面是由于主键字段更长；另一方面是由于页分裂和碎片导致的。而且uuid的新行主键值不一定比之前插入的大，所以InnoDB无法简单的总是把新行插入到索引的最后，而是需要为新行寻找合适的位置-通常是已有数据的中间位置-并且分配空间。这会增加很多额外工作，并导致数据分布不够优化。
+
+![缺点](https://gitee.com/zengsl/picBed/raw/master/img/2021/09/20210914164559.png)
+
+- 覆盖索引
+
+如果一个索引包含（或者说覆盖）所有需要查询的字段的值，就叫做“索引覆盖”。
+
+MySQL只能使用B-Tree索引做覆盖索引。不是所有引擎都支持覆盖索引。
+
+- 索引和锁
+
+索引和减少InnoDB访问的行数，从而减少锁的数量。但这只有当InnoDB在存储引擎层能够过滤掉所有不需要的行时才有效。
+
+![索引和锁](https://gitee.com/zengsl/picBed/raw/master/img/2021/09/20210914173741.png)
+
+InnoDB在二级索引上使用共享(读)锁，但访问主键索引需要排他(写)锁。这消除了使用覆盖索引的可能性，并且使得`SELECT FOR UPDATE`比`LOCK IN SHARE MODE`或非锁定查询要慢很多。
+
+对于范围条件查询，MySQL无法再使用范围列后的其他索引列，但对“多个等值条件查询”则无限制。
+如果MySQL支持松散索引扫描，就能在一个索引上使用多个范围条件了。
+
+
+### 维护索引和表
+
+`check table`检查表是否发生了损坏，不是所有引擎都支持
+
+`repair table`修复损坏的表，不是所有引擎都支持。如果不支持可以执行`ALTER TABLE innodb_tb1 ENGINE=INNODB`
+
+`SHOW INDEX FROM xxx`查看索引的基数。Cardinality基数显示了存储引擎估算索引列有多少个不同的取值。5.0以上版本还可以通过INFORMATION_SCHEMA.STATISTICS表很方便查询到这些信息。
+
+**索引和表都可能碎片化**
+
+索引碎片化会导致查询性能下降。
+
+表数据存储碎片化更加复杂，有三种类型的数据碎片：
+
+- 行碎片
+
+- 行间碎片
+
+- 剩余空间碎片
+
+对于MyISAM表，这三类碎片化都可能发生。但InnoDB不会出现短小的行碎片；InnoDB会移动短小的行并重写到一个片段中。
+通过`OPTIMIZE TABLE`或者导出再导入的方式来重新整理数据，这对多数存储引擎都是有效的。对于i鞋存储引擎如MyISAM，可以通过排序算法重建索引的方式来消除碎片。老版本InnoDB没有什么方法，但新版本InnoDB新增了在线添加和删除索引功能，可以通过先删除再重建但方式来消除索引碎片化。
+
+对于不支持`OPTIMIZE TABLE`的存储引擎，可以通过一个不做任何操作的ALTER TABLE操作来重建表`ALTER TABLE <table> ENGINE=<engine>;` 这种方法会消除MySQL 表的碎片化。
+
+## 查询性能优化
+
+通常来说，查询的生命周期大致可以按照顺序来看：从刚客户端，到服务器，让好在服务器上进行解析，生成执行计划，**执行**，并返回结果给客户端。“执行”可以认为是整个生命周期中最重要的阶段，这其中包括了大量为了检索数据到存储引擎的调用以及调用后的数据处理，包括排序、分组等。
+
+![查询过程](https://gitee.com/zengsl/picBed/raw/master/img/2021/09/20210915161723.png)
+
+查询状态 
+
+`show full processlist`
+
+查询缓存
+
+MySQL会优先坚持这个查询是否命中查询缓存中的数据。

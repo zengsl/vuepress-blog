@@ -61,6 +61,13 @@ insert into Form_Meta_item(form_code, name, xpath, type)
 	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	<constructor-arg name="executorType" value="BATCH"/>
 </bean>
+
+<!--需要注意的是如果不想影响系统中原本的mybatis查询，新增一个batchSqlSession用于批量查询。为了不影响原本系统查询，需要显示的定义一个sqlSessionTemplate，因为SqlSessionDaoSupport会用sqlSessionTemplate覆盖原SqlSessionFactory的配置结果,详情请阅读源码-->
+
+<!--mybatis session 为了防止batchSqlSession覆盖sqlSessionFactory中的session配置，原默认的session配置修改为批量，显示定义sqlSessionTemplate-->
+<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+</bean>
 ```
 
 使用
