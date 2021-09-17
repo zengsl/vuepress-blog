@@ -255,3 +255,73 @@ InnoDB在二级索引上使用共享(读)锁，但访问主键索引需要排他
 查询缓存
 
 MySQL会优先坚持这个查询是否命中查询缓存中的数据。
+
+
+### 案例
+
+- 计算两点之间的距离
+
+``` sql
+create Table locations
+(
+    id   int   not null primary key auto_increment,
+    name varchar(30),
+    lat  float not null,
+    lon  float not null
+);
+
+insert into locations(name, lat, lon)
+values ('Charlottesville,Virginia', 38.03, -78.48),
+       ('Chicago,Illinois', 41.85, -87.65),
+       ('Washington,DC', 38.89, -77.04);
+-- 计算Charlottesville距离100英里以内的点。
+-- 计算公式：   AC0S( COS(latA) * C0S(latB) * 0S(lonA - lonB) + SIN(1atA) * SIN(1atB)
+-- 计算结果是一个弧度，需要乘以地球点半径，也就是3959英里或者6371千米。
+SELECT *
+FROM locations
+WHERE 3979 * ACOS(
+                COS(RADIANS(lat)) * COS(RADIANS(38.03)) * COS(RADIANS(lon) - RADIANS(-78.48)) +
+                SIN(RADIANS(lat)) * SIN(RADIANS(38.03))
+    ) <= 100;
+   
+```
+
+这类查询不仅无法使用索引，而且还会非常消耗CPU给服务器带来很大的压力
+
+由于本身计算两点之间距离就是估算的值，因为实际上不可能通过两点之间直线直接到达。实际的距离是会比该估算值更大。
+那么可以将此用一个边长为200英里的正方形来代替，一个顶点到中心的距离大概是141英里，这和实际计算的100英里相差的不大。那我们根据正方形公式来计算弧度为0.0253（100英里）的中心到边长的距离：
+
+``` sql
+SELECT *
+FROM locations
+WHERE lat BETWEEN 38.03 - DEGREES(0.0253) AND 38.03 + DEGREES(0.0253)
+  AND lon BETWEEN -78.48 - DEGREES(0.0253) AND -78.48 + DEGREES(0.0253);
+```
+
+针对上述查询进行索引优化，增加索引（lat,lon）或者（lon,lat）。因为MySQL5.5和之前的版本，如果第一列是范围查询的话，就无法使用索引后面的列了。
+再次通过IN优化，先增加两列，用来存储坐标的近似值，然后在用IN将所有点的整数值都放在列表中
+
+```sql
+alter table locations
+    add lat_floor int not null default 0,
+    add lon_floor int not null default 0,
+    add key (lat_floor, lon_floor);
+	
+SELECT FLOOR(38.03 - DEGREES(0.0253))    AS lat_lb,
+       CEILING(38.03 + DEGREES(0.0253))  AS lat_ub,
+       FLOOR(-78.48 - DEGREES(0.0253))   AS lon_lb,
+       CEILING(-78.48 + DEGREES(0.0253)) AS lon_ub;
+	   
+SELECT *
+FROM locations
+WHERE lat BETWEEN 38.03 - DEGREES(0.0253) AND 38.03 + DEGREES(0.0253)
+  AND lon BETWEEN -78.48 - DEGREES(0.0253) AND -78.48 + DEGREES(0.0253)
+  AND lat_floor in (36, 37, 38, 29, 49)
+  and lon_floor in (-80, -79, -78, -77);
+```
+
+## 工具
+
+### 监测工具
+
+innotop
