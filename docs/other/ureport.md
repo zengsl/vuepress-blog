@@ -1,3 +1,7 @@
+---
+sidebar: auto
+---
+ 
 # UReport2问题
 
 ## 导出Word空白

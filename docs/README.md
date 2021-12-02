@@ -4,7 +4,7 @@ heroImage: /img/child.jpg
 #标题
 #heroText: 专业的泥瓦匠
 #Hero 副标题
-tagline: 个人博客、笔记
+tagline: Day Day Coding,Day Day up
 actionText: enter →
 actionLink: /tools/typora/1.install and setting
 

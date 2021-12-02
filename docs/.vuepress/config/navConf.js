@@ -215,6 +215,9 @@ module.exports = [{
 			}, {
 				text: 'Groovy',
 				link: '/groovy/'
+			}, {
+				text: 'VuePress',
+				link: '/other/blog/'
 			}
 		]
 	},
