@@ -188,7 +188,7 @@ module.exports = [{
 		text: '其他',
 		items: [{
 				text: '性能调优',
-				link: '/'
+				link: '/other/performanceOptimize/'
 			},
 			{
 				text: '调试技巧',

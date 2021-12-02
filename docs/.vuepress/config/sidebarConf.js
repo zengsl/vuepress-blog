@@ -28,6 +28,10 @@ module.exports = {
 				path: '/back/java/jvm/'
 			},
 			{
+				title: 'JDK工具',
+				path: 'jdkCommand'
+			},
+			{
 				title: '编译JDK',
 				path: '1.buildJdk'
 			}
@@ -197,6 +201,10 @@ module.exports = {
 				path: '2.command'
 			},
 			{
+				title: '系统性能',
+				path: 'sys_performance'
+			},
+			{
 				title: 'shell脚本',
 				path: '3.shell'
 			},
@@ -267,6 +275,9 @@ module.exports = {
 		children: [{
 				title: '介绍',
 				path: '/ops/server/tomcat/'
+			},{
+				title: '源码编译与启动',
+				path: 'tomcatSource'
 			},
 			{
 				title: '常见问题',
@@ -386,6 +397,19 @@ module.exports = {
 			{
 				title: '接口调试',
 				path: 'interface_debug'
+			}
+		]
+	}],
+	'/other/performanceOptimize/': [{
+		title: '性能调优',
+		collapsable: false,
+		children: [{
+				title: '概述',
+				path: '/other/performanceOptimize/'
+			},
+			{
+				title: '一个生产上的故事',
+				path: 'performance_optimize'
 			}
 		]
 	}],
