@@ -278,6 +278,9 @@ module.exports = {
 			},{
 				title: '源码编译与启动',
 				path: 'tomcatSource'
+			},{
+				title: '日志',
+				path: 'tomcatLogging'
 			},
 			{
 				title: '常见问题',

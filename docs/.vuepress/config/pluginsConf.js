@@ -27,5 +27,6 @@ module.exports = [
 			buttonText: "刷新"
 		}
 	}],
-	['@vuepress/nprogress']
+	['@vuepress/nprogress'],
+	['@vuepress/blog']
 ]
