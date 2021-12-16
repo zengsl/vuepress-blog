@@ -61,10 +61,11 @@ Tomcat最重要的是日志管理器`LogManager`的实现`ClassLoaderLogManager`
 在 web 应用程序中，该文件将是 WEB-INF/classes/logging.properties
 
 ```shell
-# 日志处理器 注册所有可用的handlers
+# 日志处理器 注册所有可用的handlers，下面logger中配置的handlers会从这里获取
 handlers = 1catalina.org.apache.juli.FileHandler, 2localhost.org.apache.juli.FileHandler, 3manager.org.apache.juli.FileHandler, 4host-manager.org.apache.juli.FileHandler, java.util.logging.ConsoleHandler
 
-# 根日志处理器  因为.handlers前面没有指明具体内容，所以代码里面判断为root，这和下面的配置方式其实是一致的org.apache.catalina.core.ContainerBase.[Catalina].[localhost].handlers。
+# 根日志处理器  
+# 针对这种 .xxxx的配置，我们可以这样理解：因为.handlers前面没有指明具体内容(xxxx.handlers、xxxx.level)，所以代码里面判断为root，这和下面的配置方式其实是一致的org.apache.catalina.core.ContainerBase.[Catalina].[localhost].handlers。
 .handlers = 1catalina.org.apache.juli.FileHandler, java.util.logging.ConsoleHandler
 #.level 配置根日志处理器的级别
 
