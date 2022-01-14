@@ -28,5 +28,5 @@ module.exports = [
 		}
 	}],
 	['@vuepress/nprogress'],
-	['@vuepress/blog']
+	['@vuepress/blog']	
 ]

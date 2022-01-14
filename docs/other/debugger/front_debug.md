@@ -103,6 +103,13 @@ Ctrl + P(windows) 或  ⌘ + P (mac)
 ![模拟网络](https://gitee.com/zengsl/picBed/raw/master/img/20210823112543.png)
 
 
+
+保留日志
+
+![image-20220114134052111](https://gitee.com/zengsl/picBed/raw/master/img/2022/01/20220114134057.png)
+
+
+
 ## Lighthouse
 
 生成报告结合“性能”工具进行分析

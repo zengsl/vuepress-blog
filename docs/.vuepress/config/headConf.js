@@ -35,5 +35,7 @@ module.exports = [
 	['meta', {
 		name: 'msapplication-TileColor',
 		content: '#000000'
-	}]
+	}],
+	 ['link', { rel: 'stylesheet', href: 'https://cdn.bootcdn.net/ajax/libs/KaTeX/0.13.13/katex.min.css' }],
+	['link', { rel: "stylesheet", href: "https://cdn.bootcdn.net/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" }]
 ]

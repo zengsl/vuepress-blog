@@ -89,7 +89,12 @@ module.exports = [{
 					link: '/back/workflow/'
 				}]
 			}
+,
+			{
+				text: '算法',
+				link: '/back/algorithm/'
 
+			}
 
 		]
 	},

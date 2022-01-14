@@ -9,7 +9,11 @@ module.exports = {
 	head: headConf,
 	smoothScroll: true,
 	markdown: {
-	    lineNumbers: true
+	    lineNumbers: true,
+		extendMarkdown: md => {
+		      md.set({html: true})
+		      md.use(require("markdown-it-katex"))
+		    }
 	  },
 	themeConfig: {
 		logo: '/img/hero.png',
