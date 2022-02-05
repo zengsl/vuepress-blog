@@ -44,9 +44,63 @@ Zookeeper保证的是CAP理论中的**CP**
 ### 操作
 
 - 启动` bin/zkServer.sh start`
-
 - 查看状态` bin/zkServer.sh status`
 - 启动客户端` bin/zkServer.sh stop`
+
+
+
+在/etc/profile中增加zk的环境变量
+
+```shell
+export ZK_HOME=/opt/zookeeper-3.5.7
+
+export PATH=${PATH}:${ZK_HOME}/bin
+```
+
+
+
+### 服务脚本
+
+可设置zookeeper开机启动
+
+``` shell
+cd /etc/rc.d/init.d
+
+touch zookeeper
+
+chmod 777 zookeeper
+
+vim zookeeper
+
+# 设置开机启动
+chkconfig zookeeper on
+
+# 添加和验证
+chkconfig --add zookeeper
+chkconfig --list zookeeper
+```
+脚本内容如下：
+
+``` shell
+#!/bin/bash
+
+#chkconfig:2345 20 90
+#description:zookeeper
+#processname:zookeeper
+export JAVA_HOME=/opt/jdk/jdk1.8.0_321
+export JRE_HOME=${JAVA_HOME}/jre
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+export PATH=${PATH}:${JAVA_HOME}/bin:${JRE_HOME}/bin
+
+case $1 in
+	"start") /opt/zookeeper-3.5.7/bin/zkServer.sh start;;
+	"stop") /opt/zookeeper-3.5.7/bin/zkServer.sh stop;;
+	"status") /opt/zookeeper-3.5.7/bin/zkServer.sh status;;
+	"restart") /opt/zookeeper-3.5.7/bin/zkServer.sh restart;;
+	*) echo "require start|stop|status|restart"
+esac
+
+```
 
 
 
