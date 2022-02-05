@@ -70,8 +70,6 @@ http://192.168.143.129:9000/
 # 创建一个名为my-cluster的集群
 ```
 
-
-
 - 集群验证
 
 ```shell
@@ -82,12 +80,7 @@ http://192.168.143.129:9000/
 
 # 启动生产者
 /usr/local/kafka_2.12/bin/kafka-console-producer.sh --broker-list k8s-master01:9092 --topic test
-
 ```
-
-
-
-
 
 
 
@@ -98,3 +91,5 @@ http://192.168.143.129:9000/
 page cache 页缓存 
 
 顺序磁盘写入
+
+零拷贝（mmap、sendfile）
