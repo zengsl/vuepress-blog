@@ -75,9 +75,18 @@ module.exports = [{
 			},
 			{
 				text: '分布式',
-				link: '/back/distributed/'
+				items: [{
+					text: '基本介绍',
+					link: '/back/distributed/'
+				},
+				{
+					text: 'Zookeeper',
+					link: '/back/distributed/Zookeeper'
+				}
+				]
 			}, {
 				text: '消息中间间',
+				
 				items: [{
 					text: 'Kafka',
 					link: '/back/message-queue/kafka/'

@@ -181,6 +181,10 @@ module.exports = {
 			{
 				title: '分布式锁',
 				path: 'distributedLocks'
+			},
+			{
+				title: 'Zookeeper',
+				path: 'Zookeeper'
 			}
 
 		]
