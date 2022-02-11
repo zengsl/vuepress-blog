@@ -109,17 +109,18 @@ module.exports = [{
 	},
 	{
 		text: '数据库',
-		items: [{
+		items: [
+			{
+				text: 'MySql',
+				link: '/db/mysql/'
+			},
+			{
 				text: 'Redis',
 				link: '/db/redis/'
 			},
 			{
 				text: 'Oracle',
 				link: '/db/oracle/'
-			},
-			{
-				text: 'MySql',
-				link: '/db/mysql/'
 			}
 		]
 	},
