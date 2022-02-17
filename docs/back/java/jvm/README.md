@@ -19,6 +19,8 @@ sidebarDepth: 2
 
 [synchronized的JVM底层实现](https://blog.csdn.net/niuwei22007/article/details/51433669)
 
+[synchronized](https://www.cnblogs.com/aspirant/p/11470858.html)
+
 ### Synchronized关键字
 
 - 字节码层面包括：
@@ -28,6 +30,8 @@ sidebarDepth: 2
 monitorenter, monitorexit的指令解析是通过 InterpreterRuntime.cpp中的两个方法实现。monitor锁本质又是依赖于底层的操作系统的Mutex Lock（互斥锁）来实现的
 
 - 源码层面有以下几个概念：
+
+`ObjectMonitor`
 
 Contention List：所有请求锁的线程将被首先放置到该竞争队列
 
@@ -41,11 +45,35 @@ Owner：获得锁的线程称为Owner
 
 !Owner：释放锁的线程
 
+#### 锁粗化
 
+扩大锁范围，将多个连续的加锁、解锁操作连接在一起，扩展成一个范围更大的锁
+
+#### 锁消除
+
+这个跟后端编译优化中的逃逸分析有关系。
 
 #### 锁膨胀
 
-对象头
+何为对象头？
+
+
+- 无锁
+
+- 偏向锁
+
+偏向锁在JDK1.6之后是默认启用的，但是在应用启动几秒钟之后才激活，可以用参数进行设置，也可以关闭偏向锁。
+
+当一个对象已经计算过一致性哈希码（未重写hashCode方法，指Obejct::hashCode）之后，它就再也无法进入偏向锁状态了；而当一个对象当前正处于偏向锁状态，又收到需要计算其一致性哈希码的请求时，它的偏向状态会被立即撤销，并且锁会膨胀为重量级锁。
+
+
+- 轻量级锁
+
+Lock Record：displace hdr、owner
+
+- 重量级锁
+
+
 
 #### volatile和synchronized的区别
 
@@ -77,6 +105,6 @@ StoreLoad的实现用到了lock指令（intel）
 
 CPU层面：sfence、lfence、mfence
 
-
+long和double的非原子性协定
 
 

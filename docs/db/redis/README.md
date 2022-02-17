@@ -80,6 +80,298 @@ object encoding 【key】 查看底层数据结构
 
 二级缓存
 
+
+
+## 底层数据结构
+
+> 主要针对2.9版本进行描述
+
+SDS、linkedlist、dictionary、ziplist、inset、skiplist
+
+###  基础数据类型的底层实现
+
+总览：
+
+| 类型   | Redis 2.9               | 新版本 |
+| ------ | ----------------------- | ------ |
+| string | int、SDS（embstr、raw） |        |
+| list   | ziplist、linkedlist     |        |
+| hash   | ziplist、dictionary     |        |
+| set    | intset、dictionary      |        |
+| zset   | ziplist、skiplist       |        |
+
+
+
+Redis数据库中的key、value键值对分别对应两个`redisObject`的结构体对象，key固定都是string类型的，而value对应类型跟创建命令有关，对应5中基本数据类型。
+
+``` c
+typedef struct redisObject {
+
+    // 类型
+    unsigned type:4;
+
+    // 编码
+    unsigned encoding:4;
+
+    // 对象最后一次被访问的时间
+    unsigned lru:REDIS_LRU_BITS; /* lru time (relative to server.lruclock) */
+
+    // 引用计数
+    int refcount;
+
+    // 指向实际值的指针
+    void *ptr;
+
+} robj;
+```
+
+
+
+`type`命令可以查看值对象对应的数据类型，对应5中基本数据类型string、hash、list、set、zset
+
+`object encoding`命令可以查看值对象对应的具体编码，根据编码可以确定对应的底层数据结构，也就是redis对象中encoding的值。
+
+![Redis 2.9](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220215142908.png)
+
+![image-20220215143813120](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220215143813.png)
+
+不同类型的底层转换规则：
+
+**string类型**
+
+主要有三种编码：int、embstr、raw
+
+- 如果存放整数值，并且整数值可以用long来保存的话，那么encoding会设置为int，void*会转换为long
+- 如果存放字符串，且字符串长度大于32字节，那么会使用SDS来保存内容，encoding会设置为raw
+- 如果存放字符串，且字符串长度小于等于32字节，encoding会设置为embstr。embstr编码是专门为存放短字符串的一种优化编码方式，这种编码方式和raw是一致的，只不过raw编码方式会调用两次内存分配函数来创建redisObject和sdshdr（SDS的数据结构），而embstr编码通过调用一次内存分配函数来分配一段连续的内存空间存放redisObject和sdshdr
+
+> 32这个值之后被改为了39，最新版本具体的数值按当前情况为准。
+
+![image-20220215145658009](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220215145658.png)
+
+embstr编码字符串没有对应的redis函数，所以是只读的。所以在对embstr类型数据进行操作的时候会先转换为raw编码，然后再进行修改操作。所以embstr编码字符串修改之后总会变成一个raw编码的字符串对象。
+
+int编码字符串修改之后是否会改变存储类型需要看具体的操作，比如调用incrby可能就不会，调用incrbyfloat就会变味embstr编码，调用append会变为raw编码，等。
+
+**字符串类型对象是这五种类型中唯一一个会被其他四种类型对象嵌套的对象。**
+
+
+
+**list类型**
+
+主要有两种编码：ziplist、linkedlist
+
+当列表对象同时满足以下两种条件时，列表对象使用ziplist编码：
+
+- 列表对象所保存的所有字符串元素的长度都小于64字节；
+- 列表对象保存的元素数量小于512个；
+
+通过修改list-max-ziplist-value选项和list-max-ziplist-entries选项进行调整。
+
+
+
+**hash类型**
+
+主要有两种编码：ziplist、hashtable
+
+当哈希对象同时满足以下两种条件时，列表对象使用ziplist编码：
+
+- 哈希对象所保存的所有键值对的键和值的字符串长度都小于64字节；
+- 哈希对象保存的键值对数量小于512个；
+
+通过修改set-max-intset-entries选项进行调整。
+
+
+
+**set对象**
+
+集合对象的编码可以是inset和hashtable
+
+当集合对象同时满足以下两种条件时，集合对象使用inset编码：
+
+- 集合对象保存的所有元素都是整数值
+- 集合对象保存的元素数量不超过512个。
+
+通过修改zset-max-ziplist-value选项和zset-max-ziplist-entries选项进行调整。
+
+
+
+**zset对象**
+
+有序集合对象的编码可以是ziplist和skiplist
+
+当有序集合对象同时满足以下两种条件时，有序集合对象使用ziplist编码：
+
+- 有序集合对象保存的元素数量小于128个。
+- 有序集合对象保存的所有元素大小都小于64字节。
+
+当使用skiplist编码时，底层使用`zset`结构进行存储，zset包含跳跃表和字典表，字典表中是以元素的成员为key，分值为value进行存储。虽然zset结构同时使用字典和跳跃表来保存元素，但是这两种数据结构都会通过指针来共享相同元素的成员和分值，并不会造成内存的浪费。
+
+```c
+/*
+ * 有序集合
+ */
+typedef struct zset {
+
+    // 字典，键为成员，值为分值
+    // 用于支持 O(1) 复杂度的按成员取分值操作
+    dict *dict;
+
+    // 跳跃表，按分值排序成员
+    // 用于支持平均复杂度为 O(log N) 的按分值定位成员操作
+    // 以及范围操作
+    zskiplist *zsl;
+
+} zset;
+
+
+/*
+ * 跳跃表
+ */
+typedef struct zskiplist {
+
+    // 表头节点和表尾节点
+    struct zskiplistNode *header, *tail;
+
+    // 表中节点的数量
+    unsigned long length;
+
+    // 表中层数最大的节点的层数
+    int level;
+
+} zskiplist;
+
+/* ZSETs use a specialized version of Skiplists */
+/*
+ * 跳跃表节点
+ */
+typedef struct zskiplistNode {
+
+    // 成员对象
+    robj *obj;
+
+    // 分值
+    double score;
+
+    // 后退指针
+    struct zskiplistNode *backward;
+
+    // 层
+    struct zskiplistLevel {
+
+        // 前进指针
+        struct zskiplistNode *forward;
+
+        // 跨度
+        unsigned int span;
+
+    } level[];
+
+} zskiplistNode;
+```
+
+
+
+### 高版本Redis的调整
+
+quicklist
+
+
+
+### 对象
+
+- 对象的回收
+
+Redis通过实现引用计数的方式来实现垃圾回收，通过redisObject#refcount来保存对象引用。有三个API可以进行操作`incrRefCount`、`decrRefCount`、`restRefCount（重置引用计数，但是不释放对象）`
+
+```c
+typedef struct redisObject {
+
+    // 类型
+    unsigned type:4;
+
+    // 编码
+    unsigned encoding:4;
+
+    // 对象最后一次被访问的时间
+    unsigned lru:REDIS_LRU_BITS; /* lru time (relative to server.lruclock) */
+
+    // 引用计数
+    int refcount;
+
+    // 指向实际值的指针
+    void *ptr;
+
+} robj;
+```
+
+`OBJECT REFCOUNT`命令可以查看对象的引用数量
+
+- 对象的共享
+
+仍是通过对象的引用计数来实现，Redis发现如果存在相同的对象就直接将指针指向现有对象，并且引用计数加一。
+
+**目前来说，Redis会在初始化服务器时，创建一万个字符串对象，这些对象包含0～9999的所有整数值。当要用到0～9999这些字符串对象时，服务器就会使用这些共享对象，而不是创建新对象。**这些共享对象也可以被其他嵌套使用了字符串类型的数据类型所使用。
+
+创建共享字符串的数量可以通过修改redis.h/REDIS_SHARED_INTEGERS常量来调整。
+
+- 对象空转时间
+
+redisObject#lru存放了最后一次访问对象的时间
+
+`OBJECT IDLETIME`可以查看空转时长，其通过当前时间减去lru记录的时间计算得出。执行此命令是不会修改对象lru时间。
+
+如果服务器打开了maxmemory选项，并且服务器用于回收内存算法为volatile-lru或者allkeys-lrun，那么当服务器占用内存超过maxmemory限制之后就会释放空转时间较长的键值，从而回收内存。
+
+配置文件中可以调整maxmemory选项和maxmemory-policy选项。
+
+
+
+## 事件
+
+
+
+### 事件分类
+
+Redis服务器是一个事件驱动程序，服务器需要处理以下两类事件：
+
+- 文件事件
+
+ 服务器与客户端通过套接字进行连接，而文件事件就是服务器对套接字的抽象。文件事件就是用来处理服务器与客户端之间的网络请求操作。
+
+Redis基于**Reactor模型**开发了网络事件处理器，这个事件处理器被称为文件事件处理器（file event handle），基于IO多路复用程序来同时监听多个套接字，并根据套接字目前执行的任务来指定不同的事件处理器。
+
+文件事件处理器由以下部分组成：套接字、I/O多路复用程序、文件事件分派器（file event dispatcher）、事件处理器。
+
+- 时间事件
+
+服务器中一些操作（比如serverCron函数）需要在给定时间执行，而时间事件就是对这类操作的抽象。
+
+时间事件有id、when、timeProc（时间事件处理器）三个属性，有两种类型：
+
+1. 周期性事件
+2. 定时事件
+
+目前Redis版本（2.9）没有使用定时事件。
+
+一个时间事件具体是周期性的还是定时是根据时间事件处理函数的返回值来确定的：如果返回`ae.h/AE_NOMORE`，那么就是定时执行，执行完之后就会删除。如果不是`ae.h/AE_NOMORE`，就是周期性事件，会根据返回值更新when的属性。
+
+服务器将所有时间事件都存放在一个无序链表中，每当事件执行器运行时就会遍历整个链表找到时间到达的时间事件，并调用对应的处理函数。
+
+`serverCron`就是一个周期性事件，其主要职责如下：
+
+![image-20220216172320250](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220216172320.png)
+
+### 事件调度与执行
+
+事件的调用与执行由`ae.c/aeProcessEvent`函数来控制，用于协调这两种事件的执行时间以及何时执行。
+
+
+
+
+
+
+
 # Redis实战
 
 ## 数据安全和性能保障
@@ -150,9 +442,47 @@ def process_logs(conn, path, callback):
 停顿时长与redis所在系统硬件有关。可以考虑关闭自动保存，转为手动触发BGSAVE或者SAVE命令。手动触发BGSAVE一样可能会导致停顿，不同的是我们可以控制停顿出现的时间。
 另一方面虽然SAVE会导致Redis阻塞直到快照生成完成，但是因为不需要创建子进程，所以不会像BGSAVE那样因为创建子进程而导致redis阻塞。光是创建子进程就有可能花费很长的时间
 
+**Redis服务器启动之后会有一个周期性操作函数serverCron默认每隔100毫秒执行一次。该函数其中一项工作就是执行BGSAVE命令，执行逻辑大致如下：根据配置的save选项的条件和redisServer的dirty计数器，只要有一个选项满足条件即执行BGSAVE命令。执行完成之后dirty计数器会被重置，lastsave属性会记录改次执行成功的时间，保存格式为二进制。服务器启动时只要检测到RDB文件就会载入，因为AOF执行效率更高，所以如果开启了AOF功能则不然。服务器在载入RDB文件时会进行阻塞，直到载入完成之后**
+
+
+
+分析RDB文件：
+
+```shell
+# od命令 
+# /usr/local/var/db/redis/dump.rdb
+# -c 使用ASCII编码格式打印
+# -cx 使用ASCII编码格式和十六进制格式打印，这样可以更加方便看清楚checksum校验和的内容（校验和采用小端表示）
+od -c dump.rdb
+```
+
+Redis自带的redis-check-dump可以检查RDB文件
+
+
+
 #### AOF
 
-#### 重写/压缩AOF
+与RDB记录数据库中的键值对不同，AOF持久化记录的是服务端的写操作命令，以Redis命令的请求协议格式保存。
+
+Redis进程就是一个事件循环，这个事件循环中的文件事件负责接收客户端的命令请求，以及向客户端发送命令回复，而时间事件负责执行像`serverCron`函数这样需要定时执行的函数。因为服务器在处理文本事件时可能会执行写命令，将写命令请求追加到aof缓冲区中，所以在服务器每次结束一个事件循环之后会调用`flushAppendOnlyFile`函数，考虑是否需要将aof_buf缓冲区中的内容写入和保存至aof文件中（与appendfsync选项有关）。
+
+![image-20220217093702543](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220217093708.png)
+
+**重写AOF：**
+
+Redis 可以在 AOF 文件体积变得过大时，自动地在后台对 AOF 进行重写。
+
+重写命令`BGREWRITE`，Redis使用新AOF文件替换旧AOF文件的过程实际上是不会读取老的AOF文件，而是根据当前服务器的状况去生成。
+
+原理：首先从数据库中读取键现在的值，然后用一条命令去记录键值对，代替之前记录这个键值对的多条命令。实际上因为list、set、zset、hash中可能包含多个元素键值，所以服务器会判断元素数量是否大于常量值`redis.h/REDIS_AOF_REWRITE_ITEMS_PER_CMD`（当前为64）
+
+过程：主进程会fork一个子进程来执行重写操作，当fork子进程之后**AOF重写缓冲区**开始工作，主进程正常响应客户端的请求，会将写命令追加至**AOF缓冲区**和**AOF重写缓冲区**。当子进程执行完重写操作生成新的AOF文件之后会发送一个信号通知主进程，主进程接到信号之后会调用信号处理函数开始将**AOF重写缓冲区**写入至新的AOF文件中，然后对新AOF文件进行改名，原子的覆盖老的AOF文件完成新老文件的替换。这个信号处理函数执行完成之后，主进程就可以正常的处理命令请求了。**整个AOF重写过程，只有信号处理函数执行过程会阻塞父进程（服务器进程）。**
+
+> 使用子进程而不是线程执行重写操作，因为子进程持有主进程的数据副本，可以在不使用锁的情况下保障数据安全性。
+>
+> 如果你不小心执行了 FLUSHALL 命令， 但只要 AOF 文件未被重写， 那么只要停止服务器， 移除 AOF 文件末尾的 FLUSHALL 命令， 并重启 Redis ， 就可以将数据集恢复到 FLUSHALL 执行之前的状态。
+
+
 
 ### 复制
 
@@ -421,3 +751,5 @@ ttp://mng.bz/21iE-
 http://mng.bz/L254
 个早期的例子，介绍了如何使用Redis的列表来存储过滤后的
 Twitter消息。
+
+《Redis设计与实现》
