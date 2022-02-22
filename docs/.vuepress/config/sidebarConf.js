@@ -346,6 +346,7 @@ module.exports = {
 	'/db/redis/': [{
 		title: 'Redis',
 		collapsable: false,
+		sidebarDepth: 2,
 		children: [{
 				title: '介绍',
 				path: '/db/redis/'

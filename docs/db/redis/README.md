@@ -80,7 +80,49 @@ object encoding 【key】 查看底层数据结构
 
 二级缓存
 
+## 二进制数组(bitmap)
 
+BITSET、BITGET、BITCOUNT、BITTOP
+
+底层是用String(SDS)进行存储的，因为SDS是二进制安全的。
+
+BITCOUNT是采用遍历二进制位计数的方式来进行统计的，可以使用查表法来进行优化（空间换时间），但是受限于查表法带来的内存亚丽，以及缓存不命中可能带来的影响，我们只能靠了创建键长为8位或者键长为16位的表，而这两种表带来的效率提升，对于处理非常长的位数组来说仍然远远不够。为了高效的实现BITCOUNT命令，我们需要一种不会带来内存压力、并且可以在一次检查中统计个二进制位的算法。
+
+二进制位统计算法：variable-precision SWAR
+
+Redis对于BITCOUNT命令的实现用到了查表和variable-precision SWAR
+
+## 新类型
+
+### HyperLogLog
+
+基数计数
+
+```shell
+# pfadd，向hyperloglog中添加数据，相同元素会去重
+# pfcount 统计个数
+# pfmerge 合并
+```
+
+
+
+### Geospatial
+
+地理位置的基本操作
+
+``` shell
+# 添加地址位置信息：geoadd 地理位置 经度 纬度 名称
+# GEOADD key longitude latitude member [longitude latitude member ...]
+# 获取经纬度信息：geopos 地理位置 名称 
+# 获取两个地点之间的直线距离： geodist
+# 以给定的维度为中心，计算半径内的元素：georadius
+```
+
+
+
+### Stream
+
+Redis5添加
 
 ## 底层数据结构
 
@@ -274,9 +316,9 @@ typedef struct zskiplistNode {
 
 ### 高版本Redis的调整
 
-quicklist
+quicklist：链表中的元素分段用ziplist存储
 
-
+> Redis3.2版本开始对列表数据结构进行了改造，使用 quicklist 代替了 ziplist 和 linkedlist.
 
 ### 对象
 
@@ -324,6 +366,8 @@ redisObject#lru存放了最后一次访问对象的时间
 如果服务器打开了maxmemory选项，并且服务器用于回收内存算法为volatile-lru或者allkeys-lrun，那么当服务器占用内存超过maxmemory限制之后就会释放空转时间较长的键值，从而回收内存。
 
 配置文件中可以调整maxmemory选项和maxmemory-policy选项。
+
+
 
 
 
@@ -413,6 +457,35 @@ lua伪客户端结构`redis.h/redisServer#lua_client`
 
 
 `serverCron`比较重要，AOF文件重写、AOF缓冲写入文件、RDB文件写入等逻辑都会在该函数内部触发。
+
+
+
+## 发布订阅
+
+PUB、SUBSCRIBE、PPUB、PSUBSCRIBE、PUBSUB
+
+
+
+## 慢查询日志
+
+slowlog-log-slower-than选项：指定执行时间超过多少微妙的命令会记录到日志上。
+
+1秒=1 000 000微妙
+
+slowlog-max-len选项：指定服务器最多保存多少条慢查询日志。超过限制数量之后会将最早的一条慢查询日志删除。
+
+```shell
+CONFIG SET slowlog-log-slower-than 0
+CONFIG SET slowlog-max-len 5
+# 查询慢查询日志
+SLOWLOG GET
+```
+
+
+
+## 监视器
+
+MONITOR命令可以让客户端变成监视器，实时打印服务器当前处理的命令请求。
 
 
 
@@ -560,7 +633,7 @@ SYNC是一个非常耗费资源的操作。
 
 **执行SLAVEOF命令之后，主要会经历以下几个过程：**
 
-从服务器保存主服务器IP/PORT信息->建立套接字连接->发送PING命令（返回PONG为成功）->身份验证->从服务器发送监听端口（REPLCONF listening-port <port-num>）给主服务器记录至客户端信息中->执行PSYNC->命令传播。
+从服务器保存主服务器IP/PORT信息->建立套接字连接->发送PING命令（返回PONG为成功）->身份验证->从服务器发送监听端口（REPLCONF listening-port  [port-num]）给主服务器记录至客户端信息中->执行PSYNC->命令传播。
 
 #### 心跳检测
 
@@ -651,15 +724,189 @@ PUBLISH __sentinel__:hello "<s_ip>,<s_port>,<s_runid>,<s_epoch>,<m_name>,<m_ip>,
 
 ### Cluster
 
-独立的节点之间通过`CLUSTER MEET`命令来进行连接
+#### 节点
 
-`CLUSTER NODES`命令可以查看当前集群节点信息
+独立的节点之间通过`CLUSTER MEET`命令来进行连接，`CLUSTER NODES`命令可以查看当前集群节点信息。
+
+节点在启动时会根据`cluster-enable`配置选项是否为yes来决定是否开启服务器的集群模式。
+
+集群节点会继续使用单机节点中的服务器组件，同时会扩展一些额外工作，比如：`serverCron`函数会调用集群模式特有的`clusterCron`函数。
+
+数据结构：
+
+`cluster.h/clusterNode`结构、`cluster.h/clusterLink`结构，以及`cluster/clusterState`结构。
+
+握手过程如下：
+
+与新节点握手成功之后，会通过**Gossip协议**传播给集群中的其他节点，让其他节点也与此新的节点进行握手。
+
+![image-20220219141550164](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220219141555.png)
+
+#### 槽指派
+
+Redis集群通过分片的方式来保存数据库中的键值对：集群的整个数据库被分为16384个槽（slot），**数据库中的每个键都属于这16384个槽的其中一个**，集群中的每个节点可以处理0个或最多16384个槽。
+
+执行`Cluster MEET`之后的集群可能处于下线状态，因为集群中没有处理任何的slot，通过向节点发送`CLUSTER ADDSLOTS`命令，我们可以将一个或多个槽指派给节点负责。当集群中所有的的槽都分配完了之后，集群进入上线状态，可以通过`CLUSTER INFO`查看
+
+##### 在集群中执行命令
+
+当客户端向节点发送与数据库键有关的命令时，接收命令的节点会计算出名了要处理的数据库键属于哪个槽，并检查这个槽是否指派给了自己：
+
+- 如果键所在的槽正好就指派给了当前节点，那么节点直接执行这个命令。
+- 如果键所在的槽没有指派给当前节点，那么节点会向客户端返回一个MOVED错误，指引客户端转向（redirect）至正确的节点，并再次发送之前想要执行的命令。
+
+如何计算键属于哪个槽？
+
+`CLUSTER KEYSLOT [key]`命令可以查看一个给定的键属于哪个槽
+
+`clusterState/slots_to_keys`中用一个跳跃表来记录了槽和key值之间的关系。
+
+##### 重新分片
+
+Redis集群的重新分片操作是由Redis的集群管理软件redis-trib负责执行的，Redis提供了进行重新分片所需的所有命令，而redis-trib则通过向源节点和目标节点发送命令来进行重新分片操作。
+
+##### 故障转移与检测
+
+`CLUSTER REPLICATE [node_id]`命令可以设置从节点
+
+集群中的每个节点都会定期地向集群中的其他节点发送PING消息，以此来检测对方是否在线。超过时间未响应则会认为该节点已经下线，并通知其他节点，当过半负责处理槽点的主节点都认为某个主节点报告为疑似下线，那么这个主节点就被标记为已经下线（FAIL）。
+
+从下线主节点的所有从节点中选举出一个节点作为新的主节点
+
+##### 消息
+
+MEET消息、PING消息、PONG消息、FALL消息、PUBLISH消息
+
+消息分为消息头和消息正文。
+
+消息头：`cluster.h/clusterMsg`
+
+```c
+// 用来表示集群消息的结构（消息头，header）
+typedef struct {
+    char sig[4];        /* Siganture "RCmb" (Redis Cluster message bus). */
+    // 消息的长度（包括这个消息头的长度和消息正文的长度）
+    uint32_t totlen;    /* Total length of this message */
+    uint16_t ver;       /* Protocol version, currently set to 0. */
+    uint16_t notused0;  /* 2 bytes not used. */
+
+    // 消息的类型
+    uint16_t type;      /* Message type */
+
+    // 消息正文包含的节点信息数量
+    // 只在发送 MEET 、 PING 和 PONG 这三种 Gossip 协议消息时使用
+    uint16_t count;     /* Only used for some kind of messages. */
+
+    // 消息发送者的配置纪元
+    uint64_t currentEpoch;  /* The epoch accordingly to the sending node. */
+
+    // 如果消息发送者是一个主节点，那么这里记录的是消息发送者的配置纪元
+    // 如果消息发送者是一个从节点，那么这里记录的是消息发送者正在复制的主节点的配置纪元
+    uint64_t configEpoch;   /* The config epoch if it's a master, or the last
+                               epoch advertised by its master if it is a
+                               slave. */
+
+    // 节点的复制偏移量
+    uint64_t offset;    /* Master replication offset if node is a master or
+                           processed replication offset if node is a slave. */
+
+    // 消息发送者的名字（ID）
+    char sender[REDIS_CLUSTER_NAMELEN]; /* Name of the sender node */
+
+    // 消息发送者目前的槽指派信息
+    unsigned char myslots[REDIS_CLUSTER_SLOTS/8];
+
+    // 如果消息发送者是一个从节点，那么这里记录的是消息发送者正在复制的主节点的名字
+    // 如果消息发送者是一个主节点，那么这里记录的是 REDIS_NODE_NULL_NAME
+    // （一个 40 字节长，值全为 0 的字节数组）
+    char slaveof[REDIS_CLUSTER_NAMELEN];
+
+    char notused1[32];  /* 32 bytes reserved for future usage. */
+
+    // 消息发送者的端口号
+    uint16_t port;      /* Sender TCP base port */
+
+    // 消息发送者的标识值
+    uint16_t flags;     /* Sender node flags */
+
+    // 消息发送者所处集群的状态
+    unsigned char state; /* Cluster state from the POV of the sender */
+
+    // 消息标志
+    unsigned char mflags[3]; /* Message flags: CLUSTERMSG_FLAG[012]_... */
+
+    // 消息的正文（或者说，内容）
+    union clusterMsgData data;
+
+} clusterMsg;
+```
 
 
 
+消息正文：联合体`cluster.h/clusterMsgData`
+
+```c
+union clusterMsgData {
+
+    /* PING, MEET and PONG */
+    struct {
+        /* Array of N clusterMsgDataGossip structures */
+        // 每条消息都包含两个 clusterMsgDataGossip 结构
+        clusterMsgDataGossip gossip[1];
+    } ping;
+
+    /* FAIL */
+    struct {
+        clusterMsgDataFail about;
+    } fail;
+
+    /* PUBLISH */
+    struct {
+        clusterMsgDataPublish msg;
+    } publish;
+
+    /* UPDATE */
+    struct {
+        clusterMsgDataUpdate nodecfg;
+    } update;
+
+};
+```
 
 
 
+Redis集群中的各个节点通过Gossip协议来交换各自关于不同节点的状态信息，其中Gossip协议由METT、PING、PONG三种消息实现，这三种消息都由两个`cluster.h/clusterMsgDataGossip`结构组成：
+
+```c
+typedef struct {
+
+    // 节点的名字
+    // 在刚开始的时候，节点的名字会是随机的
+    // 当 MEET 信息发送并得到回复之后，集群就会为节点设置正式的名字
+    char nodename[REDIS_CLUSTER_NAMELEN];
+
+    // 最后一次向该节点发送 PING 消息的时间戳
+    uint32_t ping_sent;
+
+    // 最后一次从该节点接收到 PONG 消息的时间戳
+    uint32_t pong_received;
+
+    // 节点的 IP 地址
+    char ip[REDIS_IP_STR_LEN];    /* IP address last time it was seen */
+
+    // 节点的端口号
+    uint16_t port;  /* port last time it was seen */
+
+    // 节点的标识值
+    uint16_t flags;
+
+    // 对齐字节，不使用
+    uint32_t notused; /* for 64 bit alignment */
+
+} clusterMsgDataGossip;
+```
+
+Gossip协议消息通常需要一段时间才能传播至整个集群，而发送FAIL消息可以让集群里所有的节点立即知道某个主节点已下线，从而尽快判断是否需要将集群标记为下线，又或者对下线主节点进行故障转移。
 
 
 
@@ -699,9 +946,52 @@ Redis事务与传统的关系型数据库的事务是不同的。
 
 关键字：流水线pipelining
 
-我们可以将一些列要执行的命令放在MULTI、EXEC，会批量一起发送给服务器，在调用EXEC之前不会执行任何实际的操作，MULTI用来开启一个新的事务,之后的命令都会加入到队列中，当调用EXEC之后会一并发送给服务器
+MULTI命令可以将执行该命令的客户端从非事务状态切换至事务状态，这一切换是通过在客户端状态的flags属性中打开REDIS_MULTI标识来完成的。在事务状态中除了EXEC、DISCARD、WATCH、MULTI四个命令之外，其他命令都不会立即执行。
 
-WATCH可以监视一个或者多个键
+我们可以将一些列要执行的命令放在MULTI、EXEC，会批量一起发送给服务器，在调用EXEC之前不会执行任何实际的操作，MULTI用来开启一个新的事务,之后的命令都会加入到队列中，当调用EXEC之后会一并发送给服务器。
+
+```c
+// redis.h/redisClient 中 multiState mstate; 
+
+typedef struct redisClient {
+  
+  
+    // 事务状态
+    multiState mstate;      /* MULTI/EXEC state */
+  
+}
+
+/*
+ * 事务状态
+ */
+typedef struct multiState {
+
+    // 事务队列，FIFO 顺序
+    multiCmd *commands;     /* Array of MULTI commands */
+
+    // 已入队命令计数
+    int count;              /* Total number of MULTI commands */
+    int minreplicas;        /* MINREPLICAS for synchronous replication */
+    time_t minreplicas_timeout; /* MINREPLICAS timeout as unixtime. */
+} multiState;
+```
+
+WATCH命令是一个乐观锁，可以在EXEC命令执行之前监视一个或者多个键，并在EXEC命令执行时，检查被监视的键是否至少有一个已经被修改过了，如果是的话，服务器将拒绝执行事务，并向客户端返回代表事务执行失败的空回复。
+
+```c
+typedef struct redisDb {
+
+    // 正在被 WATCH 命令监视的键
+    dict *watched_keys;         /* WATCHED keys for MULTI/EXEC CAS */
+
+} redisDb;
+```
+
+**Redis事务和传统的关系型数据库事务最大的区别在于，Redis不支持事务回滚机制，即使事务队列中的某个命令在执行期间出现了错误，整个事务也会继续执行下去，直到将事务队列中的所有命令逗执行完毕为止。但如果是命令入队出错而被服务器拒绝执行，事务中所有命令都不会被执行。**
+
+> Redis的作者在事务功能的文档中解释说，不支持事务回滚是因为这种复杂的功能和Redis追求简单高效的设计主旨不相符，并且他认为，Redis事务的执行时错误通常都是变成错误产生的，这种错误通常只会出现在开发环境中，而很少会在实际的生产环境中出现，所以他认为没有必要为Redis开发事务回滚功能。
+
+
 
 UNWATCH可以在执行WATCH之后和执行MULTI之前对连接进行重置
 
@@ -714,6 +1004,10 @@ DISCARD可以在执行MULTI之后和执行EXEC之前对连接进行重置
 MULTI和EXEC对要执行对命令进行包裹，一次性传输给服务器虽然可以减少与服务器之间对通信次数，但是本身也是有开销的。如果这些命令本身是不需要事务的，那么可以使用非事务型流水线
 
 针对与Python，获取pipeline时传入Flase，且不需要使用MULTI和EXEC对所需执行命令进行包裹。相较于
+
+### lua脚本
+
+
 
 
 ### 性能
