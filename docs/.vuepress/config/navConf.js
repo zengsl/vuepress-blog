@@ -103,7 +103,19 @@ module.exports = [{
 				text: '算法',
 				link: '/back/algorithm/'
 
-			}
+			},
+			
+						{
+							text: 'Dubbo',
+							link: '/back/Dubbo/'
+			
+						},
+			
+						{
+							text: 'Netty',
+							link: '/back/Netty/'
+			
+						}
 
 		]
 	},
