@@ -78,6 +78,10 @@ module.exports = {
 			{
 				title: 'Aop',
 				path: '2.aop'
+			},
+			{
+				title: 'Spring MVC',
+				path: 'springmvc'
 			}
 		]
 	}],
