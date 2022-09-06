@@ -261,6 +261,10 @@ module.exports = {
 			{
 				title: '安装配置',
 				path: '1.nginx(windows)'
+			},
+			{
+				title:'OpenResty',
+				path:'openresty'
 			}
 		]
 	}],

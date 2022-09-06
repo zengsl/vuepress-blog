@@ -8,8 +8,6 @@
 cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l # 2个
 ~~~
 
-
-
 ![image-20200824103119282](https://gitee.com/zengsl/picBed/raw/master/img/image-20200824103119282.png)
 
 CPU核心数 
@@ -17,8 +15,6 @@ CPU核心数
 ~~~ bash
 cat /proc/cpuinfo| grep "cpu cores"| uniq # 10核心
 ~~~
-
-
 
 ![image-20200814085927297](https://gitee.com/zengsl/picBed/raw/master/image-20200814085927297.png)
 
