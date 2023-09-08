@@ -1,4 +1,4 @@
-# 初始化过程
+# 容器初始化过程
 
 ::: tip
 以Spring3.2源码进行阅读，主要是xml的配置方式
@@ -378,3 +378,64 @@ http\://www.springframework.org/schema/util=org.springframework.beans.factory.xm
 取消勾选
 
 ![关闭](https://gitee.com/zengsl/picBed/raw/master/img/20201024153803.png)
+
+
+
+
+## finishBeanFactoryInitialization
+
+调用BeanPostProcess#postProcessBeforeInitialization -> 创建Bean-> @PostConstruct标记的方法 ->BeanPostProcess#postProcessAfterInitialization
+
+### Bean获取/创建
+
+> Spring 5.3.28
+
+doGetBean-> createBean-> doCreateBean -> createBeanInstance -> instantiateBean -> getInstantiationStrategy().instantiate
+
+根据getInstantiationStrategy判断是通过Cglib还是JDK代理来创建Bean实例，一般使用的策略是`SimpleInstantiationStrategy`。
+
+如果是没有特殊设置：实现接口的类就通过JDK默认代理，否则使用Cglib
+
+::: warning
+代理对象创建之后还没有结束，后续会根据是否有AOP的需求来判断是否需要通过cglib增强。例如：@Transactional注解会使得bean通过AOP让cglib增强Bean
+:::
+
+```java {4}
+@Override
+	public Object instantiate(RootBeanDefinition bd, @Nullable String beanName, BeanFactory owner) {
+		// Don't override the class with CGLIB if no overrides.
+		if (!bd.hasMethodOverrides()) {
+			Constructor<?> constructorToUse;
+			synchronized (bd.constructorArgumentLock) {
+				constructorToUse = (Constructor<?>) bd.resolvedConstructorOrFactoryMethod;
+				if (constructorToUse == null) {
+					final Class<?> clazz = bd.getBeanClass();
+					if (clazz.isInterface()) {
+						throw new BeanInstantiationException(clazz, "Specified class is an interface");
+					}
+					try {
+						if (System.getSecurityManager() != null) {
+							constructorToUse = AccessController.doPrivileged(
+									(PrivilegedExceptionAction<Constructor<?>>) clazz::getDeclaredConstructor);
+						}
+						else {
+							constructorToUse = clazz.getDeclaredConstructor();
+						}
+						bd.resolvedConstructorOrFactoryMethod = constructorToUse;
+					}
+					catch (Throwable ex) {
+						throw new BeanInstantiationException(clazz, "No default constructor found", ex);
+					}
+				}
+			}
+			return BeanUtils.instantiateClass(constructorToUse);
+		}
+		else {
+			// Must generate CGLIB subclass.
+			return instantiateWithMethodInjection(bd, beanName, owner);
+		}
+	}
+```
+
+
+`@Async`所标记的类是在`AsyncAnnotationBeanPostProcessor#postProcessAfterInitialization`中给Bean增加切面，切面会在AsyncAnnotationAdvisor中做好，可以参考`@EnableAsync`。
