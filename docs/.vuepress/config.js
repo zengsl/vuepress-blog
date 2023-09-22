@@ -22,4 +22,12 @@ module.exports = {
 		repo: 'zengsl/vuepress-blog',
 	},
 	plugins: pluginsConf
+	,
+	configureWebpack: {
+		resolve: {
+			alias: {
+				'@docs-res': '/docs'
+			}
+		}
+	}
 }

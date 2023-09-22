@@ -442,7 +442,7 @@ module.exports = {
 			},
 			{
 				title: 'PDF下载报错(字体)',
-				path: 'PDF内容显示异常2'
+				path: 'pdfFontError'
 			}
 		]
 	}],
