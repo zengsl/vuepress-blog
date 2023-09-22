@@ -439,6 +439,10 @@ module.exports = {
 			{
 				title: 'PDF内容显示异常',
 				path: 'PDF内容显示异常'
+			},
+			{
+				title: 'PDF下载报错(字体)',
+				path: 'PDF内容显示异常2'
 			}
 		]
 	}],
