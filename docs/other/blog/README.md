@@ -4,6 +4,10 @@ sidebar: auto
 
 # VuePress搭建博客
 
+::: warning
+当前为V1版本的内容
+:::
+
 ## 侧边栏
 
 自动生成侧边栏
