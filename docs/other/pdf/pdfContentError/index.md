@@ -8,7 +8,9 @@ PDF内容显示不正常，几乎样式全部丢失，可能会有某一部分�
 
 [pdfView请求](http://dev.hnkjt.egrant.cn/egrantpdf/pdf/pdfView?jspUrl=WEB-INF/app-jsp/proposal/pdf/main/pdf_zdyfjh_2021.jsp&keyCode=205381&locale=zh_CN&type=proposal)查看PDF对应的html内容时，一切显示正常，如下图所示。
 
-![image-20210428194851519](https://gitee.com/zengsl/picBed/raw/master/img/image-20210428194851519.png)
+
+![image-20210428194319027](./images/img_1.png)
+
 
 ## 问题分析
 
@@ -16,7 +18,7 @@ PDF内容显示不正常，几乎样式全部丢失，可能会有某一部分�
 
    增加配置文件
 
-   ![image-20210428205041400](https://gitee.com/zengsl/picBed/raw/master/img/image-20210428205041400.png)
+   ![image-20210428205041400](./images/img_2.png)
 
    增加启动参数
 
@@ -25,7 +27,7 @@ PDF内容显示不正常，几乎样式全部丢失，可能会有某一部分�
 
 2. 查看日志中的异常信息
 
-   ![5E477A34656EDE03FD86EFF6852A67D0](https://gitee.com/zengsl/picBed/raw/master/img/5E477A34656EDE03FD86EFF6852A67D0.jpg)
+   ![5E477A34656EDE03FD86EFF6852A67D0](./images/img_3.png)
 
 
 
@@ -39,7 +41,7 @@ PDF内容显示不正常，几乎样式全部丢失，可能会有某一部分�
 
 连接服务器终端执行`wget http://gc.hnkjt.egrant.cn:18080//egrantres_app/css/pdf.css`可以看到下图的信息
 
-![DC272C73902A8F83BD7822A616F4850A](https://gitee.com/zengsl/picBed/raw/master/img/DC272C73902A8F83BD7822A616F4850A.jpg)
+![DC272C73902A8F83BD7822A616F4850A](./images/img_4.png)
 
 这个信息非常明显，域名解析失败，联系运维配host！
 
@@ -206,7 +208,7 @@ PDF内容显示不正常，几乎样式全部丢失，可能会有某一部分�
 
   可以根据需求进行对应的配置
 
-![image-20210429090649860](https://gitee.com/zengsl/picBed/raw/master/img/image-20210429090649860.png)
+![image-20210429090649860](./images/img_5.png)
 
 ### 概念补充
 
@@ -230,7 +232,7 @@ renderer.createPDF(os);
 
 
 
-![image-20210429094446409](https://gitee.com/zengsl/picBed/raw/master/img/image-20210429094446409.png)
+![image-20210429094446409](./images/img_6.png)
 
 
 
@@ -238,17 +240,17 @@ renderer.createPDF(os);
 
 `<html xmlns="http://www.w3.org/1999/xhtml">`，然后才是解析文档的
 
-![image-20210429094747834](https://gitee.com/zengsl/picBed/raw/master/img/image-20210429094747834.png)
+![image-20210429094747834](./images/img_7.png)
 
 
 
-![image-20210429093722384](https://gitee.com/zengsl/picBed/raw/master/img/image-20210429093722384.png)
+![image-20210429093722384](./images/img_8.png)
 
 
 
 初始化完样式文件之后，还需要初始化文档元素对应的样式和级联样式。
 
-![image-20210429095725385](https://gitee.com/zengsl/picBed/raw/master/img/image-20210429095725385.png)
+![image-20210429095725385](./images/img_9.png)
 
 
 
@@ -260,7 +262,7 @@ renderer.createPDF(os);
 
 ## 测试代码
 
-![image-20210428133816720](https://gitee.com/zengsl/picBed/raw/master/img/image-20210428133816720.png)
+![image-20210428133816720](./images/img_10.png)
 
 ~~~ jsp
 <%@ page contentType="text/html; charset=UTF-8"
@@ -438,9 +440,9 @@ renderer.createPDF(os);
 
 ~~~
 
-![image-20210428133905151](https://gitee.com/zengsl/picBed/raw/master/img/image-20210428133905151.png)
+![image-20210428133905151](./images/img_11.png)
 
-![image-20210428133924883](https://gitee.com/zengsl/picBed/raw/master/img/image-20210428133924883.png)
+![image-20210428133924883](./images/img_12.png)
 
 
 
