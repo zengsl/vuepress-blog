@@ -4,7 +4,7 @@
 
 PDF内容显示不正常，几乎样式全部丢失，可能会有某一部分内容显示正常（如：首页）。
 
-![image-20210428194319027](https://gitee.com/zengsl/picBed/raw/master/img/image-20210428194319027.png)
+![image-20210428194319027](./images/img.png)
 
 [pdfView请求](http://dev.hnkjt.egrant.cn/egrantpdf/pdf/pdfView?jspUrl=WEB-INF/app-jsp/proposal/pdf/main/pdf_zdyfjh_2021.jsp&keyCode=205381&locale=zh_CN&type=proposal)查看PDF对应的html内容时，一切显示正常，如下图所示。
 
