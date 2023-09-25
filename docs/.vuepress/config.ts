@@ -4,6 +4,7 @@ import navConf from './config/navConf.js'
 import pluginsConf from'./config/pluginsConf.js'
 import headConf from './config/headConf.js'
 import {defaultTheme} from "vuepress";
+import mdKatex from 'markdown-it-katex'
 export default {
 	title: 'coder Z', // 设置网站标题
 	description: '泥瓦匠',
@@ -21,7 +22,14 @@ export default {
 		docsDir: 'docs',
 		editLinkPattern: ':repo/tree/:branch/:path',
 	}),
-	plugins: pluginsConf
+	plugins: pluginsConf,
 // 增加markdown配置
-
+	markdown: {
+		lineNumbers: true,
+		extendsMarkdown: (md) => {
+			console.log('md',md)
+			md.use(mdKatex)
+			md.set({html: true})
+		},
+	},
 }
