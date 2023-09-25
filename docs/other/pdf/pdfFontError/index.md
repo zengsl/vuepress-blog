@@ -6,7 +6,7 @@
 
 Html转化PDF空指针
 
-![异常信息](/docs/pdf/images/img.png)
+![异常信息](./images/img.png)
 
 ## 问题分析
 
@@ -54,17 +54,17 @@ Html转化PDF空指针
 
 通过[https://home.unicode.org/](https://home.unicode.org/)查询相关unicode的资料发现：
 
-![zhi编码](/docs/pdf/images/img_1.png)
+![zhi编码](./images/img_1.png)
 
 [https://unicode.org/charts/normalization/chart_Han.html](https://unicode.org/charts/normalization/chart_Han.html)
 
 [unicode中的汉字](https://www.cnblogs.com/isakovsky/p/16287906.htm)
 
-![unicode中的汉字](/docs/pdf/images/img_4.png)
+![unicode中的汉字](./images/img_4.png)
 
 [请勿使用“兼容表意文字区”的汉字](https://www.qqxiuzi.cn/wz/zixun/1717.htm)
 
-![请勿使用“兼容表意文字区”的汉字](/docs/pdf/images/img_3.png)
+![请勿使用“兼容表意文字区”的汉字](./images/img_3.png)
 
 
 **所以导致问题的文字可能是通过Copy或者输入法导致。**
@@ -79,7 +79,7 @@ Css 字体族设置更多字体，提高多系统、多文字兼容性
 - 安装多字体风格
   1. Alibaba PuHuiTi 3.0 - 55 Regular GB18030-2022 (实现级别1＋实现级别2)
   2. Alibaba PuHuiTi 3.0 - 85 Bold GB18030-2022 (实现级别1＋实现级别2) ：解决ITEXT后端模拟CSS解析环境导致加粗之后出现黑线条。在web端加粗可以通过font-weight来设置，但是在后端ITEXT应该是直接去找服务端的字体，没找到就做一个默认处理，而这个默认行为兼容性有限。从而导致问题
-     ![加粗问题](/docs/pdf/images/img_5.png)
+     ![加粗问题](./images/img_5.png)
   3. Alibaba PuHuiTi 3.0 - 55 RegularL3 GB18030-2022 (实现级别3增补汉字）： 提高生僻字兼容
 
 - 有OTF和TTF两种字体格式选择，没有太大区别。Web兼容性上也没问题。https://caniuse.com/?search=OTF
@@ -87,12 +87,12 @@ Css 字体族设置更多字体，提高多系统、多文字兼容性
 
 使用字体 `font-family:AlibabaPuHuiTi-3-55-Regular;`
 
-![使用字体](/docs/pdf/images/img_2.png)
+![使用字体](./images/img_2.png)
 
 
 ## 补充
 
-![img.png](/docs/pdf/images/img_6.png)
+![img.png](./images/img_6.png)
 
 Itext字体选择策略可以从系统中可用的字体中选取一个可以使用的字体。
 
@@ -182,7 +182,7 @@ fontProvider.getFontSet().getFonts().forEach(System.out::println);
 
 - 渲染时解析字体
 
-![渲染时解析字体](/docs/pdf/images/img_7.png)
+![渲染时解析字体](./images/img_7.png)
 
 1. 获取好css所设置font-family
 
@@ -223,7 +223,7 @@ fontProvider.getFontSet().getFonts().forEach(System.out::println);
 通过css的font-family可以控制字体，前提是操作系统存在，且通过FontProvider增加，最终排序后还保持在前面，否则可能导致意外结果。
 :::
 
-![sort](/docs/pdf/images/img_8.png)
+![sort](./images/img_8.png)
 
 经过排序之后我们所希望使用的字体就被排到第一位，因为设置了字体加粗，所以会自动选择为所希望字体的Bold风格。
 
