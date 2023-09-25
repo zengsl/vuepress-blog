@@ -260,3 +260,9 @@ fontProvider.getFontSet().getFonts().forEach(System.out::println);
         Collections.sort(this.fonts, getComparator(fontFamilies, fc));
     }
 ```
+
+## 官方文档解释
+
+[chapter-6-using-fonts-in-pdfhtml](https://kb.itextpdf.com/home/it7kb/ebooks/itext-7-converting-html-to-pdf-with-pdfhtml/chapter-6-using-fonts-in-pdfhtml)
+![./images/img_9.png](./images/img_10.png)
+![./images/img_9.png](./images/img_9.png)
