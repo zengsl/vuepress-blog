@@ -199,7 +199,7 @@ export default [{
 		text: '工具',
 		children: [{
 			text: 'Typora',
-			link: '/tools/typora/1.install and setting'
+			link: '/tools/typora/1.installAndSetting'
 		}, {
 			text: 'Git',
 			link: '/tools/git/'
@@ -242,6 +242,9 @@ export default [{
 			}, {
 				text: 'Groovy',
 				link: '/groovy/'
+			}, {
+				text: 'RegExp',
+				link: '/other/regExp'
 			}, {
 				text: 'VuePress',
 				link: '/other/blog/'
