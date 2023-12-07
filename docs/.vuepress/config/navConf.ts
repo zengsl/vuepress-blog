@@ -13,15 +13,15 @@ export default [{
 				link: '/front/js/'
 			},
 			{
-				text: 'react',
+				text: 'React',
 				link: '/front/react'
 			},
 			{
-				text: 'vue',
+				text: 'Vue',
 				link: '/front/vue'
 			},
 			{
-				text: 'node',
+				text: 'Node',
 				link: '/front/node'
 			}
 		]
@@ -190,7 +190,7 @@ export default [{
 			text: 'Docker',
 			link: '/virtualization/docker/'
 		}, {
-			text: 'k8s',
+			text: 'K8S',
 			link: '/virtualization/k8s/'
 		}
 		]
@@ -204,7 +204,7 @@ export default [{
 			text: 'Git',
 			link: '/tools/git/'
 		}, {
-			text: 'sonar',
+			text: 'Sonar',
 			link: '/tools/sonar/'
 		}, {
 			text: '抓包',
