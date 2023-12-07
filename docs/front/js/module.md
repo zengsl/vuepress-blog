@@ -1,5 +1,11 @@
 
 # JS 模块化
+<script setup>
+
+</script>
+
+[//]: # (<XmindViewer url="./JS模块化.xmind"/>)
+
 
 ## 理解
 

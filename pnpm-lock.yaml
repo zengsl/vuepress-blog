@@ -4,25 +4,31 @@ specifiers:
   '@vuepress/client': 2.0.0-beta.67
   '@vuepress/plugin-pwa': 2.0.0-beta.67
   '@vuepress/plugin-pwa-popup': 2.0.0-beta.67
+  '@vuepress/plugin-register-components': 2.0.0-rc.0
   '@vuepress/plugin-shiki': 2.0.0-beta.67
   '@vuepress/plugin-toc': 2.0.0-beta.67
+  '@vuepress/utils': 2.0.0-rc.0
   markdown-it-katex: ^2.0.3
   moment: ^2.29.0
   vue: ^3.3.4
   vuepress: 2.0.0-beta.67
   vuepress-plugin-open-graph: ^1.7.0
   vuepress-plugin-tags: ^1.0.2
+  xmind-embed-viewer: ^1.2.0
 
 dependencies:
   markdown-it-katex: 2.0.3
   moment: 2.29.4
+  xmind-embed-viewer: 1.2.0
 
 devDependencies:
   '@vuepress/client': 2.0.0-beta.67
   '@vuepress/plugin-pwa': 2.0.0-beta.67
   '@vuepress/plugin-pwa-popup': 2.0.0-beta.67
+  '@vuepress/plugin-register-components': 2.0.0-rc.0
   '@vuepress/plugin-shiki': 2.0.0-beta.67
   '@vuepress/plugin-toc': 2.0.0-beta.67
+  '@vuepress/utils': 2.0.0-rc.0
   vue: 3.3.4
   vuepress: 2.0.0-beta.67_2xtx46cyc4eim2snyf2afd4wh4
   vuepress-plugin-open-graph: 1.7.0
@@ -2237,6 +2243,18 @@ packages:
       - '@types/babel__core'
       - '@vue/composition-api'
       - supports-color
+    dev: true
+
+  /@vuepress/plugin-register-components/2.0.0-rc.0:
+    resolution: {integrity: sha512-yN71x93j8ce99bqOwHn3lVfgiwsfhv21ByW/3em1kGXANjzOOoXOvt7ITbXNa5g6bsfjdJpoeUkUtFPwfK8dNA==}
+    dependencies:
+      '@vuepress/core': 2.0.0-rc.0
+      '@vuepress/utils': 2.0.0-rc.0
+      chokidar: 3.5.3
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - supports-color
+      - typescript
     dev: true
 
   /@vuepress/plugin-shiki/2.0.0-beta.67:
@@ -4854,6 +4872,10 @@ packages:
   /wrappy/1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
     dev: true
+
+  /xmind-embed-viewer/1.2.0:
+    resolution: {integrity: sha512-dtsxbeePxhSy3g/Kyc4Oe1K3hfdCmkiyRtvONN2KZ2MqeL/QBFTvL4imCiXfAiLpincl42r87OOA3V3Shcza4A==}
+    dev: false
 
   /yallist/3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}

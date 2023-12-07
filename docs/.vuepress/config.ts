@@ -5,6 +5,9 @@ import pluginsConf from'./config/pluginsConf.js'
 import headConf from './config/headConf.js'
 import {defaultTheme} from "vuepress";
 import mdKatex from 'markdown-it-katex'
+import { getDirname, path } from '@vuepress/utils'
+
+const __dirname = getDirname(import.meta.url)
 export default {
 	title: 'coder Z', // 设置网站标题
 	description: '泥瓦匠',
@@ -32,4 +35,7 @@ export default {
 			md.set({html: true})
 		},
 	},
+	alias:{
+		'@': path.resolve(__dirname, '../../components'),
+	}
 }

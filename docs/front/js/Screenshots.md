@@ -64,7 +64,7 @@ $(this).replaceWith("<div style='border: 1px solid #a1c0dc;background-color: #FF
 
  **获取滚动条高度方法**
 
-![html2canvas截图功能（专家评审表页面截图应用](https://gitee.com/zengsl/picBed/raw/master/img/20200921184028.png)
+![html2canvas截图功能（专家评审表页面截图应用](images/img_4.png)
 
 由于不同浏览器获取滚动条高度方法不同，这里通过`getPageScroll`封装了多浏览器的滚动条高度获取方法
 
