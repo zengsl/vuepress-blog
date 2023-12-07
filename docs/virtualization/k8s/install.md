@@ -224,7 +224,7 @@ docker tag coredns:v1.8.4  registry.aliyuncs.com/google_containers/coredns:v1.8.
 
 安装成功之后看到有successfully！按照给出的后续操作内容继续进行操作。这里也有提示说要用`kubectl apply -f [podnetwork].yaml`去部署一个pod网络
 
-![image-20210828212305305](https://gitee.com/zengsl/picBed/raw/master/img/image-20210828212305305.png)
+![image-20210828212305305](images/img.png)
 
 ``` shell
 mkdir -p $HOME/.kube
@@ -297,7 +297,7 @@ kubectl get pod,svc
 
 80端口已经成功映射到31527上了
 
-![image-20210828233213131](https://gitee.com/zengsl/picBed/raw/master/img/image-20210828233213131.png)
+![image-20210828233213131](images/img_1.png)
 
 通过以下连接去访问宿主机的服务：
 
@@ -307,7 +307,7 @@ http://192.168.143.130:31527/
 
 http://192.168.143.131:31527/
 
-![image-20210829122202741](https://gitee.com/zengsl/picBed/raw/master/img/image-20210829122202741.png)
+![image-20210829122202741](images/img_2.png)
 
 ## 问题
 
@@ -325,20 +325,20 @@ http://192.168.143.131:31527/
 
 It seems like the kubelet isn't running or healthy. 把docker的cGroupDrvicer配置的和kubelet一样即可。
 
-![image-20210828153320742](https://gitee.com/zengsl/picBed/raw/master/img/image-20210828153320742.png)
+![image-20210828153320742](images/img_3.png)
 
 
 ### CrashLoopBackOff
 
 `coredns` pods 状态为 `CrashLoopBackOff` 
 
-![image-20210828182156928](https://gitee.com/zengsl/picBed/raw/master/img/image-20210828182156928.png)
+![image-20210828182156928](images/img_4.png)
 
 kubectl describe pod  "POD_NAME"  -n  kube-system
 
 kubectl describe pod  coredns-7f6cbbb7b8-k6ktf -n   kube-system
 
-![image-20210828201544341](https://gitee.com/zengsl/picBed/raw/master/img/image-20210828201544341.png)
+![image-20210828201544341](images/img_5.png)
 
 
 

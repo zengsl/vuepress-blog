@@ -100,10 +100,7 @@ DNS地域负载均衡
 
 ## Nginx的模块化体系
 
-![image-20211030153509341](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211030153514.png)
-
-
-
+![image-20211030153509341](images/img.png)
 
 
 ### upstream指令参数
@@ -153,7 +150,7 @@ upstream xxx {
 
 ### 缓存
 
-![image-20211030172557918](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211030172558.png)
+![image-20211030172557918](images/img_1.png)
 
 修改浏览器端缓存
 
@@ -348,7 +345,7 @@ vrrp_instance VI_1 {
 ```
 2. 重启之前我们看下ip地址，在ens33网卡下面只有一个ip
 
-![image-20211031104903934](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031104904.png)
+![image-20211031104903934](images/img_2.png)
 
 ``` shell
 cd /usr/local/keepalived/sbin
@@ -362,11 +359,11 @@ cd /usr/local/keepalived/sbin
 
 
 
-![image-20211031105038146](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031105038.png)
+![image-20211031105038146](images/img_3.png)
 
 这个时候访问dev.ha1.com可以看到129机器服务响应
 
-![image-20211031135852833](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031135852.png)
+![image-20211031135852833](images/img_4.png)
 
 
 
@@ -433,13 +430,13 @@ vrrp_instance VI_1 {
 
 这时查看ip，因为主节点还在正常运行，是看不到120这个ip的。
 
-![image-20211031135536300](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031135536.png)
+![image-20211031135536300](images/img_5.png)
 
 8. 测试
 
 - 访问dev.ha1.com
 
-![image-20211031135852833](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031135852.png)
+![image-20211031135852833](images/img_6.png)
 
 - 停止主机上的keepalive服务（模拟主机宕机）
 
@@ -447,11 +444,12 @@ vrrp_instance VI_1 {
 systemctl stop keepalived.service
 ```
 
-查看备机ip可以发现，多了一个虚拟ip，虚拟ip已经和备用节点绑定到了一起![image-20211031140319564](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031140319.png)
+查看备机ip可以发现，多了一个虚拟ip，虚拟ip已经和备用节点绑定到了一起
+![image-20211031140319564](images/img_7.png)
 
 访问dev.ha1.com，访问的已经是130备机了。
 
-![image-20211031140547015](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031140547.png)
+![image-20211031140547015](images/img_8.png)
 
 - 启动主机keepalived服务（模拟主机恢复）
 
@@ -461,7 +459,7 @@ systemctl start keepalived.service
 
 当主机恢复之后，虚拟ip将重新和主机绑定，访问dev.ha1.com重新回到主机
 
-![image-20211031140817378](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031140817.png)
+![image-20211031140817378](images/img_9.png)
 
 ### 配置Nginx检测脚本
 
@@ -494,7 +492,7 @@ chmod +x /etc/keepalived/check_nginx_alive_or_not.sh
 
 修改keepalived.conf，增加检测脚本配置
 
-![image-20211031143315925](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031143316.png)
+![image-20211031143315925](images/img_10.png)
 
 ``` shell
 vrrp_script check_nginx_alive {
@@ -542,11 +540,9 @@ scp /etc/keepalived/check_nginx_alive_or_not.sh root@192.168.143.130:/etc/keepal
 >
 > 192.168.143.121 dev.ha2.com
 
-![image-20211031145709533](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031145709.png)
+![image-20211031145709533](images/img_11.png)
 
 主机配置
-
-
 
 备机新增主机配置
 
@@ -618,7 +614,7 @@ vrrp_instance VI_2 {
 
 如果将192.168.143.129节点关闭keepalived之后，请求将全部打到130节点中。查看130的ip可以发现绑定了两个虚拟IP
 
-![image-20211031174621163](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031174621.png)
+![image-20211031174621163](images/img_12.png)
 
 
 
@@ -633,7 +629,7 @@ vrrp_instance VI_2 {
 
 ### 网络拓扑图
 
-![image-20211031175710419](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031175710.png)
+![image-20211031175710419](images/img_13.png)
 
 ### 为什要使用LVS+Ngnix
 
@@ -659,7 +655,7 @@ vrrp_instance VI_2 {
 
   类似与Nginx，要处理请求，有性能损耗，负载较低。
 
-![image-20211031175812671](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031175812.png)
+![image-20211031175812671](images/img_14.png)
 
 
 
@@ -675,13 +671,13 @@ vrrp_instance VI_2 {
 
   Real Server暴露在公网
 
-![image-20211031175907968](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031175908.png)
+![image-20211031175907968](images/img_15.png)
 
 
 
 - DR模式
 
-  ![image-20211031180430533](https://gitee.com/zengsl/picBed/raw/master/img/2021/10/20211031180430.png)
+![image-20211031180430533](images/img_16.png)
 
 ## 常见操作
 

@@ -54,17 +54,17 @@ token与tokenSession的区别
 
 配置拦截器栈
 
-![拦截器栈](https://gitee.com/zengsl/picBed/raw/master/img/20200923101726.png)
+![拦截器栈](images/img.png)
 
 引用拦截器
 
-![引用拦截器](https://gitee.com/zengsl/picBed/raw/master/img/20200923101450.png)
+![引用拦截器](images/img_1.png)
 
 表单引用
 
 通过name属性与其他的模块进行区分
 
-![表单引用](https://gitee.com/zengsl/picBed/raw/master/img/20200923105431.png)
+![表单引用](images/img_2.png)
 
 原理简述：
 

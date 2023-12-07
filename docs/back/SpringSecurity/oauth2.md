@@ -287,7 +287,7 @@ Authorization内容由一个身份验证方案`Basic`和一个Base64加密的`us
 
 :::
 
-![Authentication](https://gitee.com/zengsl/picBed/raw/master/img/20201223152721.png)
+![Authentication](images/img_9.png)
 
 ## 自定义界面（Customizing the UI）
 

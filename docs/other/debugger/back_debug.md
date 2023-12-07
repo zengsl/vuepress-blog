@@ -21,7 +21,7 @@ idea为2020.2的mac OSX版本
 
 1. 以调试模式启动服务或者运行代码
 
-![debug模式启动](https://gitee.com/zengsl/picBed/raw/master/img/20201102135405.png)
+![debug模式启动](images/img.png)
 
 ## 断点
 
@@ -43,7 +43,7 @@ IDEA中断点的类型主要有以下几种：
 
 如果您不需要在断点处停留一段时间，可以将它们静音。这允许您在不离开调试器会话的情况下继续正常的程序操作。之后，可以取消禁用断点并继续调试。
 
-![Mute](https://gitee.com/zengsl/picBed/raw/master/img/20201102141839.png)
+![Mute](images/img_1.png)
 
 ### Enable/disable breakpoints﻿
 
@@ -53,19 +53,19 @@ IDEA中断点的类型主要有以下几种：
 
 - 对单个断点右键
 
-![单个断点](https://gitee.com/zengsl/picBed/raw/master/img/20201102142142.png)
+![单个断点](images/img_2.png)
 
 - 断点视图中修改
 
-![断点视图](https://gitee.com/zengsl/picBed/raw/master/img/20201102142253.png)
+![断点视图](images/img_3.png)
 
 部分关键词解释
 
-![关键词对描述](https://gitee.com/zengsl/picBed/raw/master/img/20201102142715.png)
+![关键词对描述](images/img_4.png)
 
 ### 断点属性
 
-![断点属性](https://gitee.com/zengsl/picBed/raw/master/img/20201102142552.png)
+![断点属性](images/img_5.png)
 
 - `Condition`是比较常用的一个属性，我们常说的条件断点就是通过这个属性来进行设置。稍后会针对此属性进行介绍，其他属性不做详细介绍。
 
@@ -116,20 +116,20 @@ public static void main(String... strings) {
 }
 ~~~
 
-![条件断点](https://gitee.com/zengsl/picBed/raw/master/img/20201102143249.png)
+![条件断点](images/img_6.png)
 
 
 ### 断点状态
 
-![断点状态](https://gitee.com/zengsl/picBed/raw/master/img/20201102151226.png)
+![断点状态](images/img_7.png)
 
 ### 断点图标
 
-![断点图标](https://gitee.com/zengsl/picBed/raw/master/img/20201102151318.png)
+![断点图标](images/img_8.png)
 
 ## 调试工具窗口
 
-![调试窗口](https://gitee.com/zengsl/picBed/raw/master/img/20201102140145.png)
+![调试窗口](images/img_9.png)
 
 熟悉工具需要了解窗口中每一个按钮、每一个标签页代表的含义，以及其提供的操作。
 
@@ -139,41 +139,41 @@ public static void main(String... strings) {
 
 与调试有关的几个按钮介绍
 
-![return](https://gitee.com/zengsl/picBed/raw/master/img/20201102153818.png) rerun 普通模式重新运行
+![return](images/img_10.png) rerun 普通模式重新运行
 
-![debug](https://gitee.com/zengsl/picBed/raw/master/img/20201102154251.png) 调试模式重新运行
+![debug](images/img_11.png) 调试模式重新运行
 
-![update](https://gitee.com/zengsl/picBed/raw/master/img/20201102154350.png) 触发一个update动作，对应服务器中的配置 ![web](https://gitee.com/zengsl/picBed/raw/master/img/20201102154550.png)
+![update](images/img_12.png) 触发一个update动作，对应服务器中的配置 ![web](images/img_13.png)
 
-![resume](https://gitee.com/zengsl/picBed/raw/master/img/20201102154809.png) resume：(中断后)继续
+![resume](images/img_14.png) resume：(中断后)继续
 
-![pause](https://gitee.com/zengsl/picBed/raw/master/img/20201102154909.png) 中断程序（手动中断程序）
+![pause](images/img_15.png) 中断程序（手动中断程序）
 
-![breakpoints view](https://gitee.com/zengsl/picBed/raw/master/img/20201102155007.png) 断点视图
+![breakpoints view](images/img_16.png) 断点视图
 
-![mute](https://gitee.com/zengsl/picBed/raw/master/img/20201102155037.png) 使断点变为mute状态
+![mute](images/img_17.png) 使断点变为mute状态
 
 ### 右侧Tabs
 
-可以点击![视图](https://gitee.com/zengsl/picBed/raw/master/img/20201102162017.png)选择需要显示的标签内容
+可以点击![视图](images/img_18.png)选择需要显示的标签内容
 
-![视图2](https://gitee.com/zengsl/picBed/raw/master/img/20201102162227.png)
+![视图2](images/img_19.png)
 
 - Frames
 
 	用来显示当前线程的调用栈帧，同时给我们提供的导航功能
 		
-	![tab frame](https://gitee.com/zengsl/picBed/raw/master/img/20201102160428.png)
+	![tab frame](images/img_20.png)
 	
 	这里默认可能不会显示类库中的栈帧，可以通过右上方的按钮来进行切换显示/隐藏
 	
-	![tab frame2](https://gitee.com/zengsl/picBed/raw/master/img/20201102160711.png)
+	![tab frame2](images/img_21.png)
 	
 - Threads
 
 	显示活动线程的列表并允许您在它们之间切换。从该选项卡中，可以文本格式导出线程信息
 	
-	如果视图中没有显示Threads，可以在右侧自定义视图中进行勾选 ![threads](https://gitee.com/zengsl/picBed/raw/master/img/20201102160217.png)
+	如果视图中没有显示Threads，可以在右侧自定义视图中进行勾选 ![threads](images/img_22.png)
 	
 - Variables
 
@@ -183,19 +183,19 @@ public static void main(String... strings) {
 
 	显示/管理自己设置的监视器，我们可以添加我们需要观察的变量、表达式等。也可以在当前中断的程序中选择需要观察的变量或者表达式右键点击`Add to Watches`
 	
-	默认情况下`Watches`的内容是在`Variables`中进行显示，如果需要监视的内容很多，还可以通过点击![watches view](https://gitee.com/zengsl/picBed/raw/master/img/20201102161613.png)将其显示在单独的监视窗口中
+	默认情况下`Watches`的内容是在`Variables`中进行显示，如果需要监视的内容很多，还可以通过点击![watches view](images/img_23.png)将其显示在单独的监视窗口中
 	
 - Memory
 	
 	提供堆上当前可用对象的信息，并允许您监视和分析它们的生存期
 
-	![Memory](https://gitee.com/zengsl/picBed/raw/master/img/20201102161831.png)
+	![Memory](images/img_24.png)
 	
 - Overhead
 
 	用于监视特定调试器功能消耗的资源并优化调试器性能。
 
-	![Overhead](https://gitee.com/zengsl/picBed/raw/master/img/20201102161850.png)
+	![Overhead](images/img_25.png)
 	
 ## 逐步完成程序
 
@@ -204,18 +204,18 @@ public static void main(String... strings) {
 
 调试按钮在debugger工具栏中
 
-![调试按钮](https://gitee.com/zengsl/picBed/raw/master/img/20201102163114.png)
+![调试按钮](images/img_26.png)
 
 > 每个按钮都有对应的快捷键，鼠标放上去就有提示
 
-![step over](https://gitee.com/zengsl/picBed/raw/master/img/20201102163354.png) step over 跨过当前代码行并将您带到下一行，即使高亮显示的行中包含方法调用。方法的实现被跳过，直接转到调用方方法的下一行
+![step over](images/img_27.png) step over 跨过当前代码行并将您带到下一行，即使高亮显示的行中包含方法调用。方法的实现被跳过，直接转到调用方方法的下一行
 
-![step into](https://gitee.com/zengsl/picBed/raw/master/img/20201102163524.png) step into 单步进入方法以显示其内部发生的情况。当您不确定方法是否返回正确的结果时，请使用此选项
+![step into](images/img_28.png) step into 单步进入方法以显示其内部发生的情况。当您不确定方法是否返回正确的结果时，请使用此选项
 
-![force step into](https://gitee.com/zengsl/picBed/raw/master/img/20201102163753.png) Force step into 强制进入方法，即使常规的单步进入会跳过这个方法
+![force step into](images/img_29.png) Force step into 强制进入方法，即使常规的单步进入会跳过这个方法
 
 
-![Steps out](https://gitee.com/zengsl/picBed/raw/master/img/20201102165313.png) Steps out 跳出当前方法，回到调用方法
+![Steps out](images/img_30.png) Steps out 跳出当前方法，回到调用方法
 
 下面的例子，单步进入`count()`方法，执行`Steps out`会跳到第3行
 ~~~ java
@@ -232,18 +232,18 @@ public static void count(){
 }
 ~~~
 
-![Drop Frame](https://gitee.com/zengsl/picBed/raw/master/img/20201102165938.png) Drop Frame 允许您撤消堆栈中的最后一帧并恢复上一帧。例如，如果您错误地走得太远，或者希望重新进入一个错过关键点的函数，那么这可能很有用
+![Drop Frame](images/img_31.png) Drop Frame 允许您撤消堆栈中的最后一帧并恢复上一帧。例如，如果您错误地走得太远，或者希望重新进入一个错过关键点的函数，那么这可能很有用
 
 > 请注意，此选项只影响局部变量，不会恢复整个程序状态，因为它不会还原静态变量和实例变量的值。这可能会导致程序流发生更改。
 
-![Run to Cursor](https://gitee.com/zengsl/picBed/raw/master/img/20201102170958.png) Run to Cursor 运行到光标处，也可以通过点击左侧行号触发
+![Run to Cursor](images/img_32.png) Run to Cursor 运行到光标处，也可以通过点击左侧行号触发
 
-![Evaluate expressions](https://gitee.com/zengsl/picBed/raw/master/img/20201102171151.png) 执行表达式
+![Evaluate expressions](images/img_33.png) 执行表达式
 
 
 ### 其他的调试按钮 
 
-![其他的调试按钮](https://gitee.com/zengsl/picBed/raw/master/img/20201102165711.png)
+![其他的调试按钮](images/img_34.png)
 
 Smart step into 智能步入 当一行中有多个方法调用时，智能单步执行非常有用，并且您希望具体说明要输入哪个方法。此功能允许您选择感兴趣的方法调用
 
@@ -259,7 +259,7 @@ Smart step into 智能步入 当一行中有多个方法调用时，智能单步
 	
 	设置VM options `-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005`
 	
-	![远程调试-服务端](https://gitee.com/zengsl/picBed/raw/master/img/20201103111449.png)
+	![远程调试-服务端](images/img_35.png)
 	
 	::: tip
 	我们也可以直接将项目打成jar包，通过下面的命令直接运行。打包方式可以使用IDEA打包或者maven打包，需要注意的是jar里面中要包含`Main-Class`信息
@@ -273,13 +273,13 @@ Smart step into 智能步入 当一行中有多个方法调用时，智能单步
 	
 2. IDE配置好远程调试配置
 
-	![远程调试-调试端](https://gitee.com/zengsl/picBed/raw/master/img/20201103111544.png)
+	![远程调试-调试端](images/img_36.png)
 	
 3. 设置好之后服务端直接运行（非调试启动），因为代码中设置了休眠时间，所以代码不会很快的执行结束。调试端打好断点以调试方式启动，将进入断点激活调试窗口。
 
 启动服务端如果遇到下图的错误，需要检查下hosts中是否配置了`127.0.0.1 localhost`
 
-![错误](https://gitee.com/zengsl/picBed/raw/master/img/20201103111243.png)
+![错误](images/img_37.png)
 
 我本机是配置了localhost，但是仍然出现此错误。因为最开始是参考IDEA的官方教程，addresss的配置为`address=*:5005`，将其改为`address=5005`就不会出现错误了，这可能跟机器的网络配置有关系。
 
@@ -290,7 +290,7 @@ Smart step into 智能步入 当一行中有多个方法调用时，智能单步
 
 可以修改IDEA中修改java的debugger的配置
 
-![Idea调试java预览设置](https://gitee.com/zengsl/picBed/raw/master/img/20201024153048.png)
+![Idea调试java预览设置](images/img_38.png)
 
 详情可参考[getHandlerMappings](/back/spring/init.html#注意)
 
@@ -339,7 +339,7 @@ Arthas 是Alibaba开源的Java诊断工具，深受开发者喜爱。
 
 JPDA（Java Platform Debugger Architecture）Java平台调试体系结构。
 
-![JPDA](https://gitee.com/zengsl/picBed/raw/master/img/20201103085503.png)
+![JPDA](images/img_39.png)
 
 JVMTI（JVM Tool Interface）是Java虚拟机所提供的native接口，提供了可用于debug和profiler的能力，是实现调试器和其他运行态分析工具的基础，Instrument就是对它的封装。
 

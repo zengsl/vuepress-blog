@@ -25,7 +25,7 @@ kubectl get pods nginx-f89759699-sz67m
 kubectl get po nginx-f89759699-sz67m
 ```
 
-![12](https://gitee.com/zengsl/picBed/raw/master/img/20210829162633.png)
+![12](images/img_6.png)
 
 - name：指定资源的名称，名称也是大小写敏感的，如果省略名称，则会显示所有的资源，例如
 

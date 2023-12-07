@@ -170,9 +170,9 @@ private static Map<String, List<String>> loadSpringFactories(@Nullable ClassLoad
 
 - 首先调用`loadSpringFactories(classLoader)`,通过classLoader从**META-INF/spring.factories**加载内容(如下图)。将其他中的内容存放到`LinkedMultiValueMap`对象中，等号左边的factoryClassName为key,等号右边的多值存放到LinkedList作为value。最后将结果存放到一个缓存对象`cache`中，key为当前的classloader，避免重复加载提升性能。
 
-![META-INF/spring.factories](https://gitee.com/zengsl/picBed/raw/master/img/20201215141134.png)
+![META-INF/spring.factories](images/img_4.png)
 
-![classLoader](https://gitee.com/zengsl/picBed/raw/master/img/20201215135030.png)
+![classLoader](images/img_5.png)
 
 - 从上一点中计算出的结果中通过key`org.springframework.boot.SpringApplicationRunListener`获取所有的**Spring应用运行监听器**，然后排序存入SpringApplicationRunListeners中
 
@@ -185,7 +185,7 @@ private static Map<String, List<String>> loadSpringFactories(@Nullable ClassLoad
 
 当前拥有的监听器为`EventPublishingRunListener`
 
-![SpringApplicationRunListeners](https://gitee.com/zengsl/picBed/raw/master/img/20201215142356.png)
+![SpringApplicationRunListeners](images/img_6.png)
 
 
 
@@ -229,7 +229,7 @@ ApplicationStartingEvent
 
 2. 筛选出支持`ApplicationStartingEvent`事件的监听器，加入监听器集合
 
-![监听器1](https://gitee.com/zengsl/picBed/raw/master/img/20201215144431.png)
+![监听器1](images/img_7.png)
 
 main与`BootstrapApplicationListener`执行时监听器是一致的。
 
@@ -269,7 +269,7 @@ private ConfigurableEnvironment prepareEnvironment(SpringApplicationRunListeners
 
 当前所有监听`ApplicationEnvironmentPreparedEvent`事件的监听器
 
-![ApplicationEnvironmentPreparedEvent监听器](https://gitee.com/zengsl/picBed/raw/master/img/20201215154152.png)
+![ApplicationEnvironmentPreparedEvent监听器](images/img_8.png)
 
 
 图中第一个监听器`BootstrapApplicationListener`需要在这里说明以下，该监听器被触发之后会再次执行`SpringApplication`的run方法，所以该监听器会优先于main方法进行调用创建上下文方法。
@@ -325,11 +325,11 @@ main上下文默认创建为`org.springframework.boot.web.reactive.context.Annot
 
 `BootstrapApplicationListener`触发
 
-![异常报告器](https://gitee.com/zengsl/picBed/raw/master/img/20201215154615.png)
+![异常报告器](images/img_9.png)
 
 main方法触发
 
-![异常报告器2](https://gitee.com/zengsl/picBed/raw/master/img/20201215160613.png)
+![异常报告器2](images/img_10.png)
 
 ## 准备上下文
 
@@ -435,11 +435,11 @@ protected void applyInitializers(ConfigurableApplicationContext context) {
 
 BootStrap调用执行时
 
-![应用初始化器](https://gitee.com/zengsl/picBed/raw/master/img/20201215171719.png)
+![应用初始化器](images/img_11.png)
 
 main调用执行时
 
-![应用初始化器2](https://gitee.com/zengsl/picBed/raw/master/img/20201216101626.png)
+![应用初始化器2](images/img_12.png)
 
 ### 发布事件
 
@@ -518,7 +518,7 @@ public void contextLoaded(ConfigurableApplicationContext context) {
 3. 触发应用准备完成事件`ApplicationPreparedEvent`
 
 
-![监听器](https://gitee.com/zengsl/picBed/raw/master/img/20201215174432.png)
+![监听器](images/img_13.png)
 
 ## 刷新上下文
 
@@ -618,17 +618,17 @@ public void refresh() throws BeansException, IllegalStateException {
 
 上下文`AnnotationConfigApplicationContext`对应的后置处理器为
 
-![工厂bean后置处理器](https://gitee.com/zengsl/picBed/raw/master/img/20201215180955.png)
+![工厂bean后置处理器](images/img_14.png)
 
 1. 首先分别对这几个bean工厂后置处理器进行一些操作
 
-![操作](https://gitee.com/zengsl/picBed/raw/master/img/20201216094154.png)
+![操作](images/img_15.png)
 
 2. 因为需要先调用实现了`PriorityOrdered`接口的`BeanDefinitionRegistryPostProcessors`，找到对应的bean进行排序后执行，然后统计到处理器数组
 
 `org.springframework.context.annotation.ConfigurationClassPostProcessor`
 
-![处理器](https://gitee.com/zengsl/picBed/raw/master/img/20201216095053.png)
+![处理器](images/img_16.png)
 
 调用方法为`invokeBeanDefinitionRegistryPostProcessors(currentRegistryProcessors, registry);`
 
@@ -638,7 +638,7 @@ public void refresh() throws BeansException, IllegalStateException {
 
 5. 通过`invokeBeanFactoryPostProcessors`执行所有后置处理器的回调，也就是调用他们的postProcessBeanFactory
 
-![后置处理器的回调](https://gitee.com/zengsl/picBed/raw/master/img/20201216095951.png)
+![后置处理器的回调](images/img_17.png)
 
 
 

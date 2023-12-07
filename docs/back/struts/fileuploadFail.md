@@ -18,7 +18,7 @@ request对象未被Struts2包装成`MultiPartRequestWrapper`
 
 包装的过程是在struts准备过滤器完成`StrutsPrepareFilter`
 
-![image-20210429100735993](https://gitee.com/zengsl/picBed/raw/master/img/image-20210429100735993.png)
+![image-20210429100735993](images/img_2.png)
 
 从上述入口进入找到以下代码
 
@@ -88,7 +88,7 @@ protected boolean isMultipartRequest(HttpServletRequest request) {
 
 使用2.3版本的系统不会有问题，因为其判断逻辑比较简单。
 
-![image-20210429102452592](https://gitee.com/zengsl/picBed/raw/master/img/image-20210429102452592.png)
+![image-20210429102452592](images/img_3.png)
 
 
 

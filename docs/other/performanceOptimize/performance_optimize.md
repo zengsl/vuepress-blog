@@ -10,7 +10,7 @@
 
 使用top查看CPU占用率
 
-![image-20211202091618844](https://gitee.com/zengsl/picBed/raw/master/img/2021/12/20211202091624.png)
+![image-20211202091618844](images/img.png)
 
 使用top -Hp pid查看对应进程中线程占用CPU的情况：
 
@@ -29,7 +29,7 @@
 
 使用`jstack pid > pid.thread`将线程栈导出为pid.thread文件，根据16进制的线程ID进行查找，同时发现比较多阻塞线程，如下图：
 
-![image-20211202093242911](https://gitee.com/zengsl/picBed/raw/master/img/2021/12/20211202093243.png)
+![image-20211202093242911](images/img_1.png)
 
 经过与开发沟通，这是专家保存请求，最近批量发送了专家信息维护通知，告知专家进入系统维护个人信息。所以出现较大的登录访问量。
 
@@ -41,11 +41,11 @@
 
 通过`free -h`查看服务器内存容量，也可以使用`cat /proc/meminfo`，整个机器一共只有47G
 
-![64807F2BFF3A51331B814ED57A06A991](https://gitee.com/zengsl/picBed/raw/master/img/2021/12/20211202095230.png)
+![64807F2BFF3A51331B814ED57A06A991](images/img_2.png)
 
 通过`ps -ef | grep [web应用名]`查看web应用分配的内存(-Xmx)，或直接看设置应用所分配内存的启动脚本：
 
-![4F6450AD48A31F61F946786DE3BC9AE6](https://gitee.com/zengsl/picBed/raw/master/img/2021/12/20211202095641.png)
+![4F6450AD48A31F61F946786DE3BC9AE6](images/img_3.png)
 
 
 
@@ -67,9 +67,9 @@
 
 我们在此业务线程中并没有用锁，但是却发生了同步。仔细观察可以发现，锁是在Dom4j中的`QNameCache#get`方法，看下具体实现：
 
-![1](https://gitee.com/zengsl/picBed/raw/master/img/2021/12/20211202103211.png)
+![1](images/img_4.png)
 
-![2](https://gitee.com/zengsl/picBed/raw/master/img/2021/12/20211202103219.jpeg)
+![2](images/img_5.png)
 
 这里使用了`Collections#synchronizedMap`来将`WeakHashMap`实现同步操作,`Collections#synchronizedMap`是会包装对应的map给所有的方法都加上同步锁，这样的性能肯定是比较低的。在Dom4j的Github仓库中可以找到类似的issue[Dom4j concurrency problem · Issue #40 · dom4j/dom4j (github.com)](https://github.com/dom4j/dom4j/issues/40) 和[Lock congestion in (QNameCache performs terrible under multi-core loads) · Issue #114 · dom4j/dom4j (github.com)](https://github.com/dom4j/dom4j/issues/114)，提这个问题的人不在少数（高版本也没优化）。
 
@@ -137,11 +137,11 @@ public class CustomDocumentFactory extends DocumentFactory{
 
 类创建好了得思考如何让Dom4j使用咱自己的对象。通过调试发现，`QNameCache`是在`QName`的静态代码块中决定的:
 
-![image-20211202110938257](https://gitee.com/zengsl/picBed/raw/master/img/2021/12/20211202110938.png)
+![image-20211202110938257](images/img_6.png)
 
 比较遗憾的是这里SingletonClassName写死为`QNameCache.class.getName()`了，为了不修改jar报只能曲线救国。注意这里是设置了名字并没有创建出`QNameCache`实例，但是进入方法内部（这里singleton默认的实现是`SimpleSingleton`）可以发现reset方法创建了单例对象。
 
-![image-20211202111503076](https://gitee.com/zengsl/picBed/raw/master/img/2021/12/20211202111503.png)
+![image-20211202111503076](images/img_7.png)
 
 
 

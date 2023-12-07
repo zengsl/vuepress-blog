@@ -25,13 +25,13 @@ Spring Cloud
 
 - 从cloud的官网上查询
 
-![版本依赖信息](https://gitee.com/zengsl/picBed/raw/master/img/20201022153413.png)
+![版本依赖信息](images/img.png)
 
 - 更详细的查看方法
 
 通过[查看信息地址](https://start.spring.io/actuator/info)获取json，将json格式化之后可以看到`spring-cloud`的版本信息，如下图：
 
-![cloud版本](https://gitee.com/zengsl/picBed/raw/master/img/20201022153413.png)
+![cloud版本](images/img_1.png)
 
 ~~~ json
  "spring-cloud": {
@@ -61,9 +61,9 @@ Spring Cloud
 
 查看对应cloud版本文档，看官方推荐
 
-![入口](https://gitee.com/zengsl/picBed/raw/master/img/20201022154927.png)
+![入口](images/img_2.png)
 
-![boot版本](https://gitee.com/zengsl/picBed/raw/master/img/20201022155053.png)
+![boot版本](images/img_3.png)
 
 
 

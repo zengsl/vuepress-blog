@@ -20,13 +20,13 @@
 
 通过调试`ParametersInterceptor`发现是有错误信息的，虽然是有异常但是不会暴露出来，更不会中断请求，而是在`workflow`拦截器中有处理。
 
-![ParametersInterceptor](https://gitee.com/zengsl/picBed/raw/master/img/20200924164848.png)
+![ParametersInterceptor](images/img.png)
 
 `workflow`的struts默认实现是`com.opensymphony.xwork2.interceptor.DefaultWorkflowInterceptor`
 
 观察下面的代码可以发现当存在错误则会则会返回一个result给上层代码，这里返回当是`input`，而请求的当前Action请求并没有`result`是`input`，struts找不到result自然就跳转默认地址了。
 
-![DefaultWorkflowInterceptor](https://gitee.com/zengsl/picBed/raw/master/img/20200924165432.png)
+![DefaultWorkflowInterceptor](images/img_1.png)
 
 ### 结论
 

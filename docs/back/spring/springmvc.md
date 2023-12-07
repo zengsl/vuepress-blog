@@ -21,4 +21,4 @@ Front Controller + Page Controller概念来分离流程控制逻辑与具体的W
 
 ModelAndView可以通过返回的逻辑视图名称查找到具体的View实现，然后委派该具体的View实现类来根据模型数据，输出具体的视图内容即可。
 
-![image-20220307103032162](https://gitee.com/zengsl/picBed/raw/master/img/2022/03/20220307103037.png)
+![image-20220307103032162](images/img_8.png)

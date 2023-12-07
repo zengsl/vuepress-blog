@@ -8,7 +8,7 @@
 cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l # 2个
 ~~~
 
-![image-20200824103119282](https://gitee.com/zengsl/picBed/raw/master/img/image-20200824103119282.png)
+![image-20200824103119282](images/img_2.png)
 
 CPU核心数 
 
@@ -16,7 +16,7 @@ CPU核心数
 cat /proc/cpuinfo| grep "cpu cores"| uniq # 10核心
 ~~~
 
-![image-20200814085927297](https://gitee.com/zengsl/picBed/raw/master/image-20200814085927297.png)
+![image-20200814085927297](images/img_3.png)
 
 逻辑CPU个数
 
@@ -119,7 +119,7 @@ iostat -d -k 1 10
 ~~~
 
 
-![iostat](https://gitee.com/zengsl/picBed/raw/master/img/2021/09/20210917171000.png)
+![iostat](images/img_4.png)
 
 与vmstat一样，第一行报告显示的是自系统启动以来的平均值，每个设备显示一行。
 
@@ -182,7 +182,7 @@ vmstat [选项]
 vmstat 5
 ~~~
 
-![vmstat](https://gitee.com/zengsl/picBed/raw/master/img/2021/09/20210917165805.png)
+![vmstat](images/img_5.png)
 
 第一行报告显示的是自系统启动以来的平均值
 

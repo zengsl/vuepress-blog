@@ -8,12 +8,14 @@
 
 [MySQL·源码分析·InnoDB Repeatable Read隔离级别之大不同](http://mysql.taobao.org/monthly/2017/06/07/)
 
+[淘宝数据库月报](http://mysql.taobao.org/monthly/)
+
 ## 架构
 
 
 MySQL服务器逻辑架构图
 
-![架构](https://gitee.com/zengsl/picBed/raw/master/img/20210219135529.png)
+![架构](images/img.png)
 
 最上层的服务并不是MySQL所独有的，大多数基于网络的客户端/服务器的工具或者服务都有类似的架构。比如连接处理、授权认证、安全等等。
 
@@ -120,7 +122,7 @@ Phantom Problem是指在同一事务下，连续执行两次同样的SQL语句�
 
 ### 隔离级别 
 
-![隔离级别](https://gitee.com/zengsl/picBed/raw/master/img/20210219144106.png)
+![隔离级别](images/img_1.png)
 
 
 ### MySQL事务
@@ -331,7 +333,7 @@ B-Tree（B+Tree）索引是常见的一种类型，大多数MySQL引擎都支持
 
 UUID主键插入行不仅花费时间更长，而且索引占用空间也更大。一方面是由于主键字段更长；另一方面是由于页分裂和碎片导致的。而且uuid的新行主键值不一定比之前插入的大，所以InnoDB无法简单的总是把新行插入到索引的最后，而是需要为新行寻找合适的位置-通常是已有数据的中间位置-并且分配空间。这会增加很多额外工作，并导致数据分布不够优化。
 
-![缺点](https://gitee.com/zengsl/picBed/raw/master/img/2021/09/20210914164559.png)
+![缺点](images/img_2.png)
 
 - 覆盖索引
 
@@ -343,7 +345,7 @@ MySQL只能使用B-Tree索引做覆盖索引。不是所有引擎都支持覆盖
 
 索引和减少InnoDB访问的行数，从而减少锁的数量。但这只有当InnoDB在存储引擎层能够过滤掉所有不需要的行时才有效。
 
-![索引和锁](https://gitee.com/zengsl/picBed/raw/master/img/2021/09/20210914173741.png)
+![索引和锁](images/img_3.png)
 
 InnoDB在二级索引上使用共享(读)锁，但访问主键索引需要排他(写)锁。这消除了使用覆盖索引的可能性，并且使得`SELECT FOR UPDATE`比`LOCK IN SHARE MODE`或非锁定查询要慢很多。
 
@@ -380,7 +382,7 @@ InnoDB在二级索引上使用共享(读)锁，但访问主键索引需要排他
 
 通常来说，查询的生命周期大致可以按照顺序来看：从刚客户端，到服务器，让好在服务器上进行解析，生成执行计划，**执行**，并返回结果给客户端。“执行”可以认为是整个生命周期中最重要的阶段，这其中包括了大量为了检索数据到存储引擎的调用以及调用后的数据处理，包括排序、分组等。
 
-![查询过程](https://gitee.com/zengsl/picBed/raw/master/img/2021/09/20210915161723.png)
+![查询过程](images/img_4.png)
 
 查询状态 
 

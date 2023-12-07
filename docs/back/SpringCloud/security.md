@@ -69,7 +69,7 @@ spring:
 
 `org.springframework.security.web.FilterChainProxy`包含以下过滤器
 
-![FilterChainProxy](https://gitee.com/zengsl/picBed/raw/master/img/20201222115846.png)
+![FilterChainProxy](images/img_18.png)
 
 - WebAsyncManagerIntegrationFilter
 

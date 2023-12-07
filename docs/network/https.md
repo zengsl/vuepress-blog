@@ -9,7 +9,7 @@ HTTP加上**加密处理**和**认证**以及**完整性保护**后即是HTTPS
 
 HTTPS是身披SSL外壳的HTTP
 
-![HTTPS](https://gitee.com/zengsl/picBed/raw/master/img/20210204113541.png)
+![HTTPS](images/img.png)
 
 HTTPS并非是应用层的一种新协议。只是HTTP通信接口部分用SSL（SecureSocket Layer）和TLS（Transport Layer Security）协议代替而已。
 
@@ -73,7 +73,7 @@ HTTPS采用共享密钥加密和公开密钥加密两者并用的混合加密机
 服务器、客户端双方需要通过ROOT CA建立双向信任
 
 
-![通信过程](https://gitee.com/zengsl/picBed/raw/master/img/20210204115053.png)
+![通信过程](images/img_1.png)
 
 HTTPS的通信步骤主要分为两个阶段：
 

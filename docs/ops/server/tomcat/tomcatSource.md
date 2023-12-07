@@ -33,13 +33,13 @@ Tomcat源码使用Ant进行编译，编译步骤可以参考源码中BUILDING.tx
 
 如果是使用Idea导项目进行编译的话，那么安装Ant也不是必须的，Idea自带Ant插件。开启和编译方法入下：
 
-![image-20211125113841190](https://gitee.com/zengsl/picBed/raw/master/img/2021/11/20211125113846.png)
+![image-20211125113841190](images/img.png)
 
-![image-20211125113932403](https://gitee.com/zengsl/picBed/raw/master/img/2021/11/20211125113932.png)
+![image-20211125113932403](images/img_1.png)
 
 配置Ant为非后台编译或选择对应的版本等操作：
 
-![image-20211125114157614](https://gitee.com/zengsl/picBed/raw/master/img/2021/11/20211125114157.png)
+![image-20211125114157614](images/img_2.png)
 
 
 
@@ -73,15 +73,15 @@ Class-Path: commons-daemon.jar
 
 - 修改项目结构，将java目录设置为源码目录
 
-![image-20211125120142144](https://gitee.com/zengsl/picBed/raw/master/img/2021/11/20211125120142.png)
-
+![image-20211125120142144](images/img_3.png)
+    
 - 添加依赖，导入编译过程中Ant下载的jar + output/build/lib/jasper.jar+ant.jar。导完之后跟模块做好关联，如下图。
 
   
 
-![image-20211125121246556](https://gitee.com/zengsl/picBed/raw/master/img/2021/11/20211125121246.png)
+![image-20211125121246556](images/img_4.png)
 
-![image-20211125121302675](https://gitee.com/zengsl/picBed/raw/master/img/2021/11/20211125121302.png)
+![image-20211125121302675](images/img_5.png)
 
 ant.jar可以从下载的Ant中获取，因为通过`BootStrap.java`启动时会依赖ant
 
@@ -97,15 +97,15 @@ ant.jar可以从下载的Ant中获取，因为通过`BootStrap.java`启动时会
 
 1. 修改`org.apache.tomcat.util.res.StringManager#getString(String key)`
 
-![image-20211125121750329](https://gitee.com/zengsl/picBed/raw/master/img/2021/11/20211125121750.png)
+![image-20211125121750329](images/img_6.png)
 
 2. 修改`org.apache.jasper.compiler.Localizer#getMessage(String errCode)`
 
-![image-20211125121855038](https://gitee.com/zengsl/picBed/raw/master/img/2021/11/20211125121855.png)
+![image-20211125121855038](images/img_7.png)
 
 - 配置启动类`BootStrap`
 
-![image-20211125122323219](https://gitee.com/zengsl/picBed/raw/master/img/2021/11/20211125122323.png)
+![image-20211125122323219](images/img_8.png)
 
 ::: tip
 
@@ -123,7 +123,7 @@ catalina.base是工作目录
 
 
 
-![image-20211125122840367](https://gitee.com/zengsl/picBed/raw/master/img/2021/11/20211125122840.png)
+![image-20211125122840367](images/img_9.png)
 
 ### 参考资料
 

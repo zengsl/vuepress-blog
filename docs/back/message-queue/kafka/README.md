@@ -1,3 +1,6 @@
+---
+sidebar: auto
+---
 ## Kafka入门
 
 ### 集群搭建

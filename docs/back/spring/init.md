@@ -153,7 +153,7 @@ public void refresh() throws BeansException, IllegalStateException {
 
 此过程将完成**BeanDefinitions的加载**，加载过程整体预览
 
-![初始化](https://gitee.com/zengsl/picBed/raw/master/img/20201023161743.png)
+![初始化](images/img_1.png)
 
 
 ### loadBeanDefinitions
@@ -361,23 +361,23 @@ http\://www.springframework.org/schema/util=org.springframework.beans.factory.xm
 
 修改IDEA中Java的Debugger的设置，去除勾选`Enable toString（）object view`
 
-![Idea调试java预览设置](https://gitee.com/zengsl/picBed/raw/master/img/20201024153048.png)
+![Idea调试java预览设置](images/img_2.png)
 
 修改之后重新启动项目，能够成功进入断点
 
-![断点截图](https://gitee.com/zengsl/picBed/raw/master/img/20201024153255.png)
+![断点截图](images/img_3.png)
 
 
 `Enable toString（）object view`配置在调试时候的区别就是查看变量是否直接调用toString显示内容，还是手动调用
 
 勾选
 
-![开启](https://gitee.com/zengsl/picBed/raw/master/img/20201024153631.png)
+![开启](images/img_4.png)
 
 
 取消勾选
 
-![关闭](https://gitee.com/zengsl/picBed/raw/master/img/20201024153803.png)
+![关闭](images/img_5.png)
 
 
 

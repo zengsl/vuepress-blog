@@ -6,7 +6,7 @@ Pod是K8S系统中可以创建和管理的最小单元，是资源对象模型�
 
 Pod是Kubernetes的最重要概念，每一个Pod都有一个特殊的被称为 “根容器”的Pause容器。Pause容器对应的镜像属于Kubernetes平台的一部分，除了Pause容器，每个Pod还包含一个或多个紧密相关的用户业务容器。
 
-![1](https://gitee.com/zengsl/picBed/raw/master/img/20210829171237.png)
+![1](images/img_11.png)
 
 ### Pod基本概念
 
@@ -21,7 +21,7 @@ Pod是Kubernetes的最重要概念，每一个Pod都有一个特殊的被称为 
 - 创建容器使用docker，一个docker对应一个容器，一个容器运行一个应用进程
 - Pod是多进程设计，运用多个应用程序，也就是一个Pod里面有多个容器，而一个容器里面运行一个应用程序
 
-![2](https://gitee.com/zengsl/picBed/raw/master/img/20210829171308.png)
+![2](images/img_12.png)
 
 - Pod的存在是为了亲密性应用
   - 两个应用之间进行交互
@@ -56,7 +56,7 @@ Pod是K8S集群中所有业务类型的基础，可以把Pod看作运行在K8S�
 
 而在 `info容器` 中会独立出  ip地址，mac地址，port 等信息，然后实现网络的共享
 
-![3](https://gitee.com/zengsl/picBed/raw/master/img/20210829171341.png)
+![3](images/img_13.png)
 
 完整步骤如下
 
@@ -66,17 +66,17 @@ Pod是K8S集群中所有业务类型的基础，可以把Pod看作运行在K8S�
 
 Pod持久化数据，专门存储到某个地方中
 
-![4](https://gitee.com/zengsl/picBed/raw/master/img/20210829171404.png)
+![4](images/img_14.png)
 
 使用 Volumn数据卷进行共享存储，案例如下所示
 
-![5](https://gitee.com/zengsl/picBed/raw/master/img/20210829171426.png)
+![5](images/img_15.png)
 
 ## Pod镜像拉取策略
 
 我们以具体实例来说，拉取策略就是 `imagePullPolicy`
 
-![5](https://gitee.com/zengsl/picBed/raw/master/img/20210829171448.png)
+![5](images/img_16.png)
 
 拉取策略主要分为了以下几种
 
@@ -88,13 +88,13 @@ Pod持久化数据，专门存储到某个地方中
 
 也就是我们Pod在进行调度的时候，可以对调度的资源进行限制，例如我们限制 Pod调度是使用的资源是 2C4G，那么在调度对应的node节点时，只会占用对应的资源，对于不满足资源的节点，将不会进行调度
 
-![6](https://gitee.com/zengsl/picBed/raw/master/img/20210829171646.png)
+![6](images/img_17.png)
 
 ### 示例
 
 我们在下面的地方进行资源的限制
 
-![7](https://gitee.com/zengsl/picBed/raw/master/img/20210829171711.png)
+![7](images/img_18.png)
 
 这里分了两个部分
 
@@ -105,7 +105,7 @@ Pod持久化数据，专门存储到某个地方中
 
 因为Pod中包含了很多个容器，假设某个容器出现问题了，那么就会触发Pod重启机制
 
-![8](https://gitee.com/zengsl/picBed/raw/master/img/20210829171736.png)
+![8](images/img_19.png)
 
 重启策略主要分为以下三种
 
@@ -133,7 +133,7 @@ livenessProbe
 readinessProbe
 ```
 
-![9](https://gitee.com/zengsl/picBed/raw/master/img/20210829171756.png)
+![9](images/img_20.png)
 
 Probe支持以下三种检查方式
 
@@ -149,7 +149,7 @@ Probe支持以下三种检查方式
 - 然后创建 Scheduler，监控API Server是否有新的Pod，如果有的话，会通过调度算法，把pod调度某个node上
 - 在node节点，会通过 `kubelet -- apiserver ` 读取etcd 拿到分配在当前node节点上的pod，然后通过docker创建容器
 
-![10](https://gitee.com/zengsl/picBed/raw/master/img/20210829171825.png)
+![10](images/img_21.png)
 
 ### 影响Pod调度的属性
 
@@ -157,15 +157,15 @@ Pod资源限制对Pod的调度会有影响
 
 #### 根据request找到足够node节点进行调度
 
-![11](https://gitee.com/zengsl/picBed/raw/master/img/20210829171857.png)
+![11](images/img_22.png)
 
 #### 节点选择器标签影响Pod调度
 
-![12](https://gitee.com/zengsl/picBed/raw/master/img/20210829171919.png)
+![12](images/img_23.png)
 
 关于节点选择器，其实就是有两个环境，然后环境之间所用的资源配置不同
 
-![13](https://gitee.com/zengsl/picBed/raw/master/img/20210829171947.png)
+![13](images/img_24.png)
 
 我们可以通过以下命令，给我们的节点新增标签，然后节点选择器就会进行调度了
 
@@ -182,7 +182,7 @@ kubectl label node node1 env_role=prod
 - 硬亲和性：约束条件必须满足
 - 软亲和性：尝试满足，不保证
 
-![14](https://gitee.com/zengsl/picBed/raw/master/img/20210829172010.png)
+![14](images/img_25.png)
 
 支持常用操作符：in、NotIn、Exists、Gt、Lt、DoesNotExists
 
@@ -210,7 +210,7 @@ Taint 污点：节点不做普通分配调度，是节点属性
 kubectl describe node k8smaster | grep Taint
 ```
 
-![15](https://gitee.com/zengsl/picBed/raw/master/img/20210829172032.png)
+![15](images/img_26.png)
 
 污点值有三个
 
@@ -236,7 +236,7 @@ kubectl taint node k8snode1 env_role=yes:NoSchedule
 kubectl taint node k8snode1 env_role:NoSchedule-
 ```
 
-![16](https://gitee.com/zengsl/picBed/raw/master/img/20210829172049.png)
+![16](images/img_27.png)
 ### 演示
 
 我们现在创建多个Pod，查看最后分配到Node上的情况
@@ -253,7 +253,7 @@ kubectl create deployment web --image=nginx
 kubectl get pods -o wide
 ```
 
-![17](https://gitee.com/zengsl/picBed/raw/master/img/20210829172113.png)
+![17](images/img_28.png)
 
 我们可以非常明显的看到，这个Pod已经被分配到 k8snode1 节点上了
 
@@ -286,7 +286,7 @@ kubectl taint node k8snode1 env_role=yes:NoSchedule
 kubectl describe node k8snode1 | grep Taint
 ```
 
-![](https://gitee.com/zengsl/picBed/raw/master/img/20210829172236.png)
+![img_29](images/img_29.png)
 
 然后我们在创建一个 pod
 
@@ -305,7 +305,7 @@ kubectl get pods -o wide
 
 我们能够看到现在所有的pod都被分配到了 k8snode2上，因为刚刚我们给node1节点设置了污点
 
-![](https://gitee.com/zengsl/picBed/raw/master/img/20210829172218.png)
+![](images/img_30.png)
 
 最后我们可以删除刚刚添加的污点
 
@@ -317,4 +317,4 @@ kubectl taint node k8snode1 env_role:NoSchedule-
 
 污点容忍就是某个节点可能被调度，也可能不被调度
 
-![](https://gitee.com/zengsl/picBed/raw/master/img/20210829172144.png)
+![](images/img_31.png)

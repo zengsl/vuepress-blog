@@ -1,3 +1,9 @@
+---
+tags:
+  - Redis
+
+
+---
 # 介绍
 
 记录Redis的相关知识
@@ -180,9 +186,9 @@ typedef struct redisObject {
 
 `object encoding`命令可以查看值对象对应的具体编码，根据编码可以确定对应的底层数据结构，也就是redis对象中encoding的值。
 
-![Redis 2.9](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220215142908.png)
+![Redis 2.9](images/img.png)
 
-![image-20220215143813120](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220215143813.png)
+![image-20220215143813120](images/img_1.png)
 
 不同类型的底层转换规则：
 
@@ -196,7 +202,7 @@ typedef struct redisObject {
 
 > 32这个值之后被改为了39，最新版本具体的数值按当前情况为准。
 
-![image-20220215145658009](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220215145658.png)
+![image-20220215145658009](images/img_2.png)
 
 embstr编码字符串没有对应的redis函数，所以是只读的。所以在对embstr类型数据进行操作的时候会先转换为raw编码，然后再进行修改操作。所以embstr编码字符串修改之后总会变成一个raw编码的字符串对象。
 
@@ -412,7 +418,7 @@ Redis基于**Reactor模型**开发了网络事件处理器，这个事件处理�
 
 `serverCron`就是一个周期性事件，其主要职责如下：
 
-![image-20220216172320250](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220216172320.png)
+![image-20220216172320250](images/img_3.png)
 
 ### 事件调度与执行
 
@@ -456,7 +462,7 @@ lua伪客户端结构`redis.h/redisServer#lua_client`
 
 > 为什么输出缓冲区的固定存储方式不跟输入缓冲区一样是用SDS呢？可能因为是固定长度所以觉得没有必要，也用不上SDS的一些功能？好像用SDS也没多大问题吧？
 
-![image-20220217103111884](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220217103111.png)
+![image-20220217103111884](images/img_4.png)
 
 
 
@@ -593,7 +599,7 @@ Redis自带的redis-check-dump可以检查RDB文件
 
 Redis进程就是一个事件循环，这个事件循环中的文件事件负责接收客户端的命令请求，以及向客户端发送命令回复，而时间事件负责执行像`serverCron`函数这样需要定时执行的函数。因为服务器在处理文本事件时可能会执行写命令，将写命令请求追加到aof缓冲区中，所以在服务器每次结束一个事件循环之后会调用`flushAppendOnlyFile`函数，考虑是否需要将aof_buf缓冲区中的内容写入和保存至aof文件中（与appendfsync选项有关）。
 
-![image-20220217093702543](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220217093708.png)
+![image-20220217093702543](images/img_5.png)
 
 **重写AOF：**
 
@@ -750,7 +756,7 @@ PUBLISH __sentinel__:hello "<s_ip>,<s_port>,<s_runid>,<s_epoch>,<m_name>,<m_ip>,
 
 与新节点握手成功之后，会通过**Gossip协议**传播给集群中的其他节点，让其他节点也与此新的节点进行握手。
 
-![image-20220219141550164](https://gitee.com/zengsl/picBed/raw/master/img/2022/02/20220219141555.png)
+![image-20220219141550164](images/img_6.png)
 
 #### 槽指派
 
@@ -1030,7 +1036,7 @@ mac i9 32G 测试结果还没有书中的例子性能高？
 
 这个测试结果和实际的有一定差距，因为redis-benchmark不会处理执行命令所获得的命令回复，所以节约了大量对于命令回复所进行的语法分析的时间
 
-![redis-benchmark](https://gitee.com/zengsl/picBed/raw/master/img/20210128155345.png)
+![redis-benchmark](images/img_7.png)
 
 ## 使用Redis来记录日志
 
@@ -1166,7 +1172,7 @@ set-max-intset-entries 512
 
 ### 扩展读性能
 
-![提升效率方法](https://gitee.com/zengsl/picBed/raw/master/img/20210201093201.png)
+![提升效率方法](images/img_8.png)
 
 - 使用从服务器树，减轻顶级主服务器的压力
 

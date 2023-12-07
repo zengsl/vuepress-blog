@@ -4,13 +4,13 @@
 
 主流浏览器的开发者工具使用上都大致相同，可以通过工具找到对应的文档入口。
 
-![文档入口](https://gitee.com/zengsl/picBed/raw/master/img/20210823101113.png)
+![文档入口](images/img_40.png)
 
 [Edge开发者工具文档](https://docs.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/)
 
 切换设备仿真，主要可以切换不同的移动设备用于手机端调试
 
-![切换设备仿真](https://gitee.com/zengsl/picBed/raw/master/img/20210823112705.png)
+![切换设备仿真](images/img_41.png)
 
 ## 元素
 
@@ -20,23 +20,23 @@
 
 修改选中元素的行内样式
 
-![修改](https://gitee.com/zengsl/picBed/raw/master/img/20210823101921.png)
+![修改](images/img_42.png)
 
 下方可以查看盒子模型，并进行修改
 
-![盒子模型](https://gitee.com/zengsl/picBed/raw/master/img/20210823102833.png)
+![盒子模型](images/img_43.png)
 
 针对于一些鼠标hover状态的样式，我们可以通过选中:hov将元素的状态强制设置为某一状态。
 
-![hover](https://gitee.com/zengsl/picBed/raw/master/img/20210823103659.png)
+![hover](images/img_44.png)
 
-![hover2](https://gitee.com/zengsl/picBed/raw/master/img/48B3AA7E-C3BD-425D-9966-AD5673D4EF53.png)
+![hover2](images/img_45.png)
 
 ### 事件侦听器
 
 通过事件侦听器查找元素上绑定的事件
 
-![event](https://gitee.com/zengsl/picBed/raw/master/img/47B9D2B2-85D7-49A2-90A4-309E72423446.png)
+![event](images/img_46.png)
 
 ### DOM断点
 
@@ -69,7 +69,7 @@ console.timeEnd('timer1')
 
 主要可以用来观察、调试js
 
-![source](https://gitee.com/zengsl/picBed/raw/master/img/20210823111909.png)
+![source](images/img_47.png)
 
 **快捷键**
 
@@ -96,17 +96,17 @@ Ctrl + P(windows) 或  ⌘ + P (mac)
 
 主要用来观察网络请求，可以通过筛选不同类型的请求进行观察
 
-![network](https://gitee.com/zengsl/picBed/raw/master/img/20210823112358.png)
+![network](images/img_48.png)
 
 调整网速用于模拟网络较卡时的效果
 
-![模拟网络](https://gitee.com/zengsl/picBed/raw/master/img/20210823112543.png)
+![模拟网络](images/img_49.png)
 
 
 
 保留日志
 
-![image-20220114134052111](https://gitee.com/zengsl/picBed/raw/master/img/2022/01/20220114134057.png)
+![image-20220114134052111](images/img_50.png)
 
 
 
@@ -120,17 +120,17 @@ Ctrl + P(windows) 或  ⌘ + P (mac)
 
 分析运行时性能
 
-![性能](https://gitee.com/zengsl/picBed/raw/master/img/20210823133532.png)
+![性能](images/img_51.png)
 
 [Edge文档](https://docs.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/evaluate-performance/)
 
-[](https://docs.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/speed/get-started)
+[Lighthouse 优化](https://docs.microsoft.com/zh-cn/microsoft-edge/devtools-guide-chromium/speed/get-started)
 
 ## 应用程序
 
 可以查看cookie
 
-![应用程序](https://gitee.com/zengsl/picBed/raw/master/img/20210823134110.png)
+![应用程序](images/img_52.png)
 
 可以安装Cookie Editor插件
 
@@ -142,4 +142,4 @@ FeHelper，可以格式化json
 
 例如：访问[获取时间接口](http://poetry.apiopen.top/getTime)，响应结果会被格式化
 
-![FeHelper](https://gitee.com/zengsl/picBed/raw/master/img/20210823134436.png)
+![FeHelper](images/img_53.png)

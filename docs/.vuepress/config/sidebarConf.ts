@@ -95,15 +95,15 @@ export default {
 		},
 			{
 				text: '资源访问权限',
-				link: '1.资源访问权限'
+				link: 'accessAuth'
 			},
 			{
 				text: '匿名权限',
-				link: '2.匿名权限'
+				link: 'anonymity'
 			},
 			{
-				text: '文档',
-				link: 'document/security-servlet'
+				text: 'Servlet',
+				link: 'servlet'
 			},
 			{
 				text: 'OAuth 2.0',
@@ -277,7 +277,7 @@ export default {
 		},
 			{
 				text: '安装配置',
-				link: '1.install and setting'
+				link: '1.installAndSetting'
 			}
 		]
 	}],
@@ -330,7 +330,7 @@ export default {
 		},
 			{
 				text: '安装配置',
-				link: '1.install and setting'
+				link: '1.installAndSetting'
 			}
 		]
 	}],
@@ -343,11 +343,11 @@ export default {
 		},
 			{
 				text: 'Fiddler',
-				link: 'fiddler/use.md'
+				link: '/tools/grab/fiddler/use.md'
 			},
 			{
 				text: 'Wireshark',
-				link: 'wireshark/use.md'
+				link: '/tools/grab/wireshark/use.md'
 			}
 		]
 	}],
@@ -361,7 +361,7 @@ export default {
 		},
 			{
 				text: '安装配置',
-				link: '1.install and setting'
+				link: '1.installAndSetting'
 			},
 			{
 				text: '常用命令',
@@ -424,7 +424,7 @@ export default {
 			link: '/other/performanceOptimize/'
 		},
 			{
-				text: '一个生产上的故事',
+				text: '生产问题',
 				link: 'performance_optimize'
 			}
 		]

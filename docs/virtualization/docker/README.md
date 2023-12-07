@@ -91,6 +91,6 @@ docker logs -f --tail 100 66c017d8fc53
 
 - 将容器提交为新镜像
 
-![commit](https://gitee.com/zengsl/picBed/raw/master/img/20210901182722.png)
+![commit](images/img.png)
 
 docker commit some-rabbit some-rabbit_new

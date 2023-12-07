@@ -20,13 +20,13 @@
 
 命令行输入`bpu xxxx//file/ajax-fileupload`回车
 
-![bpu断点](https://gitee.com/zengsl/picBed/raw/master/img/20200915143024.png)
+![bpu断点](images/img.png)
 
 2. 触发请求
 
 3. 观察断点
 
-![断点请求](https://gitee.com/zengsl/picBed/raw/master/img/20200915160442.png)
+![断点请求](images/img_1.png)
 
 请求进入断点之后左侧的请求拦中，在请求的前方会有红色标记
 
@@ -38,7 +38,7 @@ inspectors->Headers中可以查看到请求头信息
 
 可以根据需要对信息进行修改
 
-![请求参数](https://gitee.com/zengsl/picBed/raw/master/img/20200915160841.png)
+![请求参数](images/img_2.png)
 
 下方有两个按钮：
 

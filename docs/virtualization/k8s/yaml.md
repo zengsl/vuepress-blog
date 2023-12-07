@@ -46,13 +46,13 @@ People: [Tom, Jack]
 
 ### 控制器的定义
 
-![控制器的定义](https://gitee.com/zengsl/picBed/raw/master/img/20210829164450.png)
+![控制器的定义](images/img_7.png)
 
 ### 被控制的对象
 
 包含一些 镜像，版本、端口等
 
-![被控制的对象](https://gitee.com/zengsl/picBed/raw/master/img/20210829164521.png)
+![被控制的对象](images/img_8.png)
 
 ### 属性说明
 
@@ -98,7 +98,7 @@ kubectl create deployment web --image=nginx -o yaml --dry-run > hello.yaml
 kubectl get deploy
 ```
 
-![kubectl get deploy](https://gitee.com/zengsl/picBed/raw/master/img/20210829165049.png)
+![kubectl get deploy](images/img_9.png)
 
 然后我们导出 nginx的配置
 
@@ -107,4 +107,4 @@ kubectl get deploy nginx -o=yaml --export > nginx.yaml
 ```
 然后会生成一个 nginx.yaml 的配置文件
 
-![生成](https://gitee.com/zengsl/picBed/raw/master/img/20210829165109.png)
+![生成](images/img_10.png)

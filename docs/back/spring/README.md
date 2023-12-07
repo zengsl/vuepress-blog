@@ -8,4 +8,4 @@
 
 Bean名字相同时的覆盖方法：
 
-![Bean名字相同时的覆盖方法](https://gitee.com/zengsl/picBed/raw/master/img/2021/09/20210929160643.png)
+![Bean名字相同时的覆盖方法](images/img.png)

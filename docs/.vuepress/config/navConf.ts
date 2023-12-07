@@ -140,7 +140,7 @@ export default [{
 		text: '网络',
 		children: [{
 			text: 'TCP/IP',
-			link: '/tools/protocol/'
+			link: '/network/tcpip/'
 		},{
 			text: 'HTTPS',
 			link: '/network/https'

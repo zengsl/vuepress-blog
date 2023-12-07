@@ -18,13 +18,13 @@ mybatis-plus是一个mybats增强工具，所以他的mapper加载过程其实�
 
 - 遍历和解析mapper文件
 
-![遍历和解析](https://gitee.com/zengsl/picBed/raw/master/img/20201015092520.png)
+![遍历和解析](images/img.png)
 
 - xml解析
 
 由XmlMapperBuilder进行mapper文件的解析
 
-![mapper解析](https://gitee.com/zengsl/picBed/raw/master/img/20201015092822.png)
+![mapper解析](images/img_1.png)
 
 以下方法将完成命名空间、类型别名和sql语句等的解析工作。
 
@@ -51,19 +51,19 @@ private void configurationElement(XNode context) {
 
 遍历"select|insert|update|delete"内容进行解析
 
-![遍历sql内容进行解析](https://gitee.com/zengsl/picBed/raw/master/img/20201015093727.png)
+![遍历sql内容进行解析](images/img_2.png)
 
 解析构建`MappedStatement`所需的内容，其中类型为的`DynamicSqlSource`的sqlSource存放的是每一个sql对象包含的所有结构内容（普通静态文档、if表达式等），使用list存放。
 
-![MappedStatement内容](https://gitee.com/zengsl/picBed/raw/master/img/20201015094132.png)
+![MappedStatement内容](images/img_3.png)
 
-![sqlSource](https://gitee.com/zengsl/picBed/raw/master/img/20201015094652.png)
+![sqlSource](images/img_4.png)
 
 - mapper的存储
 
 `MappedStatement`最终会被存放在一个map中，key为`MappedStatement`对象的Id（mapper文件的命名空间 + “.” + sql的Id）
 
-![mybatis的mapper加载](https://gitee.com/zengsl/picBed/raw/master/img/20201015090223.png)
+![mybatis的mapper加载](images/img_5.png)
 
 - 查询
 
@@ -80,9 +80,9 @@ public MappedStatement getMappedStatement(String id, boolean validateIncompleteS
 
 ## mapper接口初始化
 
-![mapper接口初始化](https://gitee.com/zengsl/picBed/raw/master/img/20201015163304.png)
+![mapper接口初始化](images/img_6.png)
 
-![mapper接口初始化入口](https://gitee.com/zengsl/picBed/raw/master/img/20201015163422.png)
+![mapper接口初始化入口](images/img_7.png)
 
 ## @mapper注解初始化
 
@@ -107,8 +107,8 @@ public final void afterPropertiesSet() throws IllegalArgumentException, BeanInit
 ~~~
 
 
-![配置类解析入口](https://gitee.com/zengsl/picBed/raw/master/img/20201016095326.png)
+![配置类解析入口](images/img_8.png)
 
 BeanDefinition设置BeanClass为MapperFactoryBean
 
-![设置factoryBean](https://gitee.com/zengsl/picBed/raw/master/img/20201016100543.png)
+![设置factoryBean](images/img_9.png)
