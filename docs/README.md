@@ -2,7 +2,7 @@
 home: true
 heroImage: /img/child.jpg
 #标题
-#heroText: 专业的泥瓦匠
+heroText: Free Coding
 #Hero 副标题
 tagline: Day Day Coding,Day Day up
 actionText: enter →
