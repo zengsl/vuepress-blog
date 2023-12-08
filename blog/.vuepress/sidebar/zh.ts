@@ -21,34 +21,15 @@ export const zhSidebar = sidebar({
   ],
   '/back/java/concurrency/': "structure",
   '/back/java/jvm/': "structure",
+  '/back/java/source/': "structure",
   '/back/struts/': "structure",
   '/back/spring/': "structure",
   '/back/SpringSecurity/':"structure",
-
   '/back/SpringCloud/':"structure",
   '/back/job/quartz/': "structure",
   '/back/mybatis/': "structure",
-  '/back/distributed/': [{
-    text: '分布式',
-    children: [{
-      text: '介绍',
-      link: '/back/distributed/'
-    },
-      {
-        text: '分布式事务',
-        link: 'distributedTransaction'
-      },
-      {
-        text: '分布式锁',
-        link: 'distributedLocks'
-      },
-      {
-        text: 'Zookeeper',
-        link: 'Zookeeper'
-      }
-
-    ]
-  }],
+  '/back/distributed/': "structure",
+  '/back/message-queue/': "structure",
   '/ops/os/linux/': [{
     text: 'Linux',
 
@@ -200,46 +181,9 @@ export const zhSidebar = sidebar({
       }
     ]
   }],
-  '/db/redis/': [{
-    text: 'Redis',
-    children: [{
-      text: '介绍',
-      link: '/db/redis/'
-    },
-      {
-        text: '安装配置',
-        link: '1.installAndSetting'
-      },
-      {
-        text: '常用命令',
-        link: '2.command'
-      }
-    ]
-  }],
-  '/db/oracle/': [{
-    text: 'Oracle',
-    children: [{
-      text: '介绍',
-      link: '/db/oracle/'
-    },
-      {
-        text: '常用命令',
-        link: '1.command'
-      }
-    ]
-  }],
-  '/db/mysql/': [{
-    text: 'MySql',
-    children: [{
-      text: '介绍',
-      link: '/db/mysql/'
-    },
-      {
-        text: '安装配置',
-        link: '1.install and setting'
-      }
-    ]
-  }],
+  '/db/redis/': "structure",
+  '/db/oracle/': "structure",
+  '/db/mysql/': "structure",
   '/other/debugger/': [{
     text: '调试技巧',
     children: [{

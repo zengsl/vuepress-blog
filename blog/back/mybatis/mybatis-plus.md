@@ -1,3 +1,6 @@
+---
+order: 2
+----
 # mybatis-plus内容
 
 ::: tip

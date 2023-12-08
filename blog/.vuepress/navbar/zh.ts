@@ -79,13 +79,18 @@ export const zhNavbar = navbar([
         prefix: '/back/',
         children: [{
             text: 'Java',
+            prefix: 'java',
             children: [{
                 text: 'Java并发',
-                link: 'java/concurrency/'
+                link: 'concurrency/'
             },
                 {
                     text: 'JVM',
-                    link: 'java/jvm/'
+                    link: 'jvm/'
+                },
+                {
+                    text: '源码',
+                    link: 'source/'
                 }
             ]
         },
@@ -123,46 +128,30 @@ export const zhNavbar = navbar([
             },
             {
                 text: '分布式',
-                children: [{
-                    text: '基本介绍',
-                    link: 'distributed/'
-                },
-                    {
-                        text: 'Zookeeper',
-                        link: 'distributed/Zookeeper'
-                    }
-                ]
+                link: 'distributed'
             }, {
                 text: '消息中间间',
+                link: 'message-queue'
 
-                children: [{
-                    text: 'Kafka',
-                    link: 'message-queue/kafka/'
-                }]
             }, {
                 text: '工作流',
-                children: [{
-                    text: 'JBPM4',
-                    link: 'workflow/'
-                }]
+                link: 'workflow'
             }
             ,
             {
                 text: '算法',
-                link: 'algorithm/'
+                link: 'algorithm'
 
             },
 
             {
                 text: 'Dubbo',
-                link: 'Dubbo/'
+                link: 'Dubbo'
 
             },
-
             {
                 text: 'Netty',
-                link: 'Netty/'
-
+                link: 'Netty'
             }
 
         ]
@@ -181,6 +170,10 @@ export const zhNavbar = navbar([
             {
                 text: 'Oracle',
                 link: '/db/oracle/'
+            },
+            {
+                text: 'Pg',
+                link: '/db/postgresql/'
             }
         ]
     },
@@ -303,7 +296,7 @@ export const zhNavbar = navbar([
         ]
     },
     {
-        text: 'About',
+        text: '关于',
         link: '/about/aboutMe'
     },
     {

@@ -41,11 +41,13 @@ MySQL服务器逻辑架构图
 加锁也需要消耗资源。锁的各种操作，包括获得锁、检查锁是否已经解除、释放锁等，都会增加系统的开销。所谓的锁策略，就是在锁的开销和数据的安全性之间寻求平衡，这种平衡本身也会影响到性能。大多数商业数据库一般都是在表上加行级锁。
 在MySQL中每种存储引擎都可以实现自己的锁策略和锁粒度。
 
+``` 
 LOCK TABLES
 
 tbl_name [AS alias] {READ [LOCAL] | [LOW_PRIORITY] WRITE}
 
 [, tbl_name [AS alias] {READ [LOCAL] | [LOW_PRIORITY] WRITE}] ...
+```
 
 1. 表锁 
 

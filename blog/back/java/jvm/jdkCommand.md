@@ -1,5 +1,6 @@
 ---
 sidebarDepth: 2
+order: 2
 ---
 # JDK命令
 

@@ -1,9 +1,9 @@
 ---
 sidebar: auto
+title: Kafka
 ---
-## Kafka入门
 
-### 集群搭建
+## 集群搭建
 
 - 准备工作
 
@@ -87,7 +87,7 @@ http://192.168.143.129:9000/
 
 
 
-### 重要参数
+## 重要参数
 
 ```shell
 acks：有三个取值1、0、-1或all
@@ -101,7 +101,7 @@ Q:min.insync.replicas=2
 
 
 
-### 重点
+## 重点
 
 page cache 页缓存 
 
