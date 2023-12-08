@@ -2,56 +2,10 @@ import {navbar} from "vuepress-theme-hope";
 
 export const zhNavbar = navbar([
     "/",
-    "/demo/",
-    {
-        text: "博文",
-        icon: "pen-to-square",
-        prefix: "/posts/",
-        children: [
-            {
-                text: "苹果",
-                icon: "pen-to-square",
-                prefix: "apple/",
-                children: [
-                    {text: "苹果1", icon: "pen-to-square", link: "1"},
-                    {text: "苹果2", icon: "pen-to-square", link: "2"},
-                    "3",
-                    "4",
-                ],
-            },
-            {
-                text: "香蕉",
-                icon: "pen-to-square",
-                prefix: "banana/",
-                children: [
-                    {
-                        text: "香蕉 1",
-                        icon: "pen-to-square",
-                        link: "1",
-                    },
-                    {
-                        text: "香蕉 2",
-                        icon: "pen-to-square",
-                        link: "2",
-                    },
-                    "3",
-                    "4",
-                ],
-            },
-            {text: "樱桃", icon: "pen-to-square", link: "cherry"},
-            {text: "火龙果", icon: "pen-to-square", link: "dragonfruit"},
-            "tomato",
-            "strawberry",
-        ],
-    },
-    {
-        text: "V2 文档",
-        icon: "book",
-        link: "https://theme-hope.vuejs.press/zh/",
-    },
     {
         text: '前端',
         prefix: "/front/",
+        icon: "pen-to-square",
         children: [{
             text: 'Html',
             link: 'html'
@@ -109,49 +63,54 @@ export const zhNavbar = navbar([
                         link: 'SpringCloud/'
                     }
                 ]
-            }, {
-                text: '任务调度',
+            },
+            {
+                text: '其他',
                 children: [{
                     text: 'Quartz',
                     link: 'job/quartz/'
-                }]
-            },
-            {
-                text: 'Struts',
-                link: 'struts/'
+                }, {
+                    text: 'Struts',
+                    link: 'struts/'
 
-            },
-            {
-                text: 'Mybatis',
-                link: 'mybatis/'
+                },
 
-            },
-            {
-                text: '分布式',
-                link: 'distributed'
-            }, {
-                text: '消息中间间',
-                link: 'message-queue'
 
-            }, {
-                text: '工作流',
-                link: 'workflow'
-            }
-            ,
-            {
-                text: '算法',
-                link: 'algorithm'
+                    {
+                        text: 'Mybatis',
+                        link: 'mybatis/'
 
-            },
+                    },
+                    {
+                        text: '分布式',
+                        link: 'distributed'
+                    }, {
+                        text: '消息中间间',
+                        link: 'message-queue'
 
-            {
-                text: 'Dubbo',
-                link: 'Dubbo'
+                    }, {
+                        text: '工作流',
+                        link: 'workflow'
+                    }
+                    ,
+                    {
+                        text: '算法',
+                        link: 'algorithm'
 
-            },
-            {
-                text: 'Netty',
-                link: 'Netty'
+                    },
+
+                    {
+                        text: 'Dubbo',
+                        link: 'Dubbo'
+
+                    },
+                    {
+                        text: 'Netty',
+                        link: 'Netty'
+                    }
+
+                ]
+
             }
 
         ]
@@ -220,20 +179,19 @@ export const zhNavbar = navbar([
                     link: '/ops/server/weblogic/'
                 }
             ]
-        }
-
-        ]
-    },
-    {
-        text: '虚拟化',
-
-        children: [{
-            text: 'Docker',
-            link: '/virtualization/docker/'
         }, {
-            text: 'K8S',
-            link: '/virtualization/k8s/'
+            text: '其他',
+            children: [{
+                text: 'Docker',
+                link: '/ops/virtualization/docker/'
+            },
+                {
+                    text: 'K8S',
+                    link: '/ops/virtualization/k8s/'
+                }
+            ]
         }
+
         ]
     },
     {
@@ -294,13 +252,13 @@ export const zhNavbar = navbar([
                 link: '/other/intellij/'
             }
         ]
+    },{
+        text: '收藏',
+        link: '#'
     },
     {
         text: '关于',
         link: '/about/aboutMe'
     },
-    {
-        text: '收藏',
-        link: '#'
-    },
+
 ]);
