@@ -6,8 +6,8 @@
 
 <script setup>
 import {onMounted, ref} from 'vue'
-// 这样居然不能导入？
-/*import Loading from 'Loading'*/
+// 导入vue要加后缀。如果使用registerComponentsPlugin插件注册组件，那么可以不导入组件
+import Loading from './Loading.vue'
 
 const showLoading = ref(true)
 
