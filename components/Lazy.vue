@@ -6,7 +6,7 @@
 </template>
 <script setup>
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
-import Loading from './Loading'
+import Loading from './Loading.vue'
 
 function initLazyIntersectionObserver(fn) {
   const observer = new IntersectionObserver(

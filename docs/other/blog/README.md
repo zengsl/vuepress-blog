@@ -5,7 +5,7 @@ sidebar: auto
 # VuePress搭建博客
 
 ::: warning
-当前为V1版本的内容
+当前为V1版本的内容，部分内容在V2中可能不适用，当前Blog已升级为V2版本。
 :::
 
 ## 侧边栏

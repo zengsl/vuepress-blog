@@ -248,6 +248,9 @@ export default [{
 			}, {
 				text: 'VuePress',
 				link: '/other/blog/'
+			}, {
+				text: 'Intellij plugin',
+				link: '/other/intellij/'
 			}
 		]
 	},

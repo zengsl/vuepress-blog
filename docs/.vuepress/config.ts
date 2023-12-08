@@ -7,6 +7,7 @@ import {defaultTheme} from "vuepress";
 import mdKatex from 'markdown-it-katex'
 import { getDirname, path } from '@vuepress/utils'
 
+// @ts-ignore
 const __dirname = getDirname(import.meta.url)
 export default {
 	title: 'coder Z', // 设置网站标题
