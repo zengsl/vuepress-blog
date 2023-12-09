@@ -1,3 +1,9 @@
+---
+category: 
+  - 数据库
+tag:
+  - DB
+---
 # 概要
 
 默认用户postgres

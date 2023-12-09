@@ -1,6 +1,11 @@
 ---
 sidebar: auto
 title: Kafka
+category:
+  - 后端
+tag:
+  - MQ
+  - Kafka
 ---
 
 ## 集群搭建

@@ -1,6 +1,10 @@
 ---
 order: 1
-----
+category:
+	- 后端
+tag:
+	- Spring
+---
 # 容器初始化过程
 
 ::: tip

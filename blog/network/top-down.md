@@ -1,3 +1,5 @@
+# 自顶向下
+
 ``` shell
 # Internet的延时和路由
 traceroute [hostname]

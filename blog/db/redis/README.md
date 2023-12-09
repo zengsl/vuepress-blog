@@ -1,10 +1,11 @@
 ---
-tags:
+category:
+  - 数据库
+tag:
   - Redis
-
-
+  - NoSQL
 ---
-# 介绍
+# Redis
 
 记录Redis的相关知识
 

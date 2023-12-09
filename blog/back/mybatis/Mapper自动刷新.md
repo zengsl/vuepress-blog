@@ -1,6 +1,11 @@
 ---
 order: 1
-----
+category:
+  - 后端
+tag:
+  - Mybatis
+  - ORM
+---
 # Mapper自动刷新
 
 ## 实现

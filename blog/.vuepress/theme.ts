@@ -7,7 +7,8 @@ const MR_HOPE_AVATAR =
 
 export default hopeTheme({
     hostname: "https://zengsl.vercel.app",
-
+    fullscreen: true,
+    themeColor: true,
     author: {
         name: "zzz",
         url: "https://github.com/zengsl",
@@ -22,7 +23,7 @@ export default hopeTheme({
     docsDir: "src",
 
     blog: {
-       /* avatar:"/assets/images/child.jpg",*/
+        /* avatar:"/assets/images/child.jpg",*/
         description: "一个前端开发者",
         intro: "/about/intro.html",
         medias: {

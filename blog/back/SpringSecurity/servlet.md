@@ -1,6 +1,11 @@
 ---
 order: 3
-----
+category:
+  - 后端
+tag:
+  - Spring
+  - Spring Security
+---
 # Servlet应用
 > [spring-security文档](https://docs.spring.io/spring-security/site/docs/5.4.2/reference/html5/)
 > 调试环境为spring-boot:2.1.4 + spring-security:5.1.10 + spring-security-oauth2:2.3.5的项目环境

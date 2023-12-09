@@ -1,6 +1,11 @@
 ---
 order: 2
-----
+category:
+  - 后端
+tag:
+  - Spring
+  - Spring Security
+---
 # 匿名权限
 
 ## 匿名权限配置

@@ -1,7 +1,12 @@
 ---
 order: 2
-----
-# mybatis-plus内容
+category:
+  - 后端
+tag:
+  - Mybatis
+  - ORM
+---
+# MyBatis-Plus
 
 ::: tip
 mybatis版本3.5.1 

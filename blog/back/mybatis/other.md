@@ -1,6 +1,11 @@
 ---
 order: 3
-----
+category:
+  - 后端
+tag:
+  - Mybatis
+  - ORM
+---
 # 其他
 
 ## 刷新mapper

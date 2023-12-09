@@ -1,6 +1,12 @@
 ---
 order: 1
-----
+category:
+  - 后端
+tag:
+  - Spring
+  - Spring Security
+---
+
 # 资源访问权限
 
 ## 配置
@@ -20,7 +26,7 @@ order: 1
 </filter-mapping>
 ~~~
 
-2. FilterChainProxy中会调用资源访问过滤器（实现该接口FilterInvocationSecurityMetadataSource）来校验当前用户是否有访问当前资源的权限。 
+2. FilterChainProxy中会调用资源访问过滤器（实现该接口FilterInvocationSecurityMetadataSource）来校验当前用户是否有访问当前资源的权限。
 
 3. springsecurity的配置文件中进行配置
 
@@ -61,37 +67,43 @@ order: 1
 </bean>
 ~~~ 
 
-
-
 ## 拦截过程
 
 FilterChainProxy中包含以下过滤器![1568702032466](images/img.png)
 
-，其中有两个FilterSecurityInterceptor过滤器，两者securityMetadataSource的内容不同，其中一个是我们自己实现的类(在上文springsecurity配置中有说明)
+，其中有两个FilterSecurityInterceptor过滤器，两者securityMetadataSource的内容不同，其中一个是我们自己实现的类(
+在上文springsecurity配置中有说明)
 
 ![1568702126843](images/img_1.png)
 
 当在执行FilterSecurityInterceptor的时候会执行一个父类（AbstractSecurityInterceptor）的前置方法，前置方法的主要授权拦截逻辑如下
 
-1. 该前置方法其实就是调用当前`FilterSecurityInterceptor的securityMetadataSource中的Collection<ConfigAttribute> getAttributes(Object object)`方法，该方法会获取所有菜单的资源权限中是否包含当前请求，如果包含那么就返回当前请求对应的授权名称(比如授权表sys_authorite表中的值)
+1.
+该前置方法其实就是调用当前`FilterSecurityInterceptor的securityMetadataSource中的Collection<ConfigAttribute> getAttributes(Object object)`
+方法，该方法会获取所有菜单的资源权限中是否包含当前请求，如果包含那么就返回当前请求对应的授权名称(
+比如授权表sys_authorite表中的值)
 
-2. 获取当前用户的授权 UserDetailServiceImpl调用authorityManager.obtainGrantedAuthorities(userId, role, null);（AuthorityManagerImpl）
+2. 获取当前用户的授权 UserDetailServiceImpl调用authorityManager.obtainGrantedAuthorities(userId, role, null)
+   ;（AuthorityManagerImpl）
 
 3. 使用accessDecisionManager进行授权裁决
-	
-	- accessDecisionManager(AffirmativeBased)的decide方法会对该请求资源所需的所有权限进行轮询使用RoleVoter角色投票器进行投票判断权限。
-	
-	- 诺该当前用户的授权中没有包含请求资源所需的权限，RoleVoter会返回ACCESS_DENIED(-1)
-	
-	- accessDecisionManager判断完所有授权之后，如果当前请求资源所需权限包含了 当前用户授权中没有的授权则抛出异常**AccessDeniedException**
+
+    - accessDecisionManager(AffirmativeBased)的decide方法会对该请求资源所需的所有权限进行轮询使用RoleVoter角色投票器进行投票判断权限。
+
+    - 诺该当前用户的授权中没有包含请求资源所需的权限，RoleVoter会返回ACCESS_DENIED(-1)
+
+    - accessDecisionManager判断完所有授权之后，如果当前请求资源所需权限包含了 当前用户授权中没有的授权则抛出异常*
+      *AccessDeniedException**
 
 4. AbstractSecurityInterceptor捕获异常,**发布AuthorizationFailureEvent事件**，并且**将异常向上抛出**。
 
-5. 因为过滤器ExceptionTranslationFilter在FilterSecurityInterceptor之前（可以从上图看出），所以抛出异常之后ExceptionTranslationFilter将进行捕获，捕获到了一个访问拒绝的异常。
-    
-	- 在catch方法中进行逻辑判断，最终调用handleSpringSecurityException方法，该方法会针对异常类型和对应的执行操作进行判断。
-    
-	- 某种情况（其他情况在下方代码描述有说明）会调用**sendStartAuthentication处理授权问题**，**该方法中会调用所有的authenticationEntryPoint的实现类**(下面对该类进行解释)。
+5.
+因为过滤器ExceptionTranslationFilter在FilterSecurityInterceptor之前（可以从上图看出），所以抛出异常之后ExceptionTranslationFilter将进行捕获，捕获到了一个访问拒绝的异常。
+
+    - 在catch方法中进行逻辑判断，最终调用handleSpringSecurityException方法，该方法会针对异常类型和对应的执行操作进行判断。
+
+    - 某种情况（其他情况在下方代码描述有说明）会调用**sendStartAuthentication处理授权问题**，*
+      *该方法中会调用所有的authenticationEntryPoint的实现类**(下面对该类进行解释)。
 
 ~~~ java
 public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -138,7 +150,6 @@ protected InterceptorStatusToken beforeInvocation(Object object) {
      ......
 }
 ~~~
-
 
 ExceptionTranslationFilter
 
@@ -212,14 +223,12 @@ protected void sendStartAuthentication(HttpServletRequest request, HttpServletRe
 }
 ~~~
 
-
-
 **AuthenticationEntryPoint接口**
 
 当授权判断失败，被认定当前访问者无法访问当前资源的时候会触发AuthenticationEntryPoint的所有实现类。
 
-作用： 
-	控制ajax授权访问，超时限制调用。
+作用：
+控制ajax授权访问，超时限制调用。
 
 实现AuthenticationEntryPoint在commence判断是否是ajax请求，同时将该请求访问去掉匿名权限。
 

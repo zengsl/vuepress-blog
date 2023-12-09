@@ -95,11 +95,6 @@ export const zhNavbar = navbar([
                     }
                     ,
                     {
-                        text: '算法',
-                        link: 'algorithm'
-
-                    },
-                    {
                         text: 'Dubbo',
                         link: 'Dubbo'
                     },
@@ -147,17 +142,12 @@ export const zhNavbar = navbar([
     {
         text: '网络',
         icon: 'globe',
-        children: [{
-            text: 'TCP/IP',
-            link: '/network/tcpip/'
-        }, {
-            text: 'HTTPS',
-            link: '/network/https'
-        }]
+        link: '/network/'
+
     },
     {
         text: '运维',
-
+        icon: 'fa-brands fa-dev',
         children: [{
             text: '操作系统',
             children: [{
@@ -205,6 +195,7 @@ export const zhNavbar = navbar([
     },
     {
         text: '工具',
+        icon: 'toolbox',
         children: [{
             text: 'Typora',
             link: '/tools/typora/1.installAndSetting'
@@ -221,10 +212,17 @@ export const zhNavbar = navbar([
     },
     {
         text: '其他',
-        children: [{
-            text: '性能调优',
-            link: '/other/performanceOptimize/'
-        },
+        icon: 'box',
+        children: [
+            {
+                text: '算法',
+                link: 'algorithm'
+
+            },
+            {
+                text: '性能调优',
+                link: '/other/performanceOptimize/'
+            },
             {
                 text: '调试技巧',
                 link: '/other/debugger/'
@@ -263,7 +261,8 @@ export const zhNavbar = navbar([
         ]
     }, {
         text: '收藏',
-        link: '/collect'
+        icon: 'star',
+        link: '/star'
     },
 
 ]);
