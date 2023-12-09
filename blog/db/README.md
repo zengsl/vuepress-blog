@@ -1,7 +1,7 @@
 ---
-title: 网络
+title: 数据库
 index: false
-icon: "globe"
+icon: 'database'
 
 ---
 

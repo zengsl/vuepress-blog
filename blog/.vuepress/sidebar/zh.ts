@@ -248,7 +248,8 @@ export const zhSidebar = sidebar({
       }
     ]
   }],
-  '/network/': "structure",
+  '/network/protocol/': "structure",
+  '/network/grab/': "structure",
   '/virtualization/k8s/': [{
     text: 'Kubernetes',
     children: [{

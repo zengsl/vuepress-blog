@@ -1,7 +1,7 @@
 ---
-title: 网络
+title: 其他
 index: false
-icon: "globe"
+icon: "box"
 
 ---
 

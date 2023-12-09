@@ -226,7 +226,7 @@ export const zhNavbar = navbar([
         children: [
             {
                 text: '算法',
-                link: 'algorithm'
+                link: '/other/algorithm'
 
             },
             {
