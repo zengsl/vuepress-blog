@@ -24,7 +24,7 @@ export default hopeTheme({
 
     blog: {
         /* avatar:"/assets/images/child.jpg",*/
-        description: "一个前端开发者",
+        description: "一个小镇CV工程师",
         intro: "/about/intro.html",
         medias: {
             BiliBili: "https://space.bilibili.com/437799265?spm_id_from=333.1007.0.0",
