@@ -1,3 +1,11 @@
+---
+category: 
+  - 后端
+tags:
+  - 工具
+  - 编译
+
+---
 # maven install 报错
 
 通过maven install -X 进入调试模式，查看详细信息

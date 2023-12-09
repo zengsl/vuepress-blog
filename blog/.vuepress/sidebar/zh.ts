@@ -165,22 +165,6 @@ export const zhSidebar = sidebar({
       }
     ]
   }],
-  '/tools/grab/': [{
-    text: '抓包工具',
-    children: [{
-      text: '介绍',
-      link: '/tools/grab/'
-    },
-      {
-        text: 'Fiddler',
-        link: '/tools/grab/fiddler/use.md'
-      },
-      {
-        text: 'Wireshark',
-        link: '/tools/grab/wireshark/use.md'
-      }
-    ]
-  }],
   '/db/redis/': "structure",
   '/db/oracle/': "structure",
   '/db/mysql/': "structure",
@@ -232,7 +216,6 @@ export const zhSidebar = sidebar({
       }
     ]
   }],
-
   '/front/js/': [{
     text: 'JavaScript',
     children: [{

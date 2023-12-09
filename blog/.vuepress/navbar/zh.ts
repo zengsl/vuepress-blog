@@ -142,7 +142,17 @@ export const zhNavbar = navbar([
     {
         text: '网络',
         icon: 'globe',
-        link: '/network/'
+        prefix: '/network/',
+        children:[
+            {
+                text: '协议',
+                link: 'protocol'
+            },
+            {
+                text: '抓包',
+                link: 'grab'
+            }
+        ]
 
     },
     {
