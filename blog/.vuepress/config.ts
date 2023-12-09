@@ -3,6 +3,7 @@ import theme from "./theme.js";
 import {registerComponentsPlugin} from "@vuepress/plugin-register-components";
 import {  path } from '@vuepress/utils'
 import {searchProPlugin} from "vuepress-plugin-search-pro";
+// @ts-ignore
 export default defineUserConfig({
   base: "/",
   locales: {

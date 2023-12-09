@@ -16,14 +16,12 @@ export const zhSidebar = sidebar({
       prefix: "posts/",
       children: "structure",
     },*/
-    "intro",
+    "/about/intro",
 /*
     "slides",
 */
   ],
-  '/back/java/concurrency/': "structure",
-  '/back/java/jvm/': "structure",
-  '/back/java/source/': "structure",
+  '/back/java/': "structure",
   '/back/struts/': "structure",
   '/back/spring/': "structure",
   '/back/SpringSecurity/':"structure",

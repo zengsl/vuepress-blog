@@ -10,7 +10,7 @@ size命令查看内存布局
 - 数据段 ：已经初始化的静态变量
 - bss段：未初始化的静态变量
 
-![image-20220108153610135](https://gitee.com/zengsl/picBed/raw/master/img/2022/01/20220108153610.png)
+![image-20220108153610135](images/img.png)
 
 
 

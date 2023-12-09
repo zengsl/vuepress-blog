@@ -14,7 +14,7 @@
 
 由于HotSpot虚拟机的自动内存管理系统要求对象起始地址必须是8字节的整数倍，换句话说就是任何对象的大小都必须是8字节的整数倍。
 
-![image-20220107165913747](https://gitee.com/zengsl/picBed/raw/master/img/2022/01/20220107165919.png)
+![image-20220107165913747](images/img_1.png)
 
 ### JMM
 
