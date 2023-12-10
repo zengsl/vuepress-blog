@@ -5,6 +5,7 @@ category:
 tag:
   - MQ
   - Kafka
+date: 2021-08-22
 ---
 
 ## 集群搭建

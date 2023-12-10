@@ -5,6 +5,7 @@ category:
 tag:
   - Mybatis
   - ORM
+date: 2021-08-22
 ---
 # Mapper自动刷新
 

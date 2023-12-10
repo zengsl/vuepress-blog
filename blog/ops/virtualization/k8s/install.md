@@ -3,6 +3,7 @@ tag:
   - k8s
   - kubernetes
   - 虚拟化技术
+date: 2021-08-31
 ---
 
 > 资料来源于[k8s教程由浅入深-尚硅谷](https://www.bilibili.com/video/BV1GT4y1A756?p=19)

@@ -1,3 +1,7 @@
+---
+date: 2020-09-10
+
+---
 [nginx documentation](https://nginx.org/en/docs/)
 
 ## Nginx 配置
