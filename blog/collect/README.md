@@ -13,7 +13,7 @@ sticky: true
 - [quora](https://www.quora.com/)
 - [Dev.to](https://dev.to/)
 - [reddit](https://www.reddit.com/)
-- [github](https://github.com/)
+- [GitHub](https://github.com/)
 
 ## 资讯
 
@@ -55,6 +55,7 @@ sticky: true
 
 - [favicon-generator](https://favicon.io/favicon-generator/)
 - [carbon-代码图片](https://carbon.now.sh/)
+- [Figma](https://www.figma.com/)
 - [fontawesome](https://fontawesome.com/search)
 - [iconify](https://icon-sets.iconify.design/)
 - [iconfont](https://www.iconfont.cn/)
