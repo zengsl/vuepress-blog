@@ -197,6 +197,9 @@ export const zhNavbar = navbar([
                 {
                     text: 'K8S',
                     link: '/ops/virtualization/k8s/'
+                }, {
+                    text: 'Sonar',
+                    link: '/ops/sonar/'
                 }
             ]
         }
@@ -212,12 +215,6 @@ export const zhNavbar = navbar([
         }, {
             text: 'Git',
             link: '/tools/git/'
-        }, {
-            text: 'Sonar',
-            link: '/tools/sonar/'
-        }, {
-            text: '抓包',
-            link: '/tools/grab/'
         }]
     },
     {
@@ -272,7 +269,7 @@ export const zhNavbar = navbar([
     }, {
         text: '收藏',
         icon: 'star',
-        link: '/star'
+        link: '/collect'
     },
 
 ]);

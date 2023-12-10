@@ -133,38 +133,8 @@ export const zhSidebar = sidebar({
       }
     ]
   }],
-  '/tools/git/': [{
-    text: 'Git',
-    children: [{
-      text: '介绍',
-      link: '/tools/git/'
-    },
-      {
-        text: '安装配置',
-        link: '1.installAndSetting'
-      },
-      {
-        text: '部署',
-        link: '2.deploy'
-      },
-      {
-        text: '常用命令',
-        link: '3.command'
-      }
-    ]
-  }],
-  '/tools/sonar/': [{
-    text: 'Sonar',
-    children: [{
-      text: '介绍',
-      link: '/tools/sonar/'
-    },
-      {
-        text: '安装配置',
-        link: '1.installAndSetting'
-      }
-    ]
-  }],
+  '/tools/git/': "structure",
+  '/ops/sonar/': "structure",
   '/db/redis/': "structure",
   '/db/oracle/': "structure",
   '/db/mysql/': "structure",
