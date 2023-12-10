@@ -1,8 +1,10 @@
 ---
 date: 2021-08-31
+order: 2
 
 
 ---
+# kubectl
 ## 概述
 
 kubectl是Kubernetes集群的命令行工具，通过kubectl能够对集群本身进行管理，并能够在集群上进行容器化应用的安装和部署

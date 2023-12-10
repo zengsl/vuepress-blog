@@ -220,28 +220,5 @@ export const zhSidebar = sidebar({
   }],
   '/network/protocol/': "structure",
   '/network/grab/': "structure",
-  '/virtualization/k8s/': [{
-    text: 'Kubernetes',
-    children: [{
-      text: '介绍',
-      link: '/virtualization/k8s/'
-    },
-      {
-        text: '安装',
-        link: 'install'
-      },
-      {
-        text: 'kubernetes集群命令工具kubectl',
-        link: 'kubectl'
-      },
-      {
-        text: 'Kubernetes集群YAML文件详解',
-        link: 'yaml'
-      },
-      {
-        text: 'Kubernetes核心技术Pod',
-        link: 'pod'
-      }
-    ]
-  }]
+  '/ops/virtualization/k8s/': "structure"
 });

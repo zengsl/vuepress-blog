@@ -3,8 +3,9 @@ date: 2022-01-14
 tag:
   - 搜索引擎
   - Solr
+title: 安装
 ---
-## 安装
+# Solr安装
 
 
 > 不同版本的solr有差别，本次操作版本：Solr-6.4.1  [历史版本下载](http://archive.apache.org/dist/lucene/solr/)
