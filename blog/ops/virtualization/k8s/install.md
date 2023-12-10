@@ -1,5 +1,5 @@
 ---
-tags:
+tag:
   - k8s
   - kubernetes
   - 虚拟化技术

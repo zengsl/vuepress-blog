@@ -1,5 +1,4 @@
 ---
-sidebar: auto
 ---
  
 # UReport2问题

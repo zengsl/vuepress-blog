@@ -1,5 +1,4 @@
 ---
-sidebar: auto
 ---
 
 # VuePress搭建博客
@@ -14,7 +13,6 @@ sidebar: auto
 
 ``` txt
 ---
-sidebar: auto
 ---
 ```
 

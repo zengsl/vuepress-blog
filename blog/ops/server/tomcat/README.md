@@ -1,5 +1,4 @@
 ---
-sidebarDepth: 2
 ---
 
 记录有关Tomcat的知识内容

@@ -1,7 +1,7 @@
 ---
 category: 
   - 后端
-tags:
+tag:
   - 工具
   - 编译
 

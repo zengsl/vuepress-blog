@@ -1,5 +1,4 @@
 ---
-sidebarDepth: 2
 ---
 > 以Tomcat8.x为例
 

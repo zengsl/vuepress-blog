@@ -1,5 +1,4 @@
 ---
-sidebar: auto
 title: Kafka
 category:
   - 后端
