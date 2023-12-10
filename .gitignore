@@ -61,3 +61,8 @@ docs/.vuepress/dist/
 
 .idea
 .DS_Store
+
+node_modules/
+blog/.vuepress/.cache/
+blog/.vuepress/.temp/
+blog/.vuepress/dist/
