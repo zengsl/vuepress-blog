@@ -269,7 +269,7 @@ export const zhNavbar = navbar([
     }, {
         text: '收藏',
         icon: 'star',
-        link: '/collect'
+        link: '/collect/network'
     },
 
 ]);

@@ -64,6 +64,37 @@ export default hopeTheme({
         //   provider: "Waline",
         //   serverURL: "https://waline-comment.vuejs.press",
         // },
+        comment: {
+            provider: "Giscus",
+            repo: "zengsl/vuepress-blog-giscus",
+            repoId: "R_kgDOK4QM7w",
+            category: "Announcements",
+            categoryId: "DIC_kwDOK4QM784Cbpkx",
+            mapping: "pathname",
+            lazyLoading: true,
+            strict: true,
+            reactionsEnabled: true,
+            inputPosition: "bottom",
+            lightTheme: "light",
+            darkTheme: "dark",
+        },
+        /*
+        https://giscus.app/zh-CN
+        <script src="https://giscus.app/client.js"
+        data-repo="zengsl/vuepress-blog-giscus"
+        data-repo-id="R_kgDOK4QM7w"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOK4QM784Cbpkx"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>*/
 
         // all features are enabled for demo, only preserve features you need here
         mdEnhance: {
