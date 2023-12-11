@@ -42,7 +42,7 @@ tag:
 
 ## 推荐
 - [美团技术团队](https://tech.meituan.com/)
-- [zhile](https://zhile.io/) 知名Intellj Plugin开发者 (狗头)
+- [zhile](https://zhile.io/) :eyes:知名Intellj Plugin开发者 (狗头)
 - [尚硅谷](https://space.bilibili.com/302417610)
 - [菜鸟教程](https://www.runoob.com/)
 - [鱼皮的编程宝典](https://www.codefather.cn/)
@@ -150,12 +150,12 @@ tag:
 
 ## 考研
 
-[王道计算机教育](https://space.bilibili.com/95228778)
+- [王道计算机教育](https://space.bilibili.com/95228778)
 
 ## 考公
 
-[百度汉语](https://hanyu.baidu.com/)
-[人民网](http://www.people.com.cn/) 可利用检索功能
+- [百度汉语](https://hanyu.baidu.com/)
+- [人民网](http://www.people.com.cn/) 可利用检索功能
 
 ## 找工作
 
