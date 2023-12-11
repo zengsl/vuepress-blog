@@ -1,5 +1,5 @@
 ---
-sidebar: auto
+date: 2021-08-25
 ---
 # Docker
 
@@ -94,3 +94,4 @@ docker logs -f --tail 100 66c017d8fc53
 ![commit](images/img.png)
 
 docker commit some-rabbit some-rabbit_new
+

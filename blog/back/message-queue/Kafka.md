@@ -1,11 +1,11 @@
 ---
-sidebar: auto
 title: Kafka
 category:
   - 后端
 tag:
   - MQ
   - Kafka
+date: 2021-08-22
 ---
 
 ## 集群搭建

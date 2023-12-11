@@ -1,1 +1,7 @@
-# 源码阅读
+---
+index: false
+article: false
+---
+# 源码
+
+<AutoCatalog />

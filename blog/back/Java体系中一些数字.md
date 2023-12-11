@@ -1,14 +1,12 @@
 ---
-
 category: 
   - 后端
-  
 tag:
  - 计算机
  - JVM
  - MySQL
  - Kafka
-
+date: 2022-01-14
 ---
 
 # 计算机体系中一些数字

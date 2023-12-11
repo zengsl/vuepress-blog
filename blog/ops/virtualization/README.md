@@ -1,7 +1,6 @@
 ---
-title: 工具
+title: 虚拟化
 index: false
-icon: "toolbox"
 article: false
 
 ---

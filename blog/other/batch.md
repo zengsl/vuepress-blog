@@ -1,6 +1,6 @@
 ---
-sidebar: auto
-sidebarDepth: 2
+date: 2020-11-02
+
 ---
 
 # 批量插入

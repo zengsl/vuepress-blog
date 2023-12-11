@@ -4,6 +4,8 @@ category:
 tag:
   - MySQL
   - DB
+date: 2020-09-10
+
 ---
 # MySQL
 

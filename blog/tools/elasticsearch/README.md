@@ -10,3 +10,5 @@
 
 
 brew install kibana
+
+待完善...

@@ -1,5 +1,6 @@
 ---
-sidebar: auto
+date: 2021-08-22
+
 ---
  
 # UReport2问题

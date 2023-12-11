@@ -1,1 +1,6 @@
+---
+article: false
+---
 # Java
+
+<AutoCatalog />

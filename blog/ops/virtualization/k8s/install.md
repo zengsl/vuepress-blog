@@ -1,9 +1,13 @@
 ---
-tags:
+tag:
   - k8s
   - kubernetes
   - 虚拟化技术
+date: 2021-08-31
+order: 1
 ---
+
+# 安装
 
 > 资料来源于[k8s教程由浅入深-尚硅谷](https://www.bilibili.com/video/BV1GT4y1A756?p=19)
 > [英文文档](https://kubernetes.io/docs/home/) [中文文档](https://kubernetes.io/zh/docs/home/) 照着文档一步步来，访问不了的源就换为国内的。

@@ -1,5 +1,6 @@
 ---
-sidebar: auto
+date: 2021-12-02
+
 ---
 
 # VuePress搭建博客
@@ -14,7 +15,6 @@ sidebar: auto
 
 ``` txt
 ---
-sidebar: auto
 ---
 ```
 

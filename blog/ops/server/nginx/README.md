@@ -1,5 +1,12 @@
+---
+date: 2020-09-10
+tag:
+  - Nginx
+  - Http
+  - Server
+---
 [nginx documentation](https://nginx.org/en/docs/)
-
+# Nginx
 ## Nginx 配置
 
 ### location
