@@ -169,6 +169,7 @@ export default hopeTheme({
         },
 
         // uncomment these if you want a PWA
+        pwa: true,
         // pwa: {
         //   favicon: "/favicon.ico",
         //   cacheHTML: true,
