@@ -89,6 +89,7 @@ tag:
 - [中国大学MOOC](https://www.icourse163.org/)
 - [学堂在线](https://www.xuetangx.com/)
 - [edX China](https://www.edx.org/edxchina)
+- [source-code-hunter](https://github.com/doocs/source-code-hunter)
 
 ## 编程
 
