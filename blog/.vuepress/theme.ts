@@ -98,9 +98,12 @@ export default hopeTheme({
 
         // all features are enabled for demo, only preserve features you need here
         mdEnhance: {
+            // 启用 kotlin 交互演示
+            kotlinPlayground: true,
             align: true,
             attrs: true,
-
+            // 启用 GFM 警告
+            alert: true,
             // install chart.js before enabling it
             // chart: true,
 

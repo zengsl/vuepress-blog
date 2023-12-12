@@ -262,7 +262,7 @@ export const zhNavbar = navbar([
                 text: 'VuePress',
                 link: '/other/blog/'
             }, {
-                text: 'Intellij plugin',
+                text: 'Intellij Plugin',
                 link: '/other/intellij/'
             }
         ]
