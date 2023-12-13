@@ -285,6 +285,7 @@ tasks {
 ## Demo
 
 - [intellij-plugin-sfis](https://github.com/zengsl/intellij-plugin-sfis.git) 检索本机指定日志文件并展示
+- [intellij-plugin-lombok-helper](https://github.com/zengsl/intellij-plugin-lombok-helper) 快速打开class文件
 
 
 
