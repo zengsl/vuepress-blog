@@ -15,6 +15,31 @@ icon: 'sitemap'
 
 # 网站
 
+
+## :star: 推荐
+- [Programming-Idioms](https://programming-idioms.org/cheatsheets) 学习编程语言时，可以对比不同语言之间的实现方式
+- [美团技术团队](https://tech.meituan.com/)
+- [zhile](https://zhile.io/) :eyes:知名Intellj Plugin开发者 (狗头)
+- [尚硅谷](https://space.bilibili.com/302417610)
+- [菜鸟教程](https://www.runoob.com/)
+- [鱼皮的编程宝典](https://www.codefather.cn/)
+- [JavaGuide](https://javaguide.cn/)
+- [托尼](https://space.bilibili.com/668380)
+- [Road To Coding](https://www.r2coding.com/) CodeSheep
+- [牧云踏歌](https://space.bilibili.com/24370353)
+- [代码随想录](https://programmercarl.com/)
+
+
+## 资讯
+
+- [Hacker News](https://news.ycombinator.com/)
+- [Hacker News Daily](https://www.daemonology.net/hn-daily/)
+- [淘宝数据库月报](http://mysql.taobao.org/monthly/)
+- [thoughtworks](https://www.thoughtworks.com/zh-cn/radar) 技术雷达是基于 Thoughtworks 全球员工的实际经验所建立的涵盖工具、技术、平台、语言和框架的趋势快照。
+- [LibHunt](https://www.libhunt.com/) 追踪流行类库，可以找到很多优秀开源类库，对比同类类库之间的差异
+- [ProductHunt](https://www.producthunt.com/)
+
+
 ## 社区
 
 - [V2EX](https://www.v2ex.com/)
@@ -35,26 +60,6 @@ icon: 'sitemap'
 - [Discord](https://discord.com/?login)
 - [Gitter](https://gitter.im/)
 - [腾讯兔小巢](https://txc.qq.com/)
-
-## 资讯
-
-- [Hacker News](https://news.ycombinator.com/)
-- [Hacker News Daily](https://www.daemonology.net/hn-daily/)
-- [淘宝数据库月报](http://mysql.taobao.org/monthly/)
-
-## 推荐
-- [美团技术团队](https://tech.meituan.com/)
-- [zhile](https://zhile.io/) :eyes:知名Intellj Plugin开发者 (狗头)
-- [尚硅谷](https://space.bilibili.com/302417610)
-- [菜鸟教程](https://www.runoob.com/)
-- [鱼皮的编程宝典](https://www.codefather.cn/)
-- [JavaGuide](https://javaguide.cn/)
-- [托尼](https://space.bilibili.com/668380)
-- [Road To Coding](https://www.r2coding.com/) CodeSheep
-- [牧云踏歌](https://space.bilibili.com/24370353)
-- [代码随想录](https://programmercarl.com/)
-
-
 
 
 # 文档转换
@@ -90,6 +95,7 @@ icon: 'sitemap'
 
 ## 自学网站
 
+- [Hyperskill](https://hyperskill.org/tracks)
 - [中国大学MOOC](https://www.icourse163.org/)
 - [学堂在线](https://www.xuetangx.com/)
 - [edX China](https://www.edx.org/edxchina)
