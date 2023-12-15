@@ -42,7 +42,7 @@ icon: 'sitemap'
 
 ## 社区
 
-- [V2EX](https://www.v2ex.com/)
+- [V2EX](https://www.v2ex.com/?r=zzzlll0)
 - [电鸭](https://eleduck.com/)
 - [Stack Overflow](https://stackoverflow.com/)
 - [Quora](https://www.quora.com/)
