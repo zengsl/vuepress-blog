@@ -6,11 +6,12 @@ export const zhNavbar = navbar([
         text: '前端',
         prefix: "/front/",
         icon: "fa-brands fa-html5",
-        children: [{
-            text: 'Html',
-            link: 'html',
-            icon: "fa-brands fa-html5",
-        },
+        children: [
+            {
+                text: 'Html',
+                link: 'html',
+                icon: "fa-brands fa-html5",
+            },
             {
                 text: 'Js',
                 link: 'js/',
@@ -143,7 +144,7 @@ export const zhNavbar = navbar([
         text: '网络',
         icon: 'globe',
         prefix: '/network/',
-        children:[
+        children: [
             {
                 text: '协议',
                 link: 'protocol'

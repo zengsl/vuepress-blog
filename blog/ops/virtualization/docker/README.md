@@ -95,3 +95,31 @@ docker logs -f --tail 100 66c017d8fc53
 
 docker commit some-rabbit some-rabbit_new
 
+
+## 磁盘清理
+
+> 参考：[https://betterprogramming.pub/docker-tips-clean-up-your-local-machine-35f370a01a78](https://betterprogramming.pub/docker-tips-clean-up-your-local-machine-35f370a01a78)
+
+```shell
+docker system df
+```
+
+![执行结果](images/img_2.png)
+
+
+- Images：所有镜像占用的空间。
+- Containers：运行的容器占用的空间，表示每个容器的读写层的空间。
+- Local Volumes：容器挂载本地数据卷的空间。
+- Build Cache：镜像构建过程中产生的缓存空间（只有在使用 BuildKit 时才有，Docker 18.09 以后可用）。
+
+清理`Build Cache`
+
+```shell
+docker builder prune
+```
+
+一键清理
+
+```shell
+docker system prune
+```

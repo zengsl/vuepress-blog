@@ -171,6 +171,7 @@ export const zhSidebar = sidebar({
             }
         ]
     }],
+    '/front/vue/': "structure",
     '/front/js/': [{
         text: 'JavaScript',
         children: [{

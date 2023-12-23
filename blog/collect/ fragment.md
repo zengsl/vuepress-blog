@@ -11,9 +11,10 @@ date: 2023-12-11
 # 碎片
 
 
-## 比对框架
+## 框架
 
-- [Google diff-match-patch](https://github.com/google/diff-match-patch.git)
+- [Google diff-match-patch](https://github.com/google/diff-match-patch.git) 比对框架
+- [dumi](https://d.umijs.org/) 为组件研发而生的静态站点框架
 
 
 ## 代码保护

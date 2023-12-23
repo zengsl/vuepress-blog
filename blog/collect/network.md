@@ -23,6 +23,7 @@ icon: 'sitemap'
 - [尚硅谷](https://space.bilibili.com/302417610)
 - [菜鸟教程](https://www.runoob.com/)
 - [鱼皮的编程宝典](https://www.codefather.cn/)
+- [SqlFather](http://sqlfather.yupi.icu/)
 - [JavaGuide](https://javaguide.cn/)
 - [托尼](https://space.bilibili.com/668380)
 - [Road To Coding](https://www.r2coding.com/) CodeSheep
@@ -139,6 +140,13 @@ icon: 'sitemap'
 - [随轩](https://yilinhut.net/)
 - [ODAILY](https://www.odaily.news/)
 - [ethereum](https://ethereum.org/zh/what-is-ethereum/)
+
+## AI
+
+- [copy.ai](https://www.copy.ai/) 文案生成
+- [jasper.ai](https://www.jasper.ai/) 文案生成
+- [zapier](https://zapier.com) ChatGPT 插件
+- [腾讯云建站（CloudPages）](https://cloud.tencent.com/product/cloudpages) 
 
 ## 产品
 

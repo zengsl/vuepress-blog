@@ -107,3 +107,9 @@ npx的作用（默认）：
 
 
 使用NPX则可以直接执行！
+
+
+## 多版本管理
+
+- :rocket: [fnm](https://github.com/Schniz/fnm) fnm是一个使用rust构建的一个nodejs版本管理工具，简单、快速、跨平台。
+-  [nvm](https://github.com/nvm-sh/nvm)
