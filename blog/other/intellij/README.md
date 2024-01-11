@@ -203,10 +203,19 @@ tasks {
 
 生成一个可以分享、安装的压缩文件"build/distributions/xxxxx.zip"
 
+## 验证
+
+runPluginVerifier
+
 ## 发布
 
 [publishing-plugin
 ](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html)
+
+[uploading-a-new-plugin](https://plugins.jetbrains.com/docs/marketplace/uploading-a-new-plugin.html)
+
+[https://plugins.jetbrains.com/idea](https://plugins.jetbrains.com/idea)
+
 ## 版本兼容
 
 默认内容一般包含：

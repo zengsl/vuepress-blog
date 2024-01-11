@@ -15,6 +15,7 @@
     "docs:update-package": "pnpm dlx vp-update"
   },
   "dependencies": {
+    "markdown-it-container": "^4.0.0",
     "xmind-embed-viewer": "^1.2.0"
   }
 }

@@ -15,7 +15,7 @@ date: 2023-12-11
 
 - [Google diff-match-patch](https://github.com/google/diff-match-patch.git) 比对框架
 - [dumi](https://d.umijs.org/) 为组件研发而生的静态站点框架
-
+- [mdit-plugins](https://mdit-plugins.github.io/zh/) markdown-it插件
 
 ## 代码保护
 
