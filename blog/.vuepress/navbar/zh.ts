@@ -19,6 +19,12 @@ export const zhNavbar = navbar([
 
             },
             {
+                text: 'Ts',
+                link: 'ts/',
+                icon: "skill-icons typescript",
+
+            },
+            {
                 text: 'React',
                 link: 'react',
                 icon: "fa-brands fa-react",

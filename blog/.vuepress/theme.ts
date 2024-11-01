@@ -14,7 +14,7 @@ export default hopeTheme({
         url: "https://github.com/zengsl",
     },
 
-    iconAssets: "fontawesome-with-brands",
+    iconAssets: ["fontawesome-with-brands" ,"iconify"],
 
     logo: "https://theme-hope-assets.vuejs.press/logo.svg",
 
