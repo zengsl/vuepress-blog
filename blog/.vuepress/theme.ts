@@ -10,7 +10,7 @@ export default hopeTheme({
     fullscreen: true,
     themeColor: true,
     author: {
-        name: "zzz",
+        name: "leo z",
         url: "https://github.com/zengsl",
     },
 

@@ -179,12 +179,8 @@ export const zhSidebar = sidebar({
             link: '/front/js/'
         },
             {
-                text: '基本概念',
+                text: '基本',
                 link: '1.base'
-            },
-            {
-                text: '对象',
-                link: '2.object'
             },
             {
                 text: '原型',

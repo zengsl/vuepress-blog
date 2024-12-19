@@ -7,6 +7,7 @@ headerDepth: 3
 
 # TypeScript
 
+[官网](https://www.typescriptlang.org/docs/)
 
 ## 类型
 

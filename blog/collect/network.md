@@ -158,6 +158,8 @@ icon: 'sitemap'
 ## 英语
 
 - [欧路词典](https://dict.eudic.net/)
+- [Relingo](https://relingo.net/en?referrer=6760d1e16b5c87b0d611e2eb)  可以根据词汇量翻译单词
+- [沉浸式翻译](https://immersivetranslate.com/zh-Hans/) 
 - [剑桥辞典](https://dictionary.cambridge.org/)
 - [DeepL](https://www.deepl.com/zh/translator)
 - [abbreviations](https://www.abbreviations.com/) 缩写查询
