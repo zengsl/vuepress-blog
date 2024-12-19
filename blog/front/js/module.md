@@ -1,7 +1,7 @@
 
 # JS 模块化
 
-<XmindViewer url="/xmind/JsModule.xmind"/>
+<XmindViewer url="/assets/xmind/JsModule.xmind"/>
 
 ## 理解
 
