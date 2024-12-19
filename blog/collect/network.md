@@ -16,10 +16,12 @@ icon: 'sitemap'
 # 网站
 
 
+
 ## :star: 推荐
+- [https://linux.do](https://linux.do/) 优质社区，里面的佬都很好学
+- [zhile](https://zhile.io/) :eyes: 知名热佬(狗头)
 - [Programming-Idioms](https://programming-idioms.org/cheatsheets) 学习编程语言时，可以对比不同语言之间的实现方式
 - [美团技术团队](https://tech.meituan.com/)
-- [zhile](https://zhile.io/) :eyes:知名Intellj Plugin开发者 (狗头)
 - [尚硅谷](https://space.bilibili.com/302417610)
 - [菜鸟教程](https://www.runoob.com/)
 - [鱼皮的编程宝典](https://www.codefather.cn/)
