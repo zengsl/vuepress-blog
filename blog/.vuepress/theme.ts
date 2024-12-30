@@ -172,7 +172,7 @@ export default hopeTheme({
             // install @vue/repl before enabling it
             // vuePlayground: true,
         },
-
+        photoSwipe: true,
         // uncomment these if you want a PWA
         pwa: true,
         // pwa: {

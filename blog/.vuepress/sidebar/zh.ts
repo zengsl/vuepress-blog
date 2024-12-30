@@ -10,6 +10,7 @@ export const zhSidebar = sidebar({
     '/back/struts/': "structure",
     '/back/spring/': "structure",
     '/back/SpringSecurity/': "structure",
+    '/back/SpringBoot/': "structure",
     '/back/SpringCloud/': "structure",
     '/back/job/quartz/': "structure",
     '/back/mybatis/': "structure",

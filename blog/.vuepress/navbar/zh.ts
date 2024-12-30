@@ -66,6 +66,10 @@ export const zhNavbar = navbar([
                         link: 'SpringSecurity/'
                     },
                     {
+                        text: 'Spring Boot',
+                        link: 'SpringBoot/'
+                    },
+                    {
                         text: 'Spring Cloud',
                         link: 'SpringCloud/'
                     }
