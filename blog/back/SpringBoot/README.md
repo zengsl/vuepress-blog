@@ -13,6 +13,8 @@ date: 2024-12-30
 
 [SpringBoot源码地址](https://github.com/spring-projects/spring-boot)
 
+[本文用于测试的Demo项目](https://github.com/zengsl/springboot-load-demo)
+
 ## 目的
 
 起因：之前一直使用Docker部署SpringBoot Jar，但是实际运行过着中每次发版本上传镜像时间过久，因此考虑将lib分离出来单独部署，以此减小Jar的体积。但是分离之后发现项目中覆盖spring和sentinel的代码没有正确加载，导致覆盖失败。所以打算分析下SpringBoot Loader到底是如何加载类的。
