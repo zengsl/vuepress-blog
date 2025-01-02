@@ -1,11 +1,12 @@
 ---
 icon: circle-info
 cover: /assets/images/cover3.jpg
+timeline: false
 ---
 # 介绍页
 
 ::: tip
-一个代码的搬运工！！！
+来自南昌的代码的搬运工！！！
 :::
 
-这是一个PWA测试
+爱好篮球、交友和编程。

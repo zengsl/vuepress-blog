@@ -10,6 +10,7 @@ export const zhSidebar = sidebar({
     '/back/struts/': "structure",
     '/back/spring/': "structure",
     '/back/SpringSecurity/': "structure",
+    '/back/SpringBoot/': "structure",
     '/back/SpringCloud/': "structure",
     '/back/job/quartz/': "structure",
     '/back/mybatis/': "structure",
@@ -171,6 +172,7 @@ export const zhSidebar = sidebar({
             }
         ]
     }],
+    '/front/vue/': "structure",
     '/front/js/': [{
         text: 'JavaScript',
         children: [{
@@ -178,12 +180,8 @@ export const zhSidebar = sidebar({
             link: '/front/js/'
         },
             {
-                text: '基本概念',
+                text: '基本',
                 link: '1.base'
-            },
-            {
-                text: '对象',
-                link: '2.object'
             },
             {
                 text: '原型',

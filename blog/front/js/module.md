@@ -1,7 +1,7 @@
 
 # JS 模块化
 
-<XmindViewer url="/xmind/JsModule.xmind"/>
+<XmindViewer url="/assets/xmind/JsModule.xmind"/>
 
 ## 理解
 
@@ -161,7 +161,7 @@ define(function(require){ var m1 = require('./module1')  var m4 = require('./mod
 
 [Sea.js](https://seajs.github.io/seajs/docs/)
 			
-### ES2015
+### ES6
 		
 #### 规范
 
@@ -173,8 +173,27 @@ define(function(require){ var m1 = require('./module1')  var m4 = require('./mod
 ~~~ js
 //导出模块：
 export
+// 分别导出
+export const name = 'zhangsan';
+// 统一导出
+export { xxx,yyy,zzz };
+// 默认导出
+export default xxx;
+
 //导入模块：
 import
+// 通用导入
+import * as xxx from 'module'
+// 命名导入 适用于分别导出和统一导出
+import {xxx,yyy,zzz as zzzz} from 'module'
+// 默认导入
+export xxx from 'module'
+// 混用：默认导入+命名导入
+export xxx,{yyy,zzz as zzzz} from 'module'
+// 动态导入
+import('module').then()
+// import可以不支持任何数据
+import './module'
 ~~~
 
 #### 实现（浏览器）

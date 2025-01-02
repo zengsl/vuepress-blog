@@ -1,6 +1,7 @@
 ---
 date: 2021-08-25
 ---
+
 # Docker
 
 ## 安装
@@ -16,7 +17,6 @@ brew install --cask --appdir=/Applications docker
 **手动安装**
 
 [Install Docker Desktop on Mac](https://docs.docker.com/desktop/mac/install/)
-
 
 ### 镜像加速
 
@@ -48,10 +48,7 @@ brew install --cask --appdir=/Applications docker
 
 - 科大镜像 [https://docker.mirrors.ustc.edu.cn/](https://docker.mirrors.ustc.edu.cn/)
 
-
-
 ## 命令
-
 
 ### docker ps
 
@@ -60,7 +57,6 @@ brew install --cask --appdir=/Applications docker
 过滤镜像
 
 docker ps --filter ancestor=hello-world -a
-
 
 ### docker container
 
@@ -72,16 +68,18 @@ docker ps --filter ancestor=hello-world -a
 
 docker container rm $(docker ps --filter ancestor=hello-world -qa)
 
-
 ### docker exec
 
 [docker exec](https://docs.docker.com/engine/reference/commandline/exec/)
 
 以交互方式进入容器
 
-docker exec -it containerId command 
+docker exec -it containerId command
 
-command与镜像构建有关，可以查看镜像的构建描述。比如[redis:alpine3.14](https://hub.docker.com/layers/redis/library/redis/alpine3.14/images/sha256-6edcbc387edd866a080491c015c029b458f49678152dfe364ad50383620c3215?context=explore)这个镜像就是基于`/bin/sh`，那么就不能像进入[ubuntu](https://hub.docker.com/layers/ubuntu/library/ubuntu/latest/images/sha256-0f745a413c7886d6dc4f1e6a1d45a5cf5a9a85f72e6243b307e17d67e2e1fe10?context=explore)容器那样使用`/bin/bash`
+command与镜像构建有关，可以查看镜像的构建描述。比如[redis:alpine3.14](https://hub.docker.com/layers/redis/library/redis/alpine3.14/images/sha256-6edcbc387edd866a080491c015c029b458f49678152dfe364ad50383620c3215?context=explore)
+这个镜像就是基于`/bin/sh`
+，那么就不能像进入[ubuntu](https://hub.docker.com/layers/ubuntu/library/ubuntu/latest/images/sha256-0f745a413c7886d6dc4f1e6a1d45a5cf5a9a85f72e6243b307e17d67e2e1fe10?context=explore)
+容器那样使用`/bin/bash`
 
 ### 日志
 
@@ -94,4 +92,83 @@ docker logs -f --tail 100 66c017d8fc53
 ![commit](images/img.png)
 
 docker commit some-rabbit some-rabbit_new
+
+## 磁盘清理
+
+>
+参考：[https://betterprogramming.pub/docker-tips-clean-up-your-local-machine-35f370a01a78](https://betterprogramming.pub/docker-tips-clean-up-your-local-machine-35f370a01a78)
+
+```shell
+docker system df
+```
+
+![执行结果](images/img_2.png)
+
+- Images：所有镜像占用的空间。
+- Containers：运行的容器占用的空间，表示每个容器的读写层的空间。
+- Local Volumes：容器挂载本地数据卷的空间。
+- Build Cache：镜像构建过程中产生的缓存空间（只有在使用 BuildKit 时才有，Docker 18.09 以后可用）。
+
+清理`Build Cache`
+
+```shell
+docker builder prune
+```
+
+一键清理
+
+```shell
+docker system prune
+```
+
+## 安装Nginx
+
+- 创建好要挂载的目录mydata
+
+```shell
+mkdir -p <mydata>/nginx/nginx.conf
+mkdir -p <mydata>/nginx/html
+mkdir -p <mydata>/nginx/log
+````
+
+```text
+// nginx.conf
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+		location / {
+            root   /home/ruoyi/projects/ruoyi-ui;
+			try_files $uri $uri/ /index.html;
+            index  index.html index.htm;
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+    }
+}
+```
+
+mydata/nginx/html内创建一个默认的index.html
+
+
+- 运行
+
+```shell
+docker run -d -p 80:80 --name nginx --privileged=true -v <mydata>/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v <mydata>/nginx/html:/etc/nginx/html -v <mydata>/nginx/log:/var/log/nginx 镜像ID/名称
+```
 

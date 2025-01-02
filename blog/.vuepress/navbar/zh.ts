@@ -6,15 +6,22 @@ export const zhNavbar = navbar([
         text: '前端',
         prefix: "/front/",
         icon: "fa-brands fa-html5",
-        children: [{
-            text: 'Html',
-            link: 'html',
-            icon: "fa-brands fa-html5",
-        },
+        children: [
+            {
+                text: 'Html',
+                link: 'html',
+                icon: "fa-brands fa-html5",
+            },
             {
                 text: 'Js',
                 link: 'js/',
                 icon: "fa-brands fa-js",
+
+            },
+            {
+                text: 'Ts',
+                link: 'ts/',
+                icon: "skill-icons typescript",
 
             },
             {
@@ -59,6 +66,10 @@ export const zhNavbar = navbar([
                         link: 'SpringSecurity/'
                     },
                     {
+                        text: 'Spring Boot',
+                        link: 'SpringBoot/'
+                    },
+                    {
                         text: 'Spring Cloud',
                         link: 'SpringCloud/'
                     }
@@ -85,7 +96,7 @@ export const zhNavbar = navbar([
                         link: 'distributed'
                     },
                     {
-                        text: '消息中间间',
+                        text: '消息中间件',
                         link: 'message-queue'
 
                     },
@@ -94,14 +105,6 @@ export const zhNavbar = navbar([
                         link: 'workflow'
                     }
                     ,
-                    {
-                        text: 'Dubbo',
-                        link: 'Dubbo'
-                    },
-                    {
-                        text: 'Netty',
-                        link: 'Netty'
-                    },
                     {
                         text: '一些数字',
                         link: 'Java体系中一些数字'
@@ -128,14 +131,6 @@ export const zhNavbar = navbar([
             {
                 text: 'Redis',
                 link: '/db/redis/'
-            },
-            {
-                text: 'Oracle',
-                link: '/db/oracle/'
-            },
-            {
-                text: 'Pg',
-                link: '/db/postgresql/'
             }
         ]
     },
@@ -143,7 +138,7 @@ export const zhNavbar = navbar([
         text: '网络',
         icon: 'globe',
         prefix: '/network/',
-        children:[
+        children: [
             {
                 text: '协议',
                 link: 'protocol'
@@ -250,19 +245,13 @@ export const zhNavbar = navbar([
                 text: 'PDF',
                 link: '/other/pdf/'
             }, {
-                text: 'Python',
-                link: '/python/'
-            }, {
-                text: 'Groovy',
-                link: '/groovy/'
-            }, {
                 text: 'RegExp',
                 link: '/other/regExp'
             }, {
                 text: 'VuePress',
                 link: '/other/blog/'
             }, {
-                text: 'Intellij plugin',
+                text: 'Intellij Plugin',
                 link: '/other/intellij/'
             }
         ]
