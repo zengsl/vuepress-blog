@@ -36,7 +36,6 @@ export default hopeTheme({
             GitHub: "https://github.com/zengsl",
             Gmail: "mailto:leo.oooolll@gmail.com",
             Reddit: "https://www.reddit.com/user/zenglll",
-            Twitter: "https://twitter.com/zzzZeng3",
             BiliBili: "https://space.bilibili.com/437799265?spm_id_from=333.1007.0.0",
         },
     },
