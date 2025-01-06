@@ -17,6 +17,10 @@ date: 2024-12-30
 
 ## 目的
 
+::: tip
+微服务适合利用Docker镜像Cache特性 参考[SpringBoot 容器镜像](https://docs.spring.io/spring-boot/3.3/reference/packaging/container-images/dockerfiles.html)
+:::
+
 起因：之前一直使用Docker部署SpringBoot Jar，但是实际运行过着中每次发版本上传镜像时间过久，因此考虑将lib分离出来单独部署，以此减小Jar的体积。但是分离之后发现项目中覆盖spring和sentinel的代码没有正确加载，导致覆盖失败。所以打算分析下SpringBoot Loader到底是如何加载类的。
 
 通过[Loader源码](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-tools/spring-boot-loader/)运行一个由[SpringBoot插件](https://docs.spring.io/spring-boot/docs/3.2.12/maven-plugin/reference/htmlsingle/)生成标准的[可执行的Jar文件](https://docs.spring.io/spring-boot/docs/3.2.12/reference/html/executable-jar.html#appendix.executable-jar): 包含BOOT-INF/classes、BOOT-INF/lib等内容。
