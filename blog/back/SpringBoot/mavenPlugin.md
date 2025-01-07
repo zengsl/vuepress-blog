@@ -69,12 +69,13 @@ date: 2025-01-07
         <into layer="snapshot-dependencies">
             <include>*:*:*SNAPSHOT</include>
         </into>
-        <into layer="module-dependencies">
-            <includeModuleDependencies/>
-        </into>
+        <!--受打包方式影响，必须整体项目执行打包才能保持每次都能将本地项目模块包含至module-dependencies-->
         <!--<into layer="module-dependencies">
+            <includeModuleDependencies/>
+        </into>-->
+        <into layer="module-dependencies">
              <include>com.ruoyi:ruoyi-*:*</include>
-         </into>-->
+         </into>
         <into layer="third-dependencies"/>
     </dependencies>
 
@@ -91,6 +92,250 @@ date: 2025-01-07
 </layers>
 
 ```
+
+
+## layers.idx
+
+> layers.xml与上文一致
+
+### 使用经验
+
+- 当layers.xml中配置`includeModuleDependencies`标签时，需要整体项目一起打包，也就是直接对parent项目执行`clean + install`
+
+- 当layers.xml中不配置`includeModuleDependencies`标签时，通过`<include>`标签包含本地项目模块，可以单独对当前模块执行`clean + package`
+
+具体原因可以阅读下文
+
+### 打包方式差异问题
+
+clean + install全部项目(parent)后jar内部layer.idx文件内容如下：
+
+```text
+- "application":
+  - "BOOT-INF/classes/"
+  - "BOOT-INF/classpath.idx"
+  - "BOOT-INF/layers.idx"
+  - "META-INF/"
+- "module-dependencies":
+  - "BOOT-INF/lib/module1.jar"
+  - "BOOT-INF/lib/module2.jar"
+  -  省略其他包
+
+- "third-dependencies":
+  - "BOOT-INF/lib/HdrHistogram-2.1.12.jar"
+  - "BOOT-INF/lib/LatencyUtils-2.0.3.jar"
+  - "BOOT-INF/lib/SparseBitSet-1.2.jar"
+   - 省略其他包
+- "spring-boot-loader":
+  - "org/"
+- "snapshot-dependencies":
+
+```
+
+clean + package当前模块后jar内部layer.idx文件内容如下：
+
+```text
+- "application":
+  - "BOOT-INF/classes/"
+  - "BOOT-INF/classpath.idx"
+  - "BOOT-INF/layers.idx"
+  - "META-INF/"
+- "module-dependencies":
+- "third-dependencies":
+  - "BOOT-INF/lib/"
+- "spring-boot-loader":
+  - "org/"
+- "snapshot-dependencies":
+```
+
+产生差异代码：
+
+```java
+// ArtifactsLibraries
+private boolean isLocal(Artifact artifact) {
+    // 此处this.localProjects为核心，可以解释“打包方式差异问题”。当整体项目一起打包时，this.localProjects包含所有模块，所以能正确判断出本地模块；如果只单独打包当前模块无法判断
+    for (MavenProject localProject : this.localProjects) {
+        // 判断是否是本地项目
+        if (localProject.getArtifact().equals(artifact)) {
+            return true;
+        }
+        // 判断是否是附加artifact
+        for (Artifact attachedArtifact : localProject.getAttachedArtifacts()) {
+            if (attachedArtifact.equals(artifact)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+```
+
+
+### 过程分析
+
+- 核心类：
+
+CustomLayers#getLayer(Library library)
+
+CustomLayersProvider
+
+IncludeExcludeContentSelector#contains 用于处理include和exclude逻辑
+
+
+- 核心逻辑：
+
+判断包是否包含在当前层
+
+```java
+// IncludeExcludeContentSelector 打个条件断点  getLayer().name.equals("module-dependencies") && ((Library) item).name.startsWith("本地模块前缀")
+public boolean contains(T item) {
+    return isIncluded(item) && !isExcluded(item);
+}
+// this.includes为其内部判断逻辑
+private boolean isIncluded(T item) {
+    if (this.includes.isEmpty()) {
+        return true;
+    }
+    for (ContentFilter<T> include : this.includes) {
+        if (include.matches(item)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+```
+
+当layers.xml中包含`includeModuleDependencies`时，设置一个`Library::isLocal`的判断逻辑，初始化代码为：
+
+```java
+// CustomLayersProvider
+private ContentSelector<Library> getLibrarySelector(Element element,
+			Function<String, ContentFilter<Library>> filterFactory) {
+    Layer layer = new Layer(element.getAttribute("layer"));
+    List<String> includes = getChildNodeTextContent(element, "include");
+    List<String> excludes = getChildNodeTextContent(element, "exclude");
+    Element includeModuleDependencies = getChildElement(element, "includeModuleDependencies");
+    Element excludeModuleDependencies = getChildElement(element, "excludeModuleDependencies");
+    List<ContentFilter<Library>> includeFilters = includes.stream()
+        .map(filterFactory)
+        .collect(Collectors.toCollection(ArrayList::new));
+    if (includeModuleDependencies != null) {
+        // 初始化是否为“本地库的判断逻辑”
+        includeFilters.add(Library::isLocal);
+    }
+    List<ContentFilter<Library>> excludeFilters = excludes.stream()
+        .map(filterFactory)
+        .collect(Collectors.toCollection(ArrayList::new));
+    if (excludeModuleDependencies != null) {
+        excludeFilters.add(Library::isLocal);
+    }
+    return new IncludeExcludeContentSelector<>(layer, includeFilters, excludeFilters);
+}
+
+
+// Library
+public boolean isLocal() {
+    return this.local;
+}
+```
+
+因此判断是否为内部模块的逻辑就在`Library#local`中，那么观察其初始化逻辑：
+
+```java 
+// Packager
+PackagedLibraries(Libraries libraries, boolean ensureReproducibleBuild) throws IOException {
+    this.libraries = (ensureReproducibleBuild) ? new TreeMap<>() : new LinkedHashMap<>();
+    // 转处理库文件
+    libraries.doWithLibraries((library) -> {
+        if (isZip(library::openStream)) {
+            // 添加库
+            addLibrary(library);
+        }
+    });
+    if (isLayered() && Packager.this.includeRelevantJarModeJars) {
+        addLibrary(JarModeLibrary.LAYER_TOOLS);
+    }
+    this.unpackHandler = new PackagedLibrariesUnpackHandler();
+    this.libraryLookup = this::lookup;
+}
+
+private void addLibrary(Library library) {
+    String location = getLayout().getLibraryLocation(library.getName(), library.getScope());
+    if (location != null) {
+        String path = location + library.getName();
+        Library existing = this.libraries.putIfAbsent(path, library);
+        Assert.state(existing == null, () -> "Duplicate library " + library.getName());
+    }
+}
+```
+
+
+
+```java 
+// ArtifactsLibraries
+@Override
+public void doWithLibraries(LibraryCallback callback) throws IOException {
+    Set<String> duplicates = getDuplicates(this.artifacts);
+    for (Artifact artifact : this.artifacts) {
+        String name = getFileName(artifact);
+        File file = artifact.getFile();
+        LibraryScope scope = SCOPES.get(artifact.getScope());
+        if (scope == null || file == null) {
+            continue;
+        }
+        if (duplicates.contains(name)) {
+            this.log.debug("Duplicate found: " + name);
+            name = artifact.getGroupId() + "-" + name;
+            this.log.debug("Renamed to: " + name);
+        }
+        LibraryCoordinates coordinates = new ArtifactLibraryCoordinates(artifact);
+        boolean unpackRequired = isUnpackRequired(artifact);
+        // 是否为本地文件
+        boolean local = isLocal(artifact);
+        boolean included = this.includedArtifacts.contains(artifact);
+        callback.library(new Library(name, file, scope, coordinates, unpackRequired, local, included));
+    }
+}
+
+
+private boolean isLocal(Artifact artifact) {
+    // 此处this.localProjects为核心，可以解释“打包方式差异问题”。当整体项目一起打包时，this.localProjects包含所有模块，所以能正确判断出本地模块；如果只单独打包当前模块无法判断
+    for (MavenProject localProject : this.localProjects) {
+        // 判断是否是本地项目
+        if (localProject.getArtifact().equals(artifact)) {
+            return true;
+        }
+        // 判断是否是附加artifact
+        for (Artifact attachedArtifact : localProject.getAttachedArtifacts()) {
+            if (attachedArtifact.equals(artifact)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+// maven-core-3.9.4.jar
+/**
+ * Returns a mutable list of the attached artifacts to this project. It is highly advised <em>not</em>
+ * to modify this list, but rather use the {@link MavenProjectHelper}.
+ * <p>
+ * <strong>Note</strong>: This list will be made read-only in Maven 4.</p>
+ *
+ * @return the attached artifacts of this project
+ */
+public List<Artifact> getAttachedArtifacts() {
+    if (attachedArtifacts == null) {
+        attachedArtifacts = new ArrayList<>();
+    }
+    return attachedArtifacts;
+}
+
+```
+
+根据上述代码可知，本地库即为当前项目对象的attachedArtifacts属性内容，此属性与maven核心逻辑有关系，下面观察maven核心逻辑
+
 
 ## classpath.idx
 
@@ -144,11 +389,12 @@ Map<String, Library> write(AbstractJarWriter writer) throws IOException {
 
 2. classpath.idx内容最初来自于maven生成的project对象中，相关代码如下：
 
-``` java {7,19}
+``` java {8,20}
 // RepackageMojo
 private void repackage() throws MojoExecutionException {
 		Artifact source = getSourceArtifact(this.classifier);
 		File target = getTargetFile(this.finalName, this.classifier, this.outputDirectory);
+		// 处理layers.xml中includeModuleDependencies逻辑
 		Repackager repackager = getRepackager(source.getFile());
     // 获取所有的库文件
 		Libraries libraries = getLibraries(this.requiresUnpack);
@@ -248,7 +494,7 @@ git checkout v3.2.8
 
 ![debug](images/image.png)
 
-- 在测试项目控制台中执行`${maven_home}/mvnDebug clean package`开启调试模式，等待IDEA连接，复制控制台输出的端口号
+- 在测试项目控制台中执行`${maven_home}/mvnDebug clean package -Dmaven.test.skip=true`开启调试模式，等待IDEA连接，复制控制台输出的端口号
 
 ```shell
 mvnDebug clean package
