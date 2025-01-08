@@ -13,11 +13,44 @@ date: 2025-01-07
 [SpringBoot executable-jar](https://docs.spring.io/spring-boot/docs/3.2.12/reference/html/executable-jar.html#appendix.executable-jar.nested-jars.index-files)
 
 
-## 定制layers.xml
+## 索引文件
+
+::: tip 官网文档
+Spring Boot Loader-compatible jar and war archives can include additional index files under the BOOT-INF/ directory. A classpath.idx file can be provided for both jars and wars, and it provides the ordering that jars should be added to the classpath. The layers.idx file can be used only for jars, and it allows a jar to be split into logical layers for Docker/OCI image creation.
+
+Index files follow a YAML compatible syntax so that they can be easily parsed by third-party tools. These files, however, are not parsed internally as YAML and they must be written in exactly the formats described below in order to be used.
+:::
+
+Spring Boot Loader 兼容的 jar 和 war 归档文件可以在 BOOT-INF/ 目录下包含额外的索引文件。 
+
+classpath.idx 文件可同时用于 jar 和 war，它提供了将 jar 添加到 classpath 的顺序。 
+
+**layers.idx 文件只能用于 jar，它允许将 jar 分割成逻辑层，以便创建 Docker/OCI 镜像。**
+
+索引文件采用与 YAML 兼容的语法，因此第三方工具可以很容易地对其进行解析。不过，这些文件在内部不会被解析为 YAML，必须完全按照下面描述的格式编写才能使用。
+
+## 定制layers
+
+::: tip 官方文档描述
+The layers order is important as it determines how likely previous layers can be cached when part of the application changes. The default order is dependencies, spring-boot-loader, snapshot-dependencies, application. Content that is least likely to change should be added first, followed by layers that are more likely to change.
+
+层的顺序很重要，因为它决定了当部分应用程序发生变化时，前面的层能被缓存的可能性有多大。默认顺序是依赖项、spring-boot-loader、快照依赖项、应用程序。应首先添加最不可能更改的内容，然后再添加较可能更改的层。
+:::
+
+从上文中索引文件描述中可知：层的作用对于提高服务部署效率很重要：
+
+- 生成layers.idx方便创建Docker/OCI 镜像：通过`spring-boot:build-image`生成镜像
+
+- 分层Jar Docker镜像构建：通过[SpringBoot layertool](./layertool.md)按层解压jar文件，编写多阶段构建的[Dockerfile](https://docs.spring.io/spring-boot/docs/3.2.12/reference/html/container-images.html#container-images.dockerfiles)充分利用docker cache 。因为这种方式是直接解压出来进行部署，所以和layers.idx没有直接关系了。
 
 [packaging.layers.configuration](https://docs.spring.io/spring-boot/docs/3.2.12/maven-plugin/reference/htmlsingle/#packaging.layers.configuration)
 
-通过构建定制layers.xml文件，可以控制打包后的jar文件中的内容，从而实现更细粒度的控制。结合spring-boot-maven-plugin，可以实现在打包时将不同类型的文件放置在不同的层中，配合[SpringBoot efficient-images](https://docs.spring.io/spring-boot/docs/3.2.12/reference/html/container-images.html#container-images.efficient-images)从而实现更高效的部署和管理。
+通过构建定制layers.xml文件，可以控制打包后的jar文件中的内容，从而实现更细粒度的控制。结合spring-boot-maven-plugin，可以实现在打包时将不同类型的文件放置在不同的层中，配合[SpringBoot Container Images](https://docs.spring.io/spring-boot/docs/3.2.12/reference/html/container-images.html)从而实现更高效的部署和管理。
+
+
+
+
+### layers.xml使用
 
 ```xml
 <!-- POM.xml -->
@@ -350,124 +383,124 @@ public List<Artifact> getAttachedArtifacts() {
 通过调试插件运行过程，可以发现：
 1. 在执行repackage方法时，会调用getLibraries方法，该方法会获取所有的库文件，并生成classpath.idx文件。相关代码如下：
 
-```java {10}
-// Packager
-private void write(JarFile sourceJar, AbstractJarWriter writer, PackagedLibraries libraries) throws IOException {
-		if (isLayered()) {
-			writer.useLayers(this.layers, this.layersIndex);
-		}
-		writer.writeManifest(buildManifest(sourceJar));
-		writeLoaderClasses(writer);
-		writer.writeEntries(sourceJar, getEntityTransformer(), libraries.getUnpackHandler(),
-				libraries.getLibraryLookup());
-		Map<String, Library> writtenLibraries = libraries.write(writer);
-		writeNativeImageArgFile(writer, sourceJar, writtenLibraries);
-		if (isLayered()) {
-			writeLayerIndex(writer);
-		}
-		writeSignatureFileIfNecessary(writtenLibraries, writer);
-	}
-
-
-Map<String, Library> write(AbstractJarWriter writer) throws IOException {
-			Map<String, Library> writtenLibraries = new LinkedHashMap<>();
-			for (Entry<String, Library> entry : this.libraries.entrySet()) {
-				String path = entry.getKey();
-				Library library = entry.getValue();
-				if (library.isIncluded()) {
-					String location = path.substring(0, path.lastIndexOf('/') + 1);
-					writer.writeNestedLibrary(location, library);
-					writtenLibraries.put(path, library);
-				}
-			}
-      // 写入classpath.idx
-			writeClasspathIndexIfNecessary(writtenLibraries.keySet(), getLayout(), writer);
-			return writtenLibraries;
-		}
-```
+    ```java {10}
+    // Packager
+    private void write(JarFile sourceJar, AbstractJarWriter writer, PackagedLibraries libraries) throws IOException {
+            if (isLayered()) {
+                writer.useLayers(this.layers, this.layersIndex);
+            }
+            writer.writeManifest(buildManifest(sourceJar));
+            writeLoaderClasses(writer);
+            writer.writeEntries(sourceJar, getEntityTransformer(), libraries.getUnpackHandler(),
+                    libraries.getLibraryLookup());
+            Map<String, Library> writtenLibraries = libraries.write(writer);
+            writeNativeImageArgFile(writer, sourceJar, writtenLibraries);
+            if (isLayered()) {
+                writeLayerIndex(writer);
+            }
+            writeSignatureFileIfNecessary(writtenLibraries, writer);
+        }
+    
+    
+    Map<String, Library> write(AbstractJarWriter writer) throws IOException {
+                Map<String, Library> writtenLibraries = new LinkedHashMap<>();
+                for (Entry<String, Library> entry : this.libraries.entrySet()) {
+                    String path = entry.getKey();
+                    Library library = entry.getValue();
+                    if (library.isIncluded()) {
+                        String location = path.substring(0, path.lastIndexOf('/') + 1);
+                        writer.writeNestedLibrary(location, library);
+                        writtenLibraries.put(path, library);
+                    }
+                }
+          // 写入classpath.idx
+                writeClasspathIndexIfNecessary(writtenLibraries.keySet(), getLayout(), writer);
+                return writtenLibraries;
+            }
+    ```
 
 
 2. classpath.idx内容最初来自于maven生成的project对象中，相关代码如下：
 
-``` java {8,20}
-// RepackageMojo
-private void repackage() throws MojoExecutionException {
-		Artifact source = getSourceArtifact(this.classifier);
-		File target = getTargetFile(this.finalName, this.classifier, this.outputDirectory);
-		// 处理layers.xml中includeModuleDependencies逻辑
-		Repackager repackager = getRepackager(source.getFile());
-    // 获取所有的库文件
-		Libraries libraries = getLibraries(this.requiresUnpack);
-		try {
-			LaunchScript launchScript = getLaunchScript();
-			repackager.repackage(target, libraries, launchScript, parseOutputTimestamp());
-		}
-		catch (IOException ex) {
-			throw new MojoExecutionException(ex.getMessage(), ex);
-		}
-		updateArtifact(source, target, repackager.getBackupFile());
-	}
-
-  protected final Libraries getLibraries(Collection<Dependency> unpacks) throws MojoExecutionException {
-		Set<Artifact> artifacts = this.project.getArtifacts();
-		Set<Artifact> includedArtifacts = filterDependencies(artifacts, getAdditionalFilters());
-		return new ArtifactsLibraries(artifacts, includedArtifacts, this.session.getProjects(), unpacks, getLog());
-	}
-```
-
-``` java
-// MavenProject
-public Set<Artifact> getArtifacts() {
-    if (artifacts == null) {
-        if (artifactFilter == null || resolvedArtifacts == null) {
-            artifacts = new LinkedHashSet<>();
-        } else {
-            artifacts = new LinkedHashSet<>(resolvedArtifacts.size() * 2);
-            for (Artifact artifact : resolvedArtifacts) {
-                if (artifactFilter.include(artifact)) {
-                    artifacts.add(artifact);
+    ``` java {8,20}
+    // RepackageMojo
+    private void repackage() throws MojoExecutionException {
+            Artifact source = getSourceArtifact(this.classifier);
+            File target = getTargetFile(this.finalName, this.classifier, this.outputDirectory);
+            // 处理layers.xml中includeModuleDependencies逻辑
+            Repackager repackager = getRepackager(source.getFile());
+        // 获取所有的库文件
+            Libraries libraries = getLibraries(this.requiresUnpack);
+            try {
+                LaunchScript launchScript = getLaunchScript();
+                repackager.repackage(target, libraries, launchScript, parseOutputTimestamp());
+            }
+            catch (IOException ex) {
+                throw new MojoExecutionException(ex.getMessage(), ex);
+            }
+            updateArtifact(source, target, repackager.getBackupFile());
+        }
+    
+      protected final Libraries getLibraries(Collection<Dependency> unpacks) throws MojoExecutionException {
+            Set<Artifact> artifacts = this.project.getArtifacts();
+            Set<Artifact> includedArtifacts = filterDependencies(artifacts, getAdditionalFilters());
+            return new ArtifactsLibraries(artifacts, includedArtifacts, this.session.getProjects(), unpacks, getLog());
+        }
+    ```
+    
+    ``` java
+    // MavenProject
+    public Set<Artifact> getArtifacts() {
+        if (artifacts == null) {
+            if (artifactFilter == null || resolvedArtifacts == null) {
+                artifacts = new LinkedHashSet<>();
+            } else {
+                artifacts = new LinkedHashSet<>(resolvedArtifacts.size() * 2);
+                for (Artifact artifact : resolvedArtifacts) {
+                    if (artifactFilter.include(artifact)) {
+                        artifacts.add(artifact);
+                    }
                 }
             }
         }
+        return artifacts;
     }
-    return artifacts;
-}
-```
+    ```
 
-4. maven又是如何获取到这些库文件的，相关代码如下：
+3. maven又是如何获取到这些库文件的，相关代码如下：
 
 
-![LifecycleDependencyResolver](images/image7.png)
-![LifecycleDependencyResolver2](images/image8.png)
-
-从`toArtifacts`代码分析，maven在解析依赖时，会遍历所有的直接依赖，然后把它们的依赖分别进行递归调用`toArtifacts`方法：
-
-> jar的顺序和pom中依赖的顺序一致
-
-```java
-// RepositoryUtils
-public static void toArtifacts(
-        Collection<org.apache.maven.artifact.Artifact> artifacts,
-        Collection<? extends DependencyNode> nodes,
-        List<String> trail,
-        DependencyFilter filter) {
-    for (DependencyNode node : nodes) {
-        org.apache.maven.artifact.Artifact artifact = toArtifact(node.getDependency());
-
-        List<String> nodeTrail = new ArrayList<>(trail.size() + 1);
-        nodeTrail.addAll(trail);
-        nodeTrail.add(artifact.getId());
-
-        if (filter == null || filter.accept(node, Collections.<DependencyNode>emptyList())) {
-            artifact.setDependencyTrail(nodeTrail);
-            artifacts.add(artifact);
+    ![LifecycleDependencyResolver](images/image7.png)
+    ![LifecycleDependencyResolver2](images/image8.png)
+    
+    从`toArtifacts`代码分析，maven在解析依赖时，会遍历所有的直接依赖，然后把它们的依赖分别进行递归调用`toArtifacts`方法：
+    
+    > jar的顺序和pom中依赖的顺序一致
+    
+    ```java
+    // RepositoryUtils
+    public static void toArtifacts(
+            Collection<org.apache.maven.artifact.Artifact> artifacts,
+            Collection<? extends DependencyNode> nodes,
+            List<String> trail,
+            DependencyFilter filter) {
+        for (DependencyNode node : nodes) {
+            org.apache.maven.artifact.Artifact artifact = toArtifact(node.getDependency());
+    
+            List<String> nodeTrail = new ArrayList<>(trail.size() + 1);
+            nodeTrail.addAll(trail);
+            nodeTrail.add(artifact.getId());
+    
+            if (filter == null || filter.accept(node, Collections.<DependencyNode>emptyList())) {
+                artifact.setDependencyTrail(nodeTrail);
+                artifacts.add(artifact);
+            }
+    
+            toArtifacts(artifacts, node.getChildren(), nodeTrail, filter);
         }
-
-        toArtifacts(artifacts, node.getChildren(), nodeTrail, filter);
     }
-}
-
-```
+    
+    ```
 
 
 ## 调试
@@ -508,3 +541,84 @@ mvnDebug clean package
 
 ![debug3](images/image6.png)
 
+## 构建OCI镜像
+
+[SpringBoot build-image](https://docs.spring.io/spring-boot/docs/3.2.12/maven-plugin/reference/htmlsingle/#build-image)
+
+[SpringBoot build-image.example](https://docs.spring.io/spring-boot/docs/3.2.12/maven-plugin/reference/htmlsingle/#build-image.examples)
+
+### 使用方式
+
+- 手动执行命令 `mvn springboot:build-image`
+- `package` 阶段时自动创建映像
+
+```xml
+<!--`package` 阶段时自动创建映像-->
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>build-image-no-fork</goal>
+                    </goals>
+                </execution>
+            </executions>
+           <configuration>
+              <image>
+                 <env>
+                    <!--<HTTP_PROXY></HTTP_PROXY>-->
+                    <HTTPS_PROXY> https://dockerpull.org/</HTTPS_PROXY>
+                 </env>
+                 <name>example.com/library/${project.artifactId}</name>
+              </image>
+              <docker>
+                 <!--<builderRegistry>
+                    <url>私有hub</url>
+                    <username>username</username>
+                    <password>password</password>
+                    <email>email</email>
+                 </builderRegistry>-->
+                 <builderRegistry>
+                    <url>https://registry-1.docker.io</url>
+                    <username>username</username>
+                    <password>password</password>
+                    <email>email</email>
+                 </builderRegistry>
+              </docker>
+           </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+```
+
+相较于`build-image-no-fork`，`build-image`会保证一定是完成package操作状态（也就是会执行package的相关操作）
+
+如果利用SpringBoot插件构建镜像，那么`docker-compose.yml`可以直接使用镜像而不是`Dockerfile`
+
+
+### 注意事项
+
+构建镜像需要依赖一些镜像，比如`paketobuildpacks/builder-jammy-base:latest`
+
+这些镜像如果没有指定域名的话，默认的下载地址是`ImageName#DEFAULT_DOMAIN`中固定且无法修改——国内可能出现无法下载的情况(提前下载也无效)，可尝试配置buildpack信息。
+
+```java
+public class ImageName {
+	private static final String DEFAULT_DOMAIN = "docker.io";
+	//省略
+ }
+ 
+ 
+public class BuildRequest {
+
+	static final String DEFAULT_BUILDER_IMAGE_NAME = "paketobuildpacks/builder-jammy-base:latest";
+
+	private static final ImageReference DEFAULT_BUILDER = ImageReference.of(DEFAULT_BUILDER_IMAGE_NAME);
+	
+	//省略
+ } 
+```
