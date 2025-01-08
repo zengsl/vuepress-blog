@@ -4,9 +4,10 @@ layout: BlogHome
 icon: home
 title: 博客主页
 heroImage: /logo.svg
-heroText: FreeCode
+#heroText: FreeCode
+heroText: zzz's Blog
 heroFullScreen: false
-tagline: 记录翻山的过程。
+#tagline: 记录翻山的过程。
 #projects:
 #  - icon: project
 #    name: 项目名称
