@@ -2,7 +2,7 @@ import {defineUserConfig} from "vuepress";
 import theme from "./theme.js";
 import {registerComponentsPlugin} from "@vuepress/plugin-register-components";
 import {searchProPlugin} from "vuepress-plugin-search-pro";
-import {getDirname, path} from '@vuepress/utils'
+import {getDirname, path} from 'vuepress/utils'
 const __dirname = getDirname(import.meta.url);
 
 // @ts-ignore
