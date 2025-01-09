@@ -100,56 +100,56 @@ public Resource getResource(String name, boolean check) {
 
 创建一个SpringBoot项目，通过SpringBoot插件进行package。生成的jar将使用`PropertiesLauncher`加载
 
-```xml 
+```xml title="pom.xml"
 <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                            <!-- 排除测试范围的依赖 -->
-                            <!--<excludeScope>test</excludeScope>-->
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!--将使用PropertiesLauncher，以便使用load.path等参数-->
-                    <layout>ZIP</layout>
-                    <!--<includeSystemScope>true</includeSystemScope>-->
-                    <!--排除第三方jar文件 注释includes的内容可以使得第三方依赖打包至Jar内存放至Boot-INF/lib下 -->
-                    <includes>
-                        <include>
-                            <groupId>nothing</groupId>
-                            <artifactId>nothing</artifactId>
-                        </include>
-                    </includes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>copy-dependencies</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        <overWriteReleases>false</overWriteReleases>
+                        <overWriteSnapshots>false</overWriteSnapshots>
+                        <overWriteIfNewer>true</overWriteIfNewer>
+                        <!-- 排除测试范围的依赖 -->
+                        <!--<excludeScope>test</excludeScope>-->
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <!--将使用PropertiesLauncher，以便使用load.path等参数-->
+                <layout>ZIP</layout>
+                <!--<includeSystemScope>true</includeSystemScope>-->
+                <!--排除第三方jar文件 注释includes的内容可以使得第三方依赖打包至Jar内存放至Boot-INF/lib下 -->
+                <includes>
+                    <include>
+                        <groupId>nothing</groupId>
+                        <artifactId>nothing</artifactId>
+                    </include>
+                </includes>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
 ```
 
 Jar内部结构：
@@ -177,7 +177,7 @@ example.jar
 ![jar](images/img.png)
 
 
-```META-INF/MANIFEST.MF
+```text title="META-INF/MANIFEST.MF"
 Manifest-Version: 1.0
 Created-By: Maven JAR Plugin 3.4.1
 Build-Jdk-Spec: 21
