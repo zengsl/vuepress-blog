@@ -151,8 +151,12 @@ export const zhSidebar = sidebar({
             link: '/other/performanceOptimize/'
         },
             {
-                text: '生产问题',
+                text: '生产调优记录',
                 link: 'performance_optimize'
+            },
+            {
+                text: 'Docker镜像',
+                link: 'dockerImage'
             }
         ]
     }],
