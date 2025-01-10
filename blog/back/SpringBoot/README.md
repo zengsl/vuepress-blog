@@ -1,8 +1,15 @@
 ---
 category: 
   - 后端
+  - SpringBoot
+description: Figure the load sequence between load.path , BOOT-INF/classes/ , and  BOOT-INF/lib/ by analysing  Spring Boot Loader
+head:
+  - - meta
+    - name: keywords
+      content: SpringBootLoader,load sequence,BOOT-INF,loader.path
 tag:
   - Spring Boot
+  - Spring Boot Loader
 date: 2024-12-30
 ---
 # Spring Boot Loader

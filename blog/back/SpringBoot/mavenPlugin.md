@@ -1,9 +1,17 @@
 ---
 category: 
   - 后端
+  - SpringBoot
+description: Analyze the SpringBootMavenPlugin from the source code,include layers,classpath,image
+head:
+   - - meta
+     - name: keywords
+       content: SpringBootMavenPlugin,layers,classpath,image
 tag:
   - Spring Boot
-  - Maven
+  - Maven Plugin
+  - layers
+  - classpath
   - Debug
 date: 2025-01-07
 ---

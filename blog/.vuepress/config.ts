@@ -3,6 +3,7 @@ import theme from "./theme.js";
 import {registerComponentsPlugin} from "@vuepress/plugin-register-components";
 import {searchProPlugin} from "vuepress-plugin-search-pro";
 import {getDirname, path} from 'vuepress/utils'
+
 const __dirname = getDirname(import.meta.url);
 
 // @ts-ignore
@@ -17,7 +18,6 @@ export default defineUserConfig({
             description: "zzz 的博客",
         },
     },
-
     theme,
     // Enable it with pwa
     // shouldPrefetch: false,
