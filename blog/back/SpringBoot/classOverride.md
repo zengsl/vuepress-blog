@@ -2,11 +2,11 @@
 category: 
   - 后端
   - SpringBoot
-description: Analyze the class override with Spring Boot Project
+description: Analyze the class override in Spring Boot Project
 head:
    - - meta
      - name: keywords
-       content: 类覆盖,classpath,class override
+       content: classpath,class override
 tag:
   - Spring Boot
   - class override
