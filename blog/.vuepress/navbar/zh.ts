@@ -32,7 +32,7 @@ export const zhNavbar = navbar([
             },
             {
                 text: 'Vue',
-                link: 'vue',
+                link: 'vue/',
                 icon: "fa-brands fa-vuejs",
 
             },
