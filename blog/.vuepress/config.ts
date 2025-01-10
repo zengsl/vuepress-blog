@@ -7,6 +7,8 @@ const __dirname = getDirname(import.meta.url);
 
 // @ts-ignore
 export default defineUserConfig({
+    // 与pwa插件配合
+    shouldPrefetch: false,
     base: "/",
     locales: {
         "/": {

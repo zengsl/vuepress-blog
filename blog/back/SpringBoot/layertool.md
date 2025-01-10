@@ -89,7 +89,7 @@ java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000 -Djarmod
 
 通过一系列调用，`JarLauncher`会调用`JarModeRunner#main`；同时extract任务是由`ExtractCommand`执行，layers信息是在构造方法中创建，所以需要观察其创建过程中调用的`Layers.get(context)`方法。
 
-```javas
+```java
 ExtractCommand(Context context) {
     // Layers.get(context)获取层
     this(context, Layers.get(context));
