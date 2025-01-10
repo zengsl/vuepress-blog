@@ -242,7 +242,7 @@ Maven本身没有提供一个可以获取到根项目路径的地址，通常有
 ```
 
 
-```xml title="部署模块/pom.xml"
+```xml title="应用模块/pom.xml"
 <build>
     <finalName>${project.artifactId}</finalName>
     <plugins>
