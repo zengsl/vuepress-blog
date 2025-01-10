@@ -172,3 +172,6 @@ mydata/nginx/html内创建一个默认的index.html
 docker run -d -p 80:80 --name nginx --privileged=true -v <mydata>/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v <mydata>/nginx/html:/etc/nginx/html -v <mydata>/nginx/log:/var/log/nginx 镜像ID/名称
 ```
 
+## Dockfile
+
+参考 [镜像构建调优](/other/performanceOptimize/dockerImage.md)

@@ -141,11 +141,11 @@ export const zhNavbar = navbar([
         children: [
             {
                 text: '协议',
-                link: 'protocol'
+                link: 'protocol/'
             },
             {
                 text: '抓包',
-                link: 'grab'
+                link: 'grab/'
             }
         ]
 
@@ -218,7 +218,7 @@ export const zhNavbar = navbar([
         children: [
             {
                 text: '算法',
-                link: '/other/algorithm'
+                link: '/other/algorithm/'
 
             },
             {
