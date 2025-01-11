@@ -146,6 +146,11 @@ export default hopeTheme({
         // vuePlayground: true,
     },
     plugins: {
+        git: {
+            createdTime: true,
+            updatedTime: true,
+            contributors: {info: [{username: 'zengsl', alias: 'Leo'}]},
+        },
         slimsearch: {
             // 索引全部内容
             indexContent: true,
@@ -163,9 +168,9 @@ export default hopeTheme({
         },
         blog: true,
         icon: {
-            assets: [ "iconify", "fontawesome", "fontawesome-with-brands"]
+            assets: ["iconify", "fontawesome", "fontawesome-with-brands"]
         },
-        seo:false,
+        seo: false,
         /*seo: {
             fallBackImage: hostname + "/assets/images/greatway_snow.jpeg"
         },*/
