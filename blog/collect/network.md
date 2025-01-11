@@ -6,7 +6,7 @@ tag:
   - 收集
   - 推荐
 date: 2023-12-10
-icon: 'sitemap'
+icon: 'fa-solid fa-sitemap'
 ---
 
 分享一些收集到的好用工具、学习网站、社区等。

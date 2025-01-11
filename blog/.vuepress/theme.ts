@@ -162,7 +162,9 @@ export default hopeTheme({
             ],
         },
         blog: true,
-        icon: {assets: ["fontawesome-with-brands", "iconify"]},
+        icon: {
+            assets: [ "iconify", "fontawesome-with-brands"]
+        },
         seo: {
             fallBackImage: hostname + "/assets/images/greatway_snow.jpeg"
         },

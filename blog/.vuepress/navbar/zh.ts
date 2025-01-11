@@ -122,7 +122,7 @@ export const zhNavbar = navbar([
     },
     {
         text: '数据库',
-        icon: 'database',
+        icon: 'fa-solid fa-database',
         children: [
             {
                 text: 'MySql',
@@ -136,7 +136,7 @@ export const zhNavbar = navbar([
     },
     {
         text: '网络',
-        icon: 'globe',
+        icon: 'fa-solid fa-globe',
         prefix: '/network/',
         children: [
             {
@@ -203,7 +203,7 @@ export const zhNavbar = navbar([
     },
     {
         text: '工具',
-        icon: 'toolbox',
+        icon: 'fa-solid fa-toolbox',
         children: [{
             text: 'Typora',
             link: '/tools/typora/1.installAndSetting'
@@ -214,7 +214,7 @@ export const zhNavbar = navbar([
     },
     {
         text: '其他',
-        icon: 'box',
+        icon: 'fa-solid fa-box',
         children: [
             {
                 text: '算法',
@@ -257,7 +257,7 @@ export const zhNavbar = navbar([
         ]
     }, {
         text: '收藏',
-        icon: 'star',
+        icon: 'fa-solid fa-star',
         link: '/collect/network'
     },
 
