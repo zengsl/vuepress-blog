@@ -86,3 +86,10 @@ console.log('你好，VuePress！')
 :::
 
 ````
+
+## 部署
+
+- netlify 推荐
+- vercel 部署速度比较快，但目前存在域名污染，不推荐
+
+更多内容可以参考[部署](https://vuepress.vuejs.org/zh/guide/deployment.html)
