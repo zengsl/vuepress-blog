@@ -6,8 +6,9 @@ import BingHeroBackground from "vuepress-theme-hope/presets/BingHeroBackground.j
 
 <template>
   <BlogHero>
+    <!--   注释并开启bgImage -->
     <template #bg>
-      <BingHeroBackground />
+      <BingHeroBackground/>
     </template>
   </BlogHero>
 </template>

@@ -7,6 +7,7 @@ heroImage: /logo.svg
 #heroText: FreeCode
 heroText: zzz's Blog
 heroFullScreen: false
+#bgImage: https://zengsl.me/assets/images/greatway_snow.jpeg
 #tagline: 记录翻山的过程。
 #projects:
 #  - icon: project

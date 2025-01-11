@@ -1,15 +1,14 @@
 import {defineUserConfig} from "vuepress";
 import theme from "./theme.js";
 import {registerComponentsPlugin} from "@vuepress/plugin-register-components";
-import {searchProPlugin} from "vuepress-plugin-search-pro";
 import {getDirname, path} from 'vuepress/utils'
 
 const __dirname = getDirname(import.meta.url);
 
 // @ts-ignore
 export default defineUserConfig({
-    // 与pwa插件配合
-    shouldPrefetch: false,
+    // 与pwa插件配合 https://theme-hope.vuejs.press/zh/guide/advanced/pwa.html
+    shouldPrefetch: true,
     base: "/",
     locales: {
         "/": {
