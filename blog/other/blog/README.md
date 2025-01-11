@@ -89,7 +89,37 @@ console.log('你好，VuePress！')
 
 ## 部署
 
-- netlify 推荐
-- vercel 部署速度比较快，但目前存在域名污染，不推荐
+### netlify（推荐）
+
+**图片缓存**
+
+在项目发布目录中包含_headers文件，如：blog/.vuepress/public/_headers
+```txt
+# https://docs.netlify.com/routing/headers/
+/assets/*
+    Cache-Control: public, max-age=604800
+```
+[参考链接](https://docs.netlify.com/routing/headers/)
+
+**强制URL小写导致404**
+
+netlify强制url小写。如果存在大写路径，会出现重定向为小写的情况。
+
+- 按需关闭URL美化
+
+可以在netlify页面关闭此功能
+
+配置页面
+![netlify](images/img.png)
+
+- 参考[批量改为小写](https://spencer-blog-legacy.vercel.app/2020/05/debugging-netlify-static-site/)
+
+```shell title="批量改为小写"
+find my_root_dir -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
+```
+
+### vercel（不推荐）
+
+部署速度比较快，但目前存在域名污染。
 
 更多内容可以参考[部署](https://vuepress.vuejs.org/zh/guide/deployment.html)
