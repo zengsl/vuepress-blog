@@ -18,8 +18,9 @@ date: 2025-01-07
 
 # Spring Boot Maven Plugin
 
-[SpringBoot executable-jar](https://docs.spring.io/spring-boot/docs/3.2.12/reference/html/executable-jar.html#appendix.executable-jar.nested-jars.index-files)
+可执行Jar文件 [SpringBoot executable-jar](https://docs.spring.io/spring-boot/docs/3.2.12/reference/html/executable-jar.html#appendix.executable-jar.nested-jars.index-files)
 
+部署方案：[Docker 镜像](/other/performanceOptimize/dockerImage.md)
 
 ## 索引文件
 
