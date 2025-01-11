@@ -1,1 +1,5 @@
-Cache-Control: public, max-age=604800
+# https://docs.netlify.com/routing/headers/
+[[headers]]
+  for = "/*"
+  [headers.values]
+      Cache-Control: public, max-age=604800
