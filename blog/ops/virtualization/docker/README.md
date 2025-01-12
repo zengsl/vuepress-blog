@@ -174,4 +174,4 @@ docker run -d -p 80:80 --name nginx --privileged=true -v <mydata>/nginx/conf/ngi
 
 ## Dockfile
 
-参考 [镜像构建调优](/other/performanceOptimize/dockerImage.md)
+参考 [镜像构建调优](/other/optimize/dockerImage.md)

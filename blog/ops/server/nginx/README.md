@@ -6,7 +6,8 @@ tag:
   - Server
 ---
 [nginx documentation](https://nginx.org/en/docs/)
-# Nginx
+# 介绍
+
 ## Nginx 配置
 
 ### location

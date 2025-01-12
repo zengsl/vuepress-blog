@@ -10,6 +10,6 @@ date: 2020-10-15
 
 整理Mybatis的相关知识点
 
-- [Mapper自动刷新](Mapper自动刷新.md)
+- [Mapper自动刷新](mapper-auto-refresh.md)
 - [Mybatis-Plus](mybatis-plus.md)
 - [其他](other.md)

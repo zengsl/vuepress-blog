@@ -16,195 +16,21 @@ export const zhSidebar = sidebar({
     '/back/mybatis/': "structure",
     '/back/distributed/': "structure",
     '/back/message-queue/': "structure",
-    '/ops/os/linux/': [{
-        text: 'Linux',
-
-        children: [{
-            text: '介绍',
-            link: '/ops/os/linux/'
-        },
-            {
-                text: '安装配置',
-                link: '1.installAndSetting_vm'
-            },
-            {
-                text: '常用命令',
-                link: '2.command'
-            },
-            {
-                text: '系统性能',
-                link: 'sys_performance'
-            },
-            {
-                text: 'shell脚本',
-                link: '3.shell'
-            },
-            {
-                text: '磁盘扩容',
-                link: 'fileExtend'
-            }
-        ]
-    }],
-    '/ops/os/mac/': [{
-        text: 'Mac OS',
-        children: [{
-            text: '介绍',
-            link: '/ops/os/mac/'
-        },
-            {
-                text: '安装',
-                link: '1.install'
-            },
-            {
-                text: '配置',
-                link: '2.settings'
-            },
-            {
-                text: '软件推荐',
-                link: '3.software'
-            },
-            {
-                text: '快捷键',
-                link: '4.keys'
-            },
-            {
-                text: '使用技巧',
-                link: '5.skill'
-            }
-        ]
-    }],
-    '/ops/server/nginx/': [{
-        text: 'Nginx',
-        children: [{
-            text: '前言',
-            link: '/ops/server/nginx/'
-        },
-            {
-                text: '安装配置',
-                link: '1.nginx(windows)'
-            },
-            {
-                text: 'OpenResty',
-                link: 'openresty'
-            }
-        ]
-    }],
-    '/ops/server/apache/': [{
-        text: 'Apache',
-        children: [{
-            text: '前言',
-            link: '/ops/server/apache/'
-        },
-            {
-                text: '安装配置',
-                link: '1.installAndSetting'
-            }
-        ]
-    }],
-    '/ops/server/tomcat/': [{
-        text: 'Tomcat',
-        children: [{
-            text: '介绍',
-            link: '/ops/server/tomcat/'
-        }, {
-            text: '源码编译与启动',
-            link: 'tomcatSource'
-        }, {
-            text: '日志',
-            link: 'tomcatLogging'
-        },
-            {
-                text: '常见问题',
-                link: 'problems'
-            }
-        ]
-    }],
+    '/ops/os/linux/': "structure",
+    '/ops/os/mac/': "structure",
+    '/ops/server/nginx/': "structure",
+    '/ops/server/apache/': "structure",
+    '/ops/server/tomcat/': "structure",
     '/tools/git/': "structure",
     '/ops/sonar/': "structure",
     '/db/redis/': "structure",
     '/db/oracle/': "structure",
     '/db/mysql/': "structure",
-    '/other/debugger/': [{
-        text: '调试技巧',
-        children: [{
-            text: '介绍',
-            link: '/other/debugger/'
-        },
-            {
-                text: '后端调试',
-                link: 'back_debug'
-            },
-            {
-                text: '前端调试',
-                link: 'front_debug'
-            },
-            {
-                text: '接口调试',
-                link: 'interface_debug'
-            }
-        ]
-    }],
-    '/other/performanceOptimize/': [{
-        text: '性能调优',
-        children: [{
-            text: '概述',
-            link: '/other/performanceOptimize/'
-        },
-            {
-                text: '生产调优记录',
-                link: 'performance_optimize'
-            },
-            {
-                text: 'Docker镜像',
-                link: 'dockerImage'
-            }
-        ]
-    }],
-    '/other/pdf/': [{
-        text: 'PDF',
-        children: [{
-            text: '介绍',
-            link: '/other/pdf/'
-        },
-            {
-                text: 'PDF内容显示异常',
-                link: 'pdfContentError'
-            },
-            {
-                text: 'PDF下载报错(字体)',
-                link: 'pdfFontError'
-            }
-        ]
-    }],
+    '/other/debugger/': "structure",
+    '/other/optimize/': "structure",
+    '/other/pdf/': "structure",
     '/front/vue/': "structure",
-    '/front/js/': [{
-        text: 'JavaScript',
-        children: [{
-            text: '介绍',
-            link: '/front/js/'
-        },
-            {
-                text: '基本',
-                link: '1.base'
-            },
-            {
-                text: '原型',
-                link: '3.propotype'
-            },
-            {
-                text: '闭包',
-                link: '4.closure'
-            },
-            {
-                text: 'Screenshots',
-                link: 'Screenshots'
-            },
-            {
-                text: '模块化',
-                link: 'module'
-            }
-        ]
-    }],
+    '/front/js/': "structure",
     '/network/protocol/': "structure",
     '/network/grab/': "structure",
     '/ops/virtualization/k8s/': "structure",

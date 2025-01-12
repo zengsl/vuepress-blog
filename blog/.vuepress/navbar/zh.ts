@@ -63,15 +63,15 @@ export const zhNavbar = navbar([
                     },
                     {
                         text: 'Spring Security',
-                        link: 'SpringSecurity/'
+                        link: 'spring-security/'
                     },
                     {
                         text: 'Spring Boot',
-                        link: 'SpringBoot/'
+                        link: 'spring-boot/'
                     },
                     {
                         text: 'Spring Cloud',
-                        link: 'SpringCloud/'
+                        link: 'spring-cloud/'
                     }
                 ]
             },
@@ -93,25 +93,25 @@ export const zhNavbar = navbar([
                     },
                     {
                         text: '分布式',
-                        link: 'distributed'
+                        link: 'distributed/'
                     },
                     {
                         text: '消息中间件',
-                        link: 'message-queue'
+                        link: 'message-queue/'
 
                     },
                     {
                         text: '工作流',
-                        link: 'workflow'
+                        link: 'workflow/'
                     }
                     ,
                     {
                         text: '一些数字',
-                        link: 'Java体系中一些数字'
+                        link: 'java-number'
                     },
                     {
                         text: 'C语言',
-                        link: 'C语言'
+                        link: 'c'
                     }
 
                 ]
@@ -206,7 +206,7 @@ export const zhNavbar = navbar([
         icon: 'fa-solid fa-toolbox',
         children: [{
             text: 'Typora',
-            link: '/tools/typora/1.installAndSetting'
+            link: '/tools/typora/install_setting'
         }, {
             text: 'Git',
             link: '/tools/git/'
@@ -223,7 +223,7 @@ export const zhNavbar = navbar([
             },
             {
                 text: '性能调优',
-                link: '/other/performanceOptimize/'
+                link: '/other/optimize/'
             },
             {
                 text: '调试技巧',
@@ -231,7 +231,7 @@ export const zhNavbar = navbar([
             },
             {
                 text: '防重复请求',
-                link: '/other/repeatRequest'
+                link: '/other/repeat_request'
             },
             {
                 text: '批量插入',
@@ -246,7 +246,7 @@ export const zhNavbar = navbar([
                 link: '/other/pdf/'
             }, {
                 text: 'RegExp',
-                link: '/other/regExp'
+                link: '/other/reg_exp'
             }, {
                 text: 'VuePress',
                 link: '/other/blog/'

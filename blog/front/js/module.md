@@ -1,4 +1,6 @@
-
+---
+order: 5
+---
 # JS 模块化
 
 <XmindViewer url="/assets/xmind/JsModule.xmind"/>

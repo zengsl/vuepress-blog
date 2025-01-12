@@ -149,7 +149,8 @@ export default hopeTheme({
         git: {
             createdTime: true,
             updatedTime: true,
-            contributors: {info: [{username: 'zengsl', alias: 'Leo'}]},
+            contributors: false,
+            // contributors: {info: [{username: 'zengsl', alias: 'Leo'}]},
         },
         slimsearch: {
             // 索引全部内容

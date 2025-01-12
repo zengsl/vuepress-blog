@@ -6,7 +6,9 @@ date: 2021-12-02
 # VuePress搭建博客
 
 ::: warning
-当前为V1版本的内容，部分内容在V2中可能不适用，当前Blog已升级为V2版本。
+文档为V1版本的内容，部分内容在V2中可能不适用。当前Blog已升级为V2版本。
+
+目录不要用驼峰，采用URL规范的命名方式(小写+分隔符)，避免托管平台强制小写而出现404问题，如: netlify
 :::
 
 ## 侧边栏
@@ -103,7 +105,7 @@ console.log('你好，VuePress！')
 
 **强制URL小写导致404**
 
-netlify强制url小写。如果存在大写路径，会出现重定向为小写的情况。
+[netlify强制url小写](https://docs.netlify.com/configure-builds/troubleshooting-tips/#case-sensitivity)。如果存在大写路径，会出现重定向为小写的情况。
 
 - 按需关闭URL美化
 
@@ -117,6 +119,8 @@ netlify强制url小写。如果存在大写路径，会出现重定向为小写�
 ```shell title="批量改为小写"
 find my_root_dir -depth -exec rename 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
 ```
+
+- 手动修改 全部英文小写，驼峰改为'-'连接
 
 ### vercel（不推荐）
 

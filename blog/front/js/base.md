@@ -1,0 +1,12 @@
+---
+order: 1
+---
+# 基本概念
+
+## 学习资料
+
+[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript)
+
+[菜鸟教程](https://www.runoob.com/js/js-tutorial.html)
+
+[w3school](https://www.w3school.com.cn/js/index.asp)
