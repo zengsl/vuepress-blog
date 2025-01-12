@@ -217,13 +217,13 @@ export default hopeTheme({
         // all features are enabled for demo, only preserve features you need here
         photoSwipe: true,
         // uncomment these if you want a PWA
-        pwa: false,
-        /*pwa: {
+        // pwa: false,
+        pwa: {
             favicon: "/favicon.ico",
             cacheHTML: true,
             cacheImage: true,
             appendBase: true,
             update: 'available',
-        },*/
+        },
     },
 }, {custom: true});

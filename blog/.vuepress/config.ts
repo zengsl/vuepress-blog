@@ -8,7 +8,7 @@ const __dirname = getDirname(import.meta.url);
 // @ts-ignore
 export default defineUserConfig({
     // 与pwa插件配合 https://theme-hope.vuejs.press/zh/guide/advanced/pwa.html
-    shouldPrefetch: true,
+    shouldPrefetch: false,
     base: "/",
     locales: {
         "/": {
