@@ -15,6 +15,10 @@ heroFullScreen: false
 #    desc: 项目详细描述
 #    link: https://你的项目链接
 
-copyright: Theme by <a href="https://theme-hope.vuejs.press">VuePress Theme Hope</a> | Copyright © 2023 zzz
+copyright: Theme by <a href="https://theme-hope.vuejs.press">VuePress Theme Hope</a> | Copyright © 2025 zzz
 footer: Day Day Coding
+head:
+  - - meta
+    - name: keywords
+      content: Technology, Coding, Blog
 ---

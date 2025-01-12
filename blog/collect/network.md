@@ -83,6 +83,7 @@ icon: 'fa-solid fa-sitemap'
 - [whimsical](https://whimsical.com/)
 - [CodeRunner](https://tool.lu/coderunner/)
 - [Trello](https://trello.com/home) 任务管理
+- [Google Colab](https://colab.google/?hl=zh-cn) 可用于深度学习的云服务
 
 ## 设计工具
 
