@@ -36,50 +36,51 @@ date: 2024-12-30
 
 ## 结论
 
-按照`load.path -> BOOT-INF/classes/` -> `BOOT-INF/lib/`形成列表，前后属于两个阶段。类加载寻找jar时会站在文件路径顺序(url收集顺序，参见下图)优先的原则进行类加载。
+按照`load.path（绝对路径顺序） -> BOOT-INF/classes/（绝对路径顺序）` -> `BOOT-INF/lib/（classpath.idx顺序）`形成列表，通过收集ClassLoader所需classpath、创建ClassLoader两个阶段做好类加载器初始化的准备工作
+。最终类加载寻找class/jar时会按照文件收集顺序优先的原则进行类加载，也就是源码中url收集顺序，参见下文。
 
-Jar匹配逻辑参考：
-```java {11}
+**Jar匹配逻辑简述**
+
+```java {11} title="URLClassLoader查找class"
 // URLClassLoader
 protected Class<?> findClass(final String name)
         throws ClassNotFoundException
-    {
-        final Class<?> result;
-        try {
-            result = AccessController.doPrivileged(
-                new PrivilegedExceptionAction<>() {
-                    public Class<?> run() throws ClassNotFoundException {
-                        String path = name.replace('.', '/').concat(".class");
-                        Resource res = ucp.getResource(path, false);
-                        if (res != null) {
-                            try {
-                                return defineClass(name, res);
-                            } catch (IOException e) {
-                                throw new ClassNotFoundException(name, e);
-                            } catch (ClassFormatError e2) {
-                                if (res.getDataError() != null) {
-                                    e2.addSuppressed(res.getDataError());
-                                }
-                                throw e2;
+{
+    final Class<?> result;
+    try {
+        result = AccessController.doPrivileged(
+            new PrivilegedExceptionAction<>() {
+                public Class<?> run() throws ClassNotFoundException {
+                    String path = name.replace('.', '/').concat(".class");
+                    Resource res = ucp.getResource(path, false);
+                    if (res != null) {
+                        try {
+                            return defineClass(name, res);
+                        } catch (IOException e) {
+                            throw new ClassNotFoundException(name, e);
+                        } catch (ClassFormatError e2) {
+                            if (res.getDataError() != null) {
+                                e2.addSuppressed(res.getDataError());
                             }
-                        } else {
-                            return null;
+                            throw e2;
                         }
+                    } else {
+                        return null;
                     }
-                }, acc);
-        } catch (java.security.PrivilegedActionException pae) {
-            throw (ClassNotFoundException) pae.getException();
-        }
-        if (result == null) {
-            throw new ClassNotFoundException(name);
-        }
-        return result;
+                }
+            }, acc);
+    } catch (java.security.PrivilegedActionException pae) {
+        throw (ClassNotFoundException) pae.getException();
     }
-
+    if (result == null) {
+        throw new ClassNotFoundException(name);
+    }
+    return result;
+}
 ```
 
 
-```java 
+```java title="URLClassPath寻找class"
 // URLClassPath 
 public Resource getResource(String name, boolean check) {
     if (DEBUG) {
