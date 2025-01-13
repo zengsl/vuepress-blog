@@ -22,7 +22,7 @@ export default hopeTheme({
     docsDir: "src",
 
     blog: {
-        /* avatar:"/assets/images/child.jpg",*/
+         avatar:"/assets/images/avatar.svg",
         description: "CV工程师",
         intro: "/about/intro.html",
         medias: {
