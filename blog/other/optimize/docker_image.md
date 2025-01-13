@@ -265,3 +265,34 @@ Maven本身没有提供一个可以获取到根项目路径的地址，通常有
 
 
 ```
+
+### 最终效果
+
+**生产推送镜像的相对时间**
+
+![time](images/img_8.png)
+
+
+**镜像大小**
+
+镜像总大小没有明显区别，区别在于第三方包未更新时推送镜像的时间因为利用了docker cache而有了非常可观的减少，充分利用了缓存。
+
+![size](images/img_9.png)
+
+```shell title="观察镜像结构"
+docker image history xxx:tag
+```
+
+旧镜像：
+
+![old](images/img_12.png)
+
+新镜像：
+
+![new](images/img_11.png)
+
+缓存命中：
+
+![new2](images/img_10.png)
+
+观察某一模块，200+M直接命中cache，效率提升明显。
