@@ -195,6 +195,9 @@ export const zhNavbar = navbar([
                 }, {
                     text: 'Sonar',
                     link: '/ops/sonar/'
+                }, {
+                    text: 'Jenkins',
+                    link: '/ops/jenkins/'
                 }
             ]
         }
@@ -210,6 +213,9 @@ export const zhNavbar = navbar([
         }, {
             text: 'Git',
             link: '/tools/git/'
+        }, {
+            text: 'B站字幕',
+            link: '/tools/b-srt.html'
         }]
     },
     {
