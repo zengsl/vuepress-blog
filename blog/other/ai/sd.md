@@ -1,6 +1,9 @@
 ---
-
-
+title: Stable Diffusion
+# order: 2
+tag:
+  - blog
+date: 2025-04-15
 ---
 # Stable Diffusion
 
