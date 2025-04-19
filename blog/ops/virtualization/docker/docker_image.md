@@ -2,6 +2,10 @@
 category:
   - Devops
   - SpringBoot
+  - Docker
+tag:
+  - docker
+  - optimize
 order: 2
 ---
 # Docker镜像调优
@@ -296,3 +300,40 @@ docker image history xxx:tag
 ![new2](images/img_10.png)
 
 观察某一模块，200+M直接命中cache，效率提升明显。
+
+
+
+## SlimToolkit镜像瘦身
+
+官方地址：[SlimToolkit](https://github.com/slimtoolkit/slim)
+
+### 安装
+
+```shell title="Mac安装"
+brew install docker-slim
+```
+
+[其他安装方式](https://github.com/slimtoolkit/slim#installation)
+
+
+
+### 使用
+
+```shell
+# 分析并创建一个slim前缀的镜像
+docker-slim build imageName
+```
+
+## Hadolint
+
+官方地址：[https://github.com/hadolint/hadolint#install
+](https://github.com/hadolint/hadolint#install)
+```shell
+brew install hadolint
+hadolint [dockerfile]
+```
+
+## 其他
+> 待跟进学习
+
+Clair、Trivy、Hadolint、Anchore Engine、Snyk、Docker Scan、Microscanner
