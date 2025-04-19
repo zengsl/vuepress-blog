@@ -2,11 +2,11 @@
 category: 
   - 后端
   - SpringBoot
-description: Analyze the SpringBootMavenPlugin from the source code,include layers,classpath,image
+description: Analyze the SpringBootMavenPlugin from the source code,include layers,classpath,image,-源码分析SpringBootMaven插件,分层镜像,类加载器,镜像
 head:
    - - meta
      - name: keywords
-       content: SpringBootMavenPlugin,layers,classpath,image
+       content: SpringBootMavenPlugin,layers,classpath,image,Spring Boot Maven插件,Spring Boot分层镜像,类加载器,镜像优化
 tag:
   - Spring Boot
   - Maven Plugin

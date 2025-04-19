@@ -4,6 +4,11 @@ title: PDFJS
 tag:
   - blog
 date: 2025-03-13
+description: A PDF Viewer built with Vue3 and PDFJS - 基于PDFJS封装的VUE3前端预览PDF组件
+head:
+   - - meta
+     - name: keywords
+       content: PDF,Vue3,预览PDF组件,PDFJS,PDF预览组件
 ---
 # PDFJS
 

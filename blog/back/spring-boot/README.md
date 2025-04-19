@@ -2,11 +2,11 @@
 category: 
   - 后端
   - SpringBoot
-description: Figure the load sequence between load.path , BOOT-INF/classes/ , and  BOOT-INF/lib/ by analysing  Spring Boot Loader
+description: Figure the load sequence between load.path 、BOOT-INF/classes/  and  BOOT-INF/lib/ by analyzing  Spring Boot Loader - 分析Spring Boot Loader中相关目录中类加载顺序
 head:
   - - meta
     - name: keywords
-      content: SpringBootLoader,load sequence,BOOT-INF,loader.path
+      content: SpringBootLoader,load sequence,BOOT-INF,loader.path,库加载顺序
 tag:
   - Spring Boot
   - Spring Boot Loader

@@ -1,7 +1,11 @@
 ---
 date: 2023-09-22
 order: 2
-
+description:  PDF font problem when you use the itext which is a pdf layout tool - 使用itext渲染pdf时出现的字体问题
+head:
+   - - meta
+     - name: keywords
+       content: PDF,itext,font,pdf渲染问题,字体问题,itext字体问题
 ---
 # PDF字体问题
 

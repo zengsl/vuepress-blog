@@ -2,11 +2,11 @@
 category: 
   - 后端
   - SpringBoot
-description: Analyze the SpringBoot layertools from the source code,figure out how to build images with it 
+description: Analyze the SpringBoot layertools from the source code,figure out how to build images with it - 从源码分析Spring Boot分层工具，探讨如何使用它构建镜像，优化构建速度
 head:
   - - meta
     - name: keywords
-      content: SpringBoot,layertools,image
+      content: SpringBoot,layertools,image,Docker分层构建,SpringBoot镜像分层构建,SpringBoot源码
 tag:
   - Spring Boot
   - Layer Tools

@@ -1,7 +1,10 @@
 ---
-
+description: Intellij Plugin Guide - Intellij插件开发的相关要点
+head:
+   - - meta
+     - name: keywords
+       content: Intellij Plugin,Guide,Intellij插件开发,IDEA插件开发,Intellij插件开发文档,Intellij插件开发指南
 date: 2023-12-09
-
 ---
 # Intellij Plugin
 

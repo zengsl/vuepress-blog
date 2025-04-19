@@ -5,6 +5,11 @@ category:
 tag:
   - jenkins
   - plugin
+description: Jenkins Wechat/Wecoom Plugin  - Jenkins微信/企业微信通知插件，支持pipeline管道
+head:
+   - - meta
+     - name: keywords
+       content: Jenkins,微信,企业微信,插件,Wechat,WeCom,通知,wechat,wecom,plugin,notification
 date: 2025-02-25
 ---
 
@@ -12,11 +17,11 @@ date: 2025-02-25
 
 > 官方文档感觉有点杂乱
 
-相关插件：[https://github.com/zengsl/jenkins-plugin-qy-wechat-notification-plus](https://github.com/zengsl/jenkins-plugin-qy-wechat-notification-plus)
+:star: 自己封装的插件，解决在管道中发版本时无法发送预构建消息以及携带更多信息：[https://github.com/zengsl/jenkins-plugin-qy-wechat-notification-plus](https://github.com/zengsl/jenkins-plugin-qy-wechat-notification-plus)
 
 ## 插件开发
 
-[https://github.com/jenkinsci/archetypes#usage](https://github.com/jenkinsci/archetypes#usage)
+ [https://github.com/jenkinsci/archetypes#usage](https://github.com/jenkinsci/archetypes#usage)
 
 ### 依赖
 

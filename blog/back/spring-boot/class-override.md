@@ -2,11 +2,11 @@
 category: 
   - 后端
   - SpringBoot
-description: Analyze the class override in Spring Boot Project
+description: Analyze the class override in Spring Boot Project - 分析在SpringBoot项目中类覆盖的原理
 head:
    - - meta
      - name: keywords
-       content: classpath,class override
+       content: classpath,class override,类覆盖,SpringBoot类覆盖
 tag:
   - Spring Boot
   - class override

@@ -2,6 +2,11 @@
 
 date: 2021-08-22
 order: 1
+description:  PDF content rendering problem when you use the itext and flying-saucer which is a pdf layout tool - 使用itext渲染pdf和flying-saucer时出现的内容渲染问题
+head:
+   - - meta
+     - name: keywords
+       content: PDF,itext,content rendering,flying-saucer,pdf渲染问题,字体问题,内容问题
 ---
 # PDF内容显示异常
 [[toc]]
