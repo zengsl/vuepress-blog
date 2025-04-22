@@ -3,7 +3,7 @@ home: true
 layout: BlogHome
 icon: fa-solid fa-house
 title: 博客主页
-heroImage: /logo.svg
+# heroImage: /logo.svg
 #heroText: FreeCode
 heroText: zzz's Blog
 tagline: 记录翻山的过程。
