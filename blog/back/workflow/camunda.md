@@ -60,6 +60,18 @@ key  是流程定义的唯一标识符，version是流程定义的版本号，ke
 
 RuntimeService Java API可以禁用一个流程定义，禁用的流程定义将无法实例化，但是已经启动的流程实例不受影响。
 
+#### 相关代码
+
+执行解析BPMN XML模型，获取流程定义
+
+![parse-bpmn](images/parse-bpmn.png)
+
+由`BpmnParse`解析
+
+![category-set](images/category-set.png.png)
+
+
+act_re_procdef表中的CATEGORY_字段来源于targetNamespace
 
 ### Process Instances 流程实例
 
