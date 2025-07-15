@@ -68,7 +68,7 @@ RuntimeService Java API可以禁用一个流程定义，禁用的流程定义将
 
 由`BpmnParse`解析
 
-![category-set](images/category-set.png.png)
+![category-set](images/category-set.png)
 
 
 act_re_procdef表中的CATEGORY_字段来源于targetNamespace
@@ -231,3 +231,16 @@ for (JobDefinition jobDefinition : jobDefinitions) {
   managementService.suspendJobDefinitionById(jobDefinition.getId(), true);
 }  
 ```
+
+
+## BPMN-JS 
+
+BPMN 2.0 viewer and editor.
+
+通用：https://bpmn.io/toolkit/bpmn-js/
+
+Camunda定制：https://github.com/camunda/camunda-bpmn-js
+
+camunda-bpmn-js@5.0.0版本开始，node必须大于等于20，需要注意兼容性
+
+https://github.com/camunda/camunda-bpmn-js/blob/main/CHANGELOG.md
