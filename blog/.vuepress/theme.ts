@@ -36,9 +36,9 @@ export default hopeTheme({
                     "    <rect fill=\"#ffb003\" clip-path=\"url(#a)\" x=\"10\" y=\"80\" width=\"100\" height=\"30\"/>\n" +
                     "</svg>"
             },
-            Email: "mailto:zengsl0212@hotmail.com",
+            Email: "mailto:zengsl0212@foxmail.com",
             Gmail: "mailto:leo.oooolll@gmail.com",
-            Gitee: "https://gitee.com/zengsl",
+            // Gitee: "https://gitee.com/zengsl",
             GitHub: "https://github.com/zengsl",
             // Reddit: "https://www.reddit.com/user/zenglll",
             BiliBili: "https://space.bilibili.com/437799265?spm_id_from=333.1007.0.0",
