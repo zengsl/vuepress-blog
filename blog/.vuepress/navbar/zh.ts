@@ -216,9 +216,6 @@ export const zhNavbar = navbar([
         }, {
             text: 'B站字幕',
             link: '/tools/b-srt.html'
-        }, {
-            text: 'Toolbox',
-            link: 'https://toolbox.zengsl.me'
         }]
     },
     {
@@ -268,6 +265,10 @@ export const zhNavbar = navbar([
         text: '收藏',
         icon: 'fa-solid fa-star',
         link: '/collect/network'
+    },
+    {
+        text: 'Toolbox',
+        link: 'https://toolbox.zengsl.me'
     },
 
 ]);
