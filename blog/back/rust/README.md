@@ -1,6 +1,7 @@
 ---
 date: 2026-03-21
 order: 1
+index: true
 description:  Rust 语言学习笔记
 head:
    - - meta
@@ -504,6 +505,8 @@ fn main() {
 
 ## 枚举
 
+Rust 的自定义枚举默认不支持 == 比较操作。
+
 ``` rust title="枚举定义"
 enum PokerSuit {
   Clubs,
@@ -701,3 +704,453 @@ fn main() {
 }
 
 ```
+
+## 流程控制
+
+
+## if
+
+``` rust title="流程控制"
+fn main() {
+    let n = 6;
+
+    if n % 4 == 0 {
+        println!("number is divisible by 4");
+    } else if n % 3 == 0 {
+        println!("number is divisible by 3");
+    } else if n % 2 == 0 {
+        println!("number is divisible by 2");
+    } else {
+        println!("number is not divisible by 4, 3, or 2");
+    }
+}
+```
+
+``` rust title="if表达式"
+fn main() {
+    let condition = true;
+    let number = if condition {
+        5
+    } else {
+        6
+    };
+
+    println!("The value of number is: {}", number);
+}
+```
+
+## for循环
+
+``` rust title="for循环"
+fn main() {
+    for i in 1..=5 {
+        println!("{}", i);
+    }
+}
+```
+
+对于实现了 copy 特征的数组（例如 [i32; 10]）而言， for item in arr 并不会把 arr 的所有权转移，而是直接对其进行了拷贝，因此循环之后仍然可以使用 arr 。
+
+``` rust title="for循环"
+for 元素 in 集合 {
+  // 使用元素干一些你懂我不懂的事情
+}
+// 使用 for 时我们往往使用集合的引用形式.如果不使用引用的话，所有权会被转移（move）到 for 语句块中，后面就无法再使用这个集合了)：
+for item in &container {
+  // ...
+}
+// 如果想在循环中，修改该元素，可以使用 mut 关键字：
+for item in &mut collection {
+  // ...
+}
+```
+
+获取元素的索引：
+
+``` rust title="获取元素的索引"
+fn main() {
+    let a = [4, 3, 2, 1];
+    // `.iter()` 方法把 `a` 数组变成一个迭代器
+    for (i, v) in a.iter().enumerate() {
+        println!("第{}个元素是{}", i + 1, v);
+    }
+}
+```
+
+在 Rust 中 _ 的含义是忽略该值或者类型的意思，如果不使用 _，那么编译器会给你一个 变量未使用的警告。
+
+``` rust title="执行10次"
+for _ in 0..10 {
+  // ...
+}
+```
+
+遍历通过索引下标去访问集合会不断出发边界检查，损耗性能。访问非连续，存在安全问题，可能读取到脏数据。
+
+## continue、break和while
+
+
+``` rust title="continue、break和while"
+ for i in 1..4 {
+     if i == 2 {
+         continue;
+     }
+     println!("{}", i);
+ }
+
+  for i in 1..4 {
+     if i == 2 {
+         break;
+     }
+     println!("{}", i);
+ }
+
+ fn main() {
+    let mut n = 0;
+
+    while n <= 5  {
+        println!("{}!", n);
+
+        n = n + 1;
+    }
+
+    println!("我出来了！");
+}
+```
+与Java中的continue、break和while基本一样。
+
+break可以像return一样带返回值：`break 10;`
+
+
+while与for对比：for 并不会使用索引去访问数组，因此更安全也更简洁，同时避免 运行时的边界检查，性能更高。
+
+## loop循环
+
+``` rust title="loop循环"
+fn main() {
+    let mut counter = 0;
+
+    let result = loop {
+        counter += 1;
+
+        if counter == 10 {
+            break counter * 2;
+        }
+    };
+
+    println!("The result is {}", result);
+}
+```
+
+## 匹配模式
+
+### match
+
+ 跟Java中的switch类似，也可以作为表达式
+
+ ``` rust title="match"
+/* match target {
+    模式1 => 表达式1,
+    模式2 => {
+        语句1;
+        语句2;
+        表达式2
+    },
+    _ => 表达式3
+} */
+
+enum IpAddr {
+   Ipv4,
+   Ipv6
+}
+
+fn main() {
+    let ip1 = IpAddr::Ipv6;
+    let ip_str = match ip1 {
+        IpAddr::Ipv4 => "127.0.0.1",
+        _ => "::1",
+    };
+
+    println!("{}", ip_str);
+}
+ ```
+
+ ### 模式绑定
+
+ ``` rust title="模式绑定"
+#[derive(Debug)]
+enum UsState {
+    Alabama,
+    Alaska,
+    // --snip--
+}
+
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState), // 25美分硬币
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter(state) => {
+            println!("State quarter from {:?}!", state);
+            25
+        },
+    }
+}
+ ```
+
+ 穷尽匹配：必须处理所有可能的匹配，否则会编译报错。可以用`_`通配符来处理不需要的匹配。
+
+ ``` rust title="穷尽匹配"
+let some_u8_value = 0u8;
+match some_u8_value {
+    1 => println!("one"),
+    3 => println!("three"),
+    5 => println!("five"),
+    7 => println!("seven"),
+    _ => (),
+}
+ ```
+
+ 除了_通配符，用一个变量来承载其他情况也是可以的。
+
+``` rust title="用一个变量来承载其他情况"
+#[derive(Debug)]
+enum Direction {
+    East,
+    West,
+    North,
+    South,
+}
+
+fn main() {
+    let dire = Direction::South;
+    match dire {
+        Direction::East => println!("East"),
+        other => println!("other direction: {:?}", other),
+    };
+}
+```
+
+### if let 匹配
+
+当你只要匹配一个条件，且忽略其他条件时就用 if let ，否则都用 match。
+
+``` rust title="if let"
+if let Some(3) = v {
+    println!("three");
+}
+```
+
+### matches!宏
+
+Rust 标准库中提供了一个非常实用的宏：matches!，它可以将一个表达式跟模式进行匹配，然后返回匹配的结果 true or false。
+
+### 变量遮蔽
+
+amazing!
+
+``` rust title="变量遮蔽"
+fn main() {
+   let age = Some(30);
+   println!("在匹配前，age是{:?}",age);
+   if let Some(age) = age {
+       println!("匹配出来的age是{}",age);
+   }
+
+   println!("在匹配后，age是{:?}",age);
+}
+// 输出：
+// 在匹配前，age是Some(30)
+// 匹配出来的age是30
+// 在匹配后，age是Some(30)
+```
+
+### 解构Option
+
+``` rust title="解构Option"
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i + 1),
+    }
+}
+
+let five = Some(5);
+let six = plus_one(five);
+let none = plus_one(None);
+```
+
+### 模式匹配适用场景
+
+这一块内容比较多。
+
+## 方法
+
+``` rust title="方法"
+struct Circle {
+    x: f64,
+    y: f64,
+    radius: f64,
+}
+
+impl Circle {
+    // new是Circle的关联函数，因为它的第一个参数不是self，且new并不是关键字
+    // 这种方法往往用于初始化当前结构体的实例
+    fn new(x: f64, y: f64, radius: f64) -> Circle {
+        Circle {
+            x: x,
+            y: y,
+            radius: radius,
+        }
+    }
+
+    // Circle的方法，&self表示借用当前的Circle结构体
+    fn area(&self) -> f64 {
+        std::f64::consts::PI * (self.radius * self.radius)
+    }
+}
+
+```
+
+``` rust title="方法"
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
+
+fn main() {
+    let rect1 = Rectangle { width: 30, height: 50 };
+
+    println!(
+        "The area of the rectangle is {} square pixels.",
+        rect1.area()
+    );
+}
+```
+
+### self、&self 和 &mut self
+
+接下来的内容非常重要，请大家仔细看。在 area 的签名中，我们使用 &self 替代 rectangle: &Rectangle，&self 其实是 self: &Self 的简写（注意大小写）。在一个 impl 块内，Self 指代被实现方法的结构体类型，self 指代此类型的实例，换句话说，self 指代的是 Rectangle 结构体实例，这样的写法会让我们的代码简洁很多，而且非常便于理解：我们为哪个结构体实现方法，那么 self 就是指代哪个结构体的实例。
+
+需要注意的是，self 依然有所有权的概念：
+
+- self 表示 Rectangle 的所有权转移到该方法中，这种形式用的较少
+- &self 表示该方法对 Rectangle 的不可变借用
+- &mut self 表示可变借用
+
+
+在 Rust 中，允许方法名跟结构体的字段名相同，一般来说，方法跟字段同名，往往适用于实现 getter 访问器
+
+> Rust 并没有一个与 -> 等效的运算符；Rust 有一个叫 自动引用和解引用的功能。方法调用是 Rust 中少数几个拥有这种行为的地方。他是这样工作的：当使用 object.something() 调用方法时，Rust 会自动为 object 添加 &（视可见性添加&mut)、 * 以便使 object 与方法签名匹配。
+
+### 关联函数
+
+定义在 impl 中且没有 self 的函数被称之为关联函数： 因为它没有 self，不能用 f.read() 的形式调用，因此它是一个函数而不是方法，它又在 impl 中，与结构体紧密关联，因此称为关联函数。
+
+``` rust title="关联函数"
+# #[derive(Debug)]
+# struct Rectangle {
+#     width: u32,
+#     height: u32,
+# }
+#
+impl Rectangle {
+    fn new(w: u32, h: u32) -> Rectangle {
+        Rectangle { width: w, height: h }
+    }
+}
+// 需要用 :: 来调用，例如 let sq = Rectangle::new(3, 3);
+```
+
+## 泛型和特征
+
+基本思路和Java差不多，Trait写法有一定区别。
+
+#### const 泛型（Rust 1.51 版本引入的重要特性）
+
+``` rust title="const 泛型"
+fn display_array(arr: [i32; 3]) {
+    println!("{:?}", arr);
+}
+fn main() {
+    let arr: [i32; 3] = [1, 2, 3];
+    display_array(arr);
+
+    let arr: [i32; 2] = [1, 2];
+    display_array(arr);
+}
+
+```
+
+#### const 泛型表达式
+
+``` rust title="const 泛型表达式"
+// 目前只能在nightly版本下使用
+#![allow(incomplete_features)]
+#![feature(generic_const_exprs)]
+
+fn something<T>(val: T)
+where
+    Assert<{ core::mem::size_of::<T>() < 768 }>: IsTrue,
+    //       ^-----------------------------^ 这里是一个 const 表达式，换成其它的 const 表达式也可以
+{
+    //
+}
+
+fn main() {
+    something([0u8; 0]); // ok
+    something([0u8; 512]); // ok
+    something([0u8; 1024]); // 编译错误，数组长度是1024字节，超过了768字节的参数长度限制
+}
+
+// ---
+
+pub enum Assert<const CHECK: bool> {
+    //
+}
+
+pub trait IsTrue {
+    //
+}
+
+impl IsTrue for Assert<true> {
+    //
+}
+
+```
+
+
+#### const fn
+
+const fn 允许我们在编译期对函数进行求值，从而实现更高效、更灵活的代码设计。
+
+``` rust title="const fn"
+const fn add(a: usize, b: usize) -> usize {
+    a + b
+}
+
+const RESULT: usize = add(5, 10);
+
+fn main() {
+    println!("The result is: {}", RESULT);
+}
+
+```
+
+### Trait
+
+Trait 是 Rust 中最核心的概念，它定义了抽象的接口，接口中的方法定义了抽象的逻辑，而具体实现则由具体类型来实现。
