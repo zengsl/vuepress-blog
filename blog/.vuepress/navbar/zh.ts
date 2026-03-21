@@ -112,7 +112,12 @@ export const zhNavbar = navbar([
                     {
                         text: 'C语言',
                         link: 'c'
+                    },
+                    {
+                        text: 'Rust',
+                        link: 'rust/'
                     }
+
 
                 ]
 
