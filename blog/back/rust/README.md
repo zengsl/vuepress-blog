@@ -1153,4 +1153,407 @@ fn main() {
 
 ### Trait
 
-Trait 是 Rust 中最核心的概念，它定义了抽象的接口，接口中的方法定义了抽象的逻辑，而具体实现则由具体类型来实现。
+> 有点像Java的接口？
+
+Trait 是 Rust 中最核心的概念，它定义了抽象的接口，接口中的方法定义了抽象的逻辑，而具体实现则由具体类型来实现。   
+
+``` rust title="定义和使用Trait"
+pub trait Summary {
+    fn summarize(&self) -> String;
+}
+pub struct Post {
+    pub title: String, // 标题
+    pub author: String, // 作者
+    pub content: String, // 内容
+}
+
+impl Summary for Post {
+    fn summarize(&self) -> String {
+        format!("文章{}, 作者是{}", self.title, self.author)
+    }
+}
+
+pub struct Weibo {
+    pub username: String,
+    pub content: String
+}
+
+impl Summary for Weibo {
+    fn summarize(&self) -> String {
+        format!("{}发表了微博{}", self.username, self.content)
+    }
+}
+```
+
+孤儿规则：如果你想要为类型 A 实现特征 T，那么 A 或者 T 至少有一个是在当前作用域中定义的！
+
+#### 默认实现
+
+> Java的接口中，接口方法有默认实现，如果子类没有实现该方法，则使用默认实现。
+
+```
+pub trait Summary {
+    fn summarize(&self) -> String {
+        String::from("(Read more...)")
+    }
+}
+```
+
+
+#### 使用特征作为函数参数
+
+``` rust title="使用特征作为函数参数"
+pub fn notify(item: &impl Summary) {
+    println!("Breaking news! {}", item.summarize());
+}
+```
+
+
+#### 特征约束(trait bound)
+
+impl Trait 这种语法非常好理解，但是实际上它只是一个语法糖
+
+``` rust title="特征约束(trait bound)"
+pub fn notify<T: Summary>(item: &T) {
+    println!("Breaking news! {}", item.summarize());
+}
+```
+
+#### 多重约束
+
+``` rust title="多重约束"
+// pub fn notify(item: &(impl Summary + Display)) {}
+pub fn notify<T: Summary + Display>(item: &T) {}
+```
+
+#### where约束
+
+``` rust title="where约束"
+// fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {}
+fn some_function<T, U>(t: &T, u: &U) -> i32
+    where T: Display + Clone,
+          U: Clone + Debug
+{}
+```
+
+#### 特征约束有条件的实现方法或特征
+
+``` rust title="特征约束有条件的实现方法或特征"
+use std::fmt::Display;
+
+struct Pair<T> {
+    x: T,
+    y: T,
+}
+
+impl<T> Pair<T> {
+    fn new(x: T, y: T) -> Self {
+        Self {
+            x,
+            y,
+        }
+    }
+}
+
+impl<T: Display + PartialOrd> Pair<T> {
+    fn cmp_display(&self) {
+        if self.x >= self.y {
+            println!("The largest member is x = {}", self.x);
+        } else {
+            println!("The largest member is y = {}", self.y);
+        }
+    }
+}
+
+//  特征实现
+impl<T: Display> ToString for T {
+    // --snip--
+}
+```
+
+cmp_display 方法，并不是所有的 Pair 结构体对象都可以拥有，只有 T 同时实现了 Display + PartialOrd 的 Pair 才可以拥有此方法。 
+
+#### 特征对象
+
+当使用特征对象时，Rust 必须使用动态分发。编译器无法知晓所有可能用于特征对象代码的类型，所以它也不知道应该调用哪个类型的哪个方法实现。为此，Rust 在运行时使用特征对象中的指针来知晓需要调用哪个方法。动态分发也阻止编译器有选择的内联方法代码，这会相应的禁用一些优化。
+
+``` rust title="特征对象"
+trait Draw {
+    fn draw(&self) -> String;
+}
+
+impl Draw for u8 {
+    fn draw(&self) -> String {
+        format!("u8: {}", *self)
+    }
+}
+
+impl Draw for f64 {
+    fn draw(&self) -> String {
+        format!("f64: {}", *self)
+    }
+}
+
+// 若 T 实现了 Draw 特征， 则调用该函数时传入的 Box<T> 可以被隐式转换成函数参数签名中的 Box<dyn Draw>
+fn draw1(x: Box<dyn Draw>) {
+    // 由于实现了 Deref 特征，Box 智能指针会自动解引用为它所包裹的值，然后调用该值对应的类型上定义的 `draw` 方法
+    x.draw();
+}
+
+fn draw2(x: &dyn Draw) {
+    x.draw();
+}
+
+fn main() {
+    let x = 1.1f64;
+    // do_something(&x);
+    let y = 8u8;
+
+    // x 和 y 的类型 T 都实现了 `Draw` 特征，因为 Box<T> 可以在函数调用时隐式地被转换为特征对象 Box<dyn Draw> 
+    // 基于 x 的值创建一个 Box<f64> 类型的智能指针，指针指向的数据被放置在了堆上
+    draw1(Box::new(x));
+    // 基于 y 的值创建一个 Box<u8> 类型的智能指针
+    draw1(Box::new(y));
+    draw2(&x);
+    draw2(&y);
+}
+```
+
+
+#### 特征类型
+
+``` rust title="特征类型"
+pub trait Iterator {
+    type Item;
+
+    fn next(&mut self) -> Option<Self::Item>;
+}
+
+
+impl Iterator for Counter {
+    type Item = u32;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        // --snip--
+    }
+}
+
+fn main() {
+    let c = Counter{..}
+    c.next()
+}
+```
+
+可以提升代码可读性，让代码更简洁
+
+``` rust title="特征类型"
+// 泛型
+trait Container<A,B> {
+    fn contains(&self,a: A,b: B) -> bool;
+}
+
+fn difference<A,B,C>(container: &C) -> i32
+  where
+    C : Container<A,B> {...}
+
+// 特征类型
+trait Container{
+    type A;
+    type B;
+    fn contains(&self, a: &Self::A, b: &Self::B) -> bool;
+}
+
+fn difference<C: Container>(container: &C) {}
+```
+
+#### 默认泛型类型参数
+
+``` rust title="默认泛型类型参数"
+// trait Add<RHS=Self> {
+//     type Output;
+
+//     fn add(self, rhs: RHS) -> Self::Output;
+// }
+use std::ops::Add;
+
+#[derive(Debug, PartialEq)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+impl Add for Point {
+    type Output = Point;
+
+    fn add(self, other: Point) -> Point {
+        Point {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
+    }
+}
+
+fn main() {
+    assert_eq!(Point { x: 1, y: 0 } + Point { x: 2, y: 3 },
+               Point { x: 3, y: 3 });
+}
+```
+
+同名方法调用可能会用到完全限定语法：
+
+``` rust title="完全限定语法"
+<Type as Trait>::function(receiver_if_method, next_arg, ...);
+```
+
+
+## 集合类型-动态数组
+
+### 创建动态数组
+``` rust title="动态数组"
+// 创建一个空数组
+let v: Vec<i32> = Vec::new();
+
+// Vec::with_capacity(capacity) 
+let mut v = Vec::new();
+v.push(1);
+```
+
+``` rust title="vec![]宏"
+// 创建并提供初始化值
+let v = vec![1, 2, 3];
+```
+
+### 获取数组元素
+
+- 索引访问
+- get方法
+
+get方法会做边界检查
+
+``` rust title="索引访问"
+let v = vec![1, 2, 3, 4, 5];
+
+let third: &i32 = &v[2];
+println!("第三个元素是 {}", third);
+
+match v.get(2) {
+    Some(third) => println!("第三个元素是 {third}"),
+    None => println!("去你的第三个元素，根本没有！"),
+}
+```
+
+## 集合类型-HashMap
+
+``` rust title="哈希表"
+use std::collections::HashMap;
+
+// 创建一个HashMap，用于存储宝石种类和对应的数量
+let mut my_gems = HashMap::new();
+
+// 将宝石类型和对应的数量写入表中
+my_gems.insert("红宝石", 1);
+my_gems.insert("蓝宝石", 2);
+my_gems.insert("河边捡的误以为是宝石的破石头", 18);
+
+/// -------------
+fn main() {
+    use std::collections::HashMap;
+
+    let teams_list = vec![
+        ("中国队".to_string(), 100),
+        ("美国队".to_string(), 10),
+        ("日本队".to_string(), 50),
+    ];
+
+    let teams_map: HashMap<_,_> = teams_list.into_iter().collect();
+    
+    println!("{:?}",teams_map)
+}
+```
+
+## 生命周期
+
+``` rust title="生命周期标注"
+fn main() {
+    let string1 = String::from("long string is long");
+
+    {
+        let string2 = String::from("xyz");
+        let result = longest(string1.as_str(), string2.as_str());
+        println!("The longest string is {}", result);
+    }
+}
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+// 生命周期标注语法：&'a str，a生命周期为x、y中那个较小的数
+```
+
+### 静态生命周期
+
+``` rust title="静态生命周期"
+let s: &'static str = "我没啥优点，就是活得久，嘿嘿";
+```
+
+字符串字面量，它是被硬编码进 Rust 的二进制文件中，因此这些字符串变量全部具有 'static 的生命周期
+
+## 返回值和错误处理
+
+### panic！
+
+- 被动触发
+
+- 主动触发 
+
+``` rust title="panic!"
+fn main() {
+    panic!("crash and burn");
+}
+```
+
+### Result
+
+panic! 宏会主动触发 panic而中断程序，而 Result 会返回错误信息，给我们处理的机会。
+
+``` rust title="Result"
+// enum Result<T, E> {
+//     Ok(T),
+//     Err(E),
+// }
+
+use std::fs::File;
+use std::io::ErrorKind;
+
+fn main() {
+    let f = File::open("hello.txt");
+
+    let f = match f {
+        Ok(file) => file,
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => match File::create("hello.txt") {
+                Ok(fc) => fc,
+                Err(e) => panic!("Problem creating the file: {:?}", e),
+            },
+            other_error => panic!("Problem opening the file: {:?}", other_error),
+        },
+    };
+}
+```
+
+
+``` rust title="Result"
+use std::fs::File;
+
+fn main() {
+  // 如果调用这段代码时 hello.txt 文件不存在，那么 unwrap 就将直接 panic：
+  //  let f = File::open("hello.txt").unwrap();
+
+// expect 跟 unwrap 很像，也是遇到错误直接 panic, 但是会带上自定义的错误提示信息，相当于重载了错误打印的函数：
+      let f = File::open("hello.txt").expect("Failed to open hello.txt");
+
+}
+```
