@@ -22,8 +22,8 @@ export default hopeTheme({
     docsDir: "src",
 
     blog: {
-         avatar:"/assets/images/avatar.svg",
-        description: "CV工程师",
+        avatar:"/assets/images/avatar.svg",
+        description: "后端研发",
         intro: "/about/intro.html",
         medias: {
             LinuxDo: {
