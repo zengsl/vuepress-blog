@@ -6,15 +6,22 @@ export const zhNavbar = navbar([
         text: '前端',
         prefix: "/front/",
         icon: "fa-brands fa-html5",
-        children: [{
-            text: 'Html',
-            link: 'html',
-            icon: "fa-brands fa-html5",
-        },
+        children: [
+            {
+                text: 'Html',
+                link: 'html',
+                icon: "fa-brands fa-html5",
+            },
             {
                 text: 'Js',
                 link: 'js/',
                 icon: "fa-brands fa-js",
+
+            },
+            {
+                text: 'Ts',
+                link: 'ts/',
+                icon: "skill-icons typescript",
 
             },
             {
@@ -25,7 +32,7 @@ export const zhNavbar = navbar([
             },
             {
                 text: 'Vue',
-                link: 'vue',
+                link: 'vue/',
                 icon: "fa-brands fa-vuejs",
 
             },
@@ -56,11 +63,15 @@ export const zhNavbar = navbar([
                     },
                     {
                         text: 'Spring Security',
-                        link: 'SpringSecurity/'
+                        link: 'spring-security/'
+                    },
+                    {
+                        text: 'Spring Boot',
+                        link: 'spring-boot/'
                     },
                     {
                         text: 'Spring Cloud',
-                        link: 'SpringCloud/'
+                        link: 'spring-cloud/'
                     }
                 ]
             },
@@ -82,34 +93,31 @@ export const zhNavbar = navbar([
                     },
                     {
                         text: '分布式',
-                        link: 'distributed'
+                        link: 'distributed/'
                     },
                     {
-                        text: '消息中间间',
-                        link: 'message-queue'
+                        text: '消息中间件',
+                        link: 'message-queue/'
 
                     },
                     {
                         text: '工作流',
-                        link: 'workflow'
+                        link: 'workflow/'
                     }
                     ,
                     {
-                        text: 'Dubbo',
-                        link: 'Dubbo'
-                    },
-                    {
-                        text: 'Netty',
-                        link: 'Netty'
-                    },
-                    {
                         text: '一些数字',
-                        link: 'Java体系中一些数字'
+                        link: 'java-number'
                     },
                     {
                         text: 'C语言',
-                        link: 'C语言'
+                        link: 'c'
+                    },
+                    {
+                        text: 'Rust',
+                        link: 'rust/'
                     }
+
 
                 ]
 
@@ -119,7 +127,7 @@ export const zhNavbar = navbar([
     },
     {
         text: '数据库',
-        icon: 'database',
+        icon: 'fa-solid fa-database',
         children: [
             {
                 text: 'MySql',
@@ -128,29 +136,21 @@ export const zhNavbar = navbar([
             {
                 text: 'Redis',
                 link: '/db/redis/'
-            },
-            {
-                text: 'Oracle',
-                link: '/db/oracle/'
-            },
-            {
-                text: 'Pg',
-                link: '/db/postgresql/'
             }
         ]
     },
     {
         text: '网络',
-        icon: 'globe',
+        icon: 'fa-solid fa-globe',
         prefix: '/network/',
-        children:[
+        children: [
             {
                 text: '协议',
-                link: 'protocol'
+                link: 'protocol/'
             },
             {
                 text: '抓包',
-                link: 'grab'
+                link: 'grab/'
             }
         ]
 
@@ -200,6 +200,9 @@ export const zhNavbar = navbar([
                 }, {
                     text: 'Sonar',
                     link: '/ops/sonar/'
+                }, {
+                    text: 'Jenkins',
+                    link: '/ops/jenkins/'
                 }
             ]
         }
@@ -208,27 +211,30 @@ export const zhNavbar = navbar([
     },
     {
         text: '工具',
-        icon: 'toolbox',
+        icon: 'fa-solid fa-toolbox',
         children: [{
             text: 'Typora',
-            link: '/tools/typora/1.installAndSetting'
+            link: '/tools/typora/install_setting'
         }, {
             text: 'Git',
             link: '/tools/git/'
+        }, {
+            text: 'B站字幕',
+            link: '/tools/b-srt.html'
         }]
     },
     {
         text: '其他',
-        icon: 'box',
+        icon: 'fa-solid fa-box',
         children: [
             {
                 text: '算法',
-                link: '/other/algorithm'
+                link: '/other/algorithm/'
 
             },
             {
                 text: '性能调优',
-                link: '/other/performanceOptimize/'
+                link: '/other/optimize/'
             },
             {
                 text: '调试技巧',
@@ -236,7 +242,7 @@ export const zhNavbar = navbar([
             },
             {
                 text: '防重复请求',
-                link: '/other/repeatRequest'
+                link: '/other/repeat_request'
             },
             {
                 text: '批量插入',
@@ -250,26 +256,24 @@ export const zhNavbar = navbar([
                 text: 'PDF',
                 link: '/other/pdf/'
             }, {
-                text: 'Python',
-                link: '/python/'
-            }, {
-                text: 'Groovy',
-                link: '/groovy/'
-            }, {
                 text: 'RegExp',
-                link: '/other/regExp'
+                link: '/other/reg_exp'
             }, {
                 text: 'VuePress',
                 link: '/other/blog/'
             }, {
-                text: 'Intellij plugin',
+                text: 'Intellij Plugin',
                 link: '/other/intellij/'
             }
         ]
     }, {
         text: '收藏',
-        icon: 'star',
+        icon: 'fa-solid fa-star',
         link: '/collect/network'
+    },
+    {
+        text: 'Toolbox',
+        link: 'https://toolbox.zengsl.me'
     },
 
 ]);

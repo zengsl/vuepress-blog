@@ -5,7 +5,7 @@ tag:
   - Redis
   - NoSQL
 date: 2020-09-10
-
+order: 1
 ---
 # Redis
 

@@ -6,4 +6,4 @@ date: 2020-09-10
 
 记录weblogic的相关知识
 
-<XmindViewer url="/xmind/WeblogicConsole.xmind"/>
+<XmindViewer url="/assets/xmind/WeblogicConsole.xmind"/>

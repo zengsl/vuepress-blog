@@ -1,0 +1,6 @@
+---
+order: 4
+---
+# 闭包
+
+[MDN-闭包介绍](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)
